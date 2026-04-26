@@ -1,0 +1,12 @@
+{
+  "name": "beautiful-websites-kit",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Automated beautiful websites pipeline: scrape → qualify → redesign → deploy",
+  "scripts": {
+    "screenshot": "node scripts/screenshot.js"
+  },
+  "dependencies": {
+    "playwright": "^1.49.0"
+  }
+}

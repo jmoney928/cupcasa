@@ -1,0 +1,16 @@
+# Environment variables (contains API tokens)
+.env
+
+# Vercel project config (created during deploy)
+.vercel/
+sites/**/.vercel/
+
+# Node modules
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Screenshots (regenerated on each run)
+screenshots/
