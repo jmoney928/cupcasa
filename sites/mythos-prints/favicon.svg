@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="5" fill="#0D0E10"/>
+  <!-- steam -->
+  <path d="M12 8.5 Q13.5 6.5 12 4.5" fill="none" stroke="#C47A4A" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M17 8.5 Q18.5 6.5 17 4.5" fill="none" stroke="#C47A4A" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- rim -->
+  <rect x="6" y="10" width="20" height="3" rx="1.5" fill="#D4875A"/>
+  <!-- cup body -->
+  <path d="M7.5 13 L9.5 26 L22.5 26 L24.5 13 Z" fill="#C47A4A"/>
+  <!-- subtle highlight -->
+  <path d="M10.5 15.5 L11.2 23.5" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2" stroke-linecap="round"/>
+  <!-- handle -->
+  <path d="M22.5 16 C27.5 16 27.5 23 22.5 23" fill="none" stroke="#C47A4A" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Process — Mythos Prints</title>
+  <meta name="description" content="How Mythos Prints works — from submitting your artwork to receiving custom-printed cups at your door. 5 simple steps.">
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg: #0D0E10;
+      --card: #161819;
+      --accent: #C47A4A;
+      --text: #ECE8E4;
+      --muted: #8B8985;
+      --border: rgba(236,232,228,0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.15; }
+    em { font-style: italic; }
+    .eyebrow {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      height: 72px;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s, background 0.4s, backdrop-filter 0.4s;
+    }
+    .nav.scrolled {
+      background: rgba(13,14,16,0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-color: var(--border);
+    }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta {
+      padding: 0.55rem 1.5rem;
+      background: var(--accent);
+      color: #0D0E10;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(196,122,74,0.35); }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 1002;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-cta { display: none; }
+
+    /* ── PAGE HERO ───────────────────────────────────────────────── */
+    .page-hero {
+      padding: 10rem 4rem 6rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(ellipse at 50% 100%, rgba(196,122,74,0.06) 0%, transparent 60%);
+    }
+    .page-hero h1 { font-size: clamp(3rem, 5vw, 5.5rem); max-width: 700px; margin: 0 auto 1.5rem; }
+    .page-hero p { color: var(--muted); font-size: 1.1rem; max-width: 520px; margin: 0 auto; line-height: 1.8; }
+
+    /* ── PROCESS STEPS ────────────────────────────────────────────── */
+    .steps-section { padding: 0; }
+
+    .step-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      min-height: 220px;
+      transition: background 0.3s;
+    }
+    .step-row:hover { background: rgba(196,122,74,0.02); }
+
+    .step-number {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 3.5rem;
+      border-right: 1px solid var(--border);
+    }
+    .step-num-inner {
+      width: 48px; height: 48px;
+      border: 1px solid rgba(196,122,74,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .step-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .step-main {
+      padding: 3.5rem 3.5rem 3.5rem 4rem;
+      border-right: 1px solid var(--border);
+    }
+    .step-main h3 { font-size: 1.8rem; margin-top: 0.4rem; margin-bottom: 1rem; }
+    .step-main p { color: var(--muted); line-height: 1.75; max-width: 380px; }
+
+    .step-detail {
+      padding: 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .step-detail-items { display: flex; flex-direction: column; gap: 1rem; }
+    .step-detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+    .step-detail-item i { color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+    .step-detail-item strong { display: block; color: var(--text); font-weight: 600; font-size: 0.875rem; margin-bottom: 2px; }
+
+    /* ── SPECS STRIP ──────────────────────────────────────────────── */
+    .specs-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+    }
+    .spec-item {
+      padding: 3rem 4rem;
+      border-right: 1px solid var(--border);
+    }
+    .spec-item:last-child { border-right: none; }
+    .spec-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .spec-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .spec-note { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── FAQ ──────────────────────────────────────────────────────── */
+    .faq-section {
+      padding: 6rem 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-header {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+      align-items: end;
+    }
+    .faq-header h2 { font-size: clamp(2rem, 2.8vw, 3rem); }
+    .faq-header p { color: var(--muted); line-height: 1.75; }
+
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+    .faq-item {
+      border-top: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .faq-item:last-child { border-bottom: 1px solid var(--border); }
+
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.2s;
+      gap: 2rem;
+    }
+    .faq-q:hover { color: var(--accent); }
+    .faq-q .faq-icon {
+      width: 28px; height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--muted);
+      transition: transform 0.3s, border-color 0.2s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); border-color: var(--accent); color: var(--accent); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .faq-item.open .faq-a { max-height: 300px; }
+    .faq-a-inner { padding-bottom: 1.5rem; color: var(--muted); line-height: 1.75; max-width: 620px; }
+
+    /* ── CTA ──────────────────────────────────────────────────────── */
+    .cta-section {
+      text-align: center;
+      padding: 8rem 4rem;
+      background: radial-gradient(ellipse at center, rgba(196,122,74,0.07) 0%, transparent 65%);
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 {
+      font-size: clamp(2.2rem, 3.5vw, 3.6rem);
+      margin-bottom: 1.2rem;
+      max-width: 680px;
+      margin-left: auto; margin-right: auto;
+    }
+    .cta-section p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      max-width: 460px;
+      margin-left: auto; margin-right: auto;
+      line-height: 1.75;
+    }
+    .cta-actions { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 0.9rem 2.2rem;
+      background: var(--accent);
+      color: #0D0E10;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 10px 34px rgba(196,122,74,0.3); }
+    .btn-ghost {
+      padding: 0.9rem 2.2rem;
+      background: transparent;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      display: inline-block;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(236,232,228,0.25); }
+
+    /* ── FOOTER ───────────────────────────────────────────────────── */
+    footer { border-top: 1px solid var(--border); padding: 4rem 4rem 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand p { color: var(--muted); font-size: 0.84rem; margin-top: 1rem; line-height: 1.65; max-width: 210px; }
+    .footer-col h4 { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+    .footer-col a { display: block; color: var(--muted); text-decoration: none; font-size: 0.875rem; margin-bottom: 0.6rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 1.5rem; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); }
+
+    .service-card { opacity: 1 !important; }
+
+    @media (max-width: 900px) {
+      .nav { padding: 0 1.5rem; }
+      .nav-hamburger { display: flex; }
+      .nav-cta { display: none; }
+      .nav-links {
+        position: fixed;
+        top: 72px; left: 0; right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: rgba(13,14,16,0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 0.5rem 1.5rem 1.5rem;
+        z-index: 999;
+        transform: translateY(-110%);
+        transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+        pointer-events: none;
+      }
+      .nav-links.open { transform: translateY(0); pointer-events: auto; }
+      .nav-links a { padding: 0.875rem 0; font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,0.07); color: var(--muted); }
+      .nav-links a.active { color: var(--text); }
+      .nav-links a:last-child { border-bottom: none; }
+      .mobile-cta {
+        display: block !important;
+        margin-top: 0.75rem;
+        padding: 0.75rem 1rem;
+        background: var(--accent);
+        color: #0D0E10 !important;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        border-radius: 2px;
+        border-bottom: none !important;
+      }
+      .page-hero { padding: 7rem 1.5rem 4rem; }
+      .step-row { grid-template-columns: 56px 1fr; }
+      .step-content { grid-template-columns: 1fr; }
+      .step-main { padding: 2.5rem 1.5rem 1.5rem; border-right: none; border-bottom: 1px solid var(--border); }
+      .step-detail { padding: 1.5rem; }
+      .specs-strip { grid-template-columns: 1fr; }
+      .spec-item { padding: 2rem 1.5rem; border-right: none; border-bottom: 1px solid var(--border); }
+      .faq-section { padding: 4rem 1.5rem; }
+      .faq-header { grid-template-columns: 1fr; gap: 1.5rem; }
+      .cta-section { padding: 5rem 1.5rem; }
+      footer { padding: 3rem 1.5rem 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; }
+    }
+  </style>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '3937455279892855');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=3937455279892855&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="logo">
+      <svg width="162" height="38" viewBox="0 0 162 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Mythos Prints">
+        <path d="M4 30 L4 9 L14 23 L24 9 L24 30" stroke="#C47A4A" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="28.5" cy="28" r="2.5" fill="#C47A4A"/>
+        <text x="38" y="23" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#ECE8E4" letter-spacing="2">MYTHOS</text>
+        <text x="38.5" y="35" font-family="DM Sans, sans-serif" font-size="8" font-weight="400" fill="#8B8985" letter-spacing="4.5">PRINTS</text>
+      </svg>
+    </a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Hot Cups</a>
+      <a href="cold-cups.html">Cold Cups</a>
+      <a href="process.html" class="active">Process</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="mobile-cta">Get a Quote</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Get a Quote</a>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <span class="eyebrow">From Artwork to Doorstep</span>
+    <h1>Simple Process.<br><em>Precise Results.</em></h1>
+    <p>Five clear steps from your first inquiry to branded cups in your hands. No guesswork, no surprises — just exceptional custom printing.</p>
+  </section>
+
+  <!-- STEPS -->
+  <section class="steps-section">
+
+    <div class="step-row">
+      <div class="step-number">
+        <div class="step-num-inner">1</div>
+      </div>
+      <div class="step-content">
+        <div class="step-main">
+          <span class="eyebrow">Start Here</span>
+          <h3>Share Your <em>Vision</em></h3>
+          <p>
+            Fill out the contact form or email us directly. Tell us which cups you need, your estimated monthly volume,
+            and any artwork or brand guidelines you have. No artwork? We can point you to design resources.
+          </p>
+        </div>
+        <div class="step-detail">
+          <div class="step-detail-items">
+            <div class="step-detail-item">
+              <i data-lucide="file-text" width="16" height="16"></i>
+              <div><strong>Artwork Formats Accepted</strong> AI, PDF, EPS, high-res PNG or JPG (300 dpi minimum)</div>
+            </div>
+            <div class="step-detail-item">
+              <i data-lucide="clock" width="16" height="16"></i>
+              <div><strong>Response Time</strong> We reply to all inquiries within 24 business hours</div>
+            </div>
+            <div class="step-detail-item">
+              <i data-lucide="message-circle" width="16" height="16"></i>
+              <div><strong>No Artwork Yet?</strong> Tell us your concept — we'll advise on what to prepare</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-number">
+        <div class="step-num-inner">2</div>
+      </div>
+      <div class="step-content">
+        <div class="step-main">
+          <span class="eyebrow">Digital Proof</span>
+          <h3>Approve Your <em>Design</em></h3>
+          <p>
+            Our print team lays your artwork onto the exact cup template and sends back a detailed digital proof —
+            showing colour, bleed, wrap-around, and placement — before anything goes to press.
+          </p>
+        </div>
+        <div class="step-detail">
+          <div class="step-detail-items">
+            <div class="step-detail-item">
+              <i data-lucide="eye" width="16" height="16"></i>
+              <div><strong>Proof Turnaround</strong> Digital proof delivered within 48 hours of receiving artwork</div>
+            </div>
+            <div class="step-detail-item">
+              <i data-lucide="refresh-cw" width="16" height="16"></i>
+              <div><strong>Revisions</strong> Two rounds of revisions included at no cost</div>
+            </div>
+            <div class="step-detail-item">
+              <i data-lucide="check-circle" width="16" height="16"></i>
+              <div><strong>Your Approval</strong> Nothing prints until you sign off in writing</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-number">
+        <div class="step-num-inner">3</div>
+      </div>
+      <div class="step-content">
+        <div class="step-main">
+          <span class="eyebrow">Confirm Order</span>
+          <h3>Lock In Your <em>Quantity</em></h3>
+          <p>
+            Once the proof is approved, confirm your order quantity and finalise your cup specifications —
+            size mix, lid type, and any bundled accessories. Minimum order is 5,000 units.
+            Volume pricing applies for orders above 25,000 units.
+          </p>
+        </div>
+        <div class="step-detail">
+          <div class="step-detail-items">
+            <div class="step-detail-item">
+              <i data-lucide="package" width="16" height="16"></i>
+              <div><strong>Minimum Order</strong> 5,000 units per SKU</div>
+            </div>
+            <div class="step-detail-item">
+              <i data-lucide="trending-down" width="16" height="16"></i>
+              <div><strong>Volume Pricing</strong> Significant discounts at 25,000+ units</div>
+            </div>
+            <div class="step-detail-item">
+              <i data-lucide="layers" width="16" height="16"></i>
+              <div><strong>Mix &amp; Match</strong> Combine hot and cold cup SKUs to hit MOQ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-number">
+        <div class="step-num-inner">4</div>
+      </div>
+      <div class="step-content">
+        <div class="step-main">
+          <span class="eyebrow">In Production</span>
+          <h3>We <em>Print</em></h3>
+          <p>
+            Your cups go into production with our full-colour HD printing process.
+            Every batch is quality-checked against your approved proof before it leaves the facility.
+            You'll receive a production update at the midpoint and ship date confirmation.
+          </p>
+        </div>
+        <div class="step-detail">
+          <div class="step-detail-items">
+            <div class="step-detail-item">
+              <i data-lucide="timer" width="16" height="16"></i>
+              <div><strong>Production Lead Time</strong> 15–17 business days from approval</div>
+            </div>
+            <div class="step-detail-item">
+              <i data-lucide="shield" width="16" height="16"></i>
+              <div><strong>Quality Control</strong> Every pallet inspected against colour standards before shipping</div>
+            </div>
+            <div class="step-detail-item">
+              <i data-lucide="bell" width="16" height="16"></i>
+              <div><strong>Status Updates</strong> Proactive updates at production start, midpoint, and ship</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-number">
+        <div class="step-num-inner">5</div>
+      </div>
+      <div class="step-content">
+        <div class="step-main">
+          <span class="eyebrow">Delivery</span>
+          <h3>Cups at Your <em>Door</em></h3>
+          <p>
+            Your branded cups are palletised and shipped directly to your location in Canada or the United States.
+            We ship LTL freight for large orders and courier for smaller runs.
+            Tracking information is provided the day your order ships.
+          </p>
+        </div>
+        <div class="step-detail">
+          <div class="step-detail-items">
+            <div class="step-detail-item">
+              <i data-lucide="map-pin" width="16" height="16"></i>
+              <div><strong>Delivery Zones</strong> Canada (BC, AB, ON and more) · USA (nationwide, West Coast priority)</div>
+            </div>
+            <div class="step-detail-item">
+              <i data-lucide="truck" width="16" height="16"></i>
+              <div><strong>Shipping Method</strong> LTL freight for pallets · Courier for partial orders</div>
+            </div>
+            <div class="step-detail-item">
+              <i data-lucide="repeat" width="16" height="16"></i>
+              <div><strong>Reorders</strong> Approved artwork is stored — reorders ship in 7–10 days</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SPECS STRIP -->
+  <div class="specs-strip">
+    <div class="spec-item">
+      <div class="spec-label">Minimum Order Quantity</div>
+      <div class="spec-value">5,000</div>
+      <div class="spec-note">Units per SKU. Mix hot and cold cups.</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Total Turnaround Time</div>
+      <div class="spec-value">17–19</div>
+      <div class="spec-note">Business days from approved proof to ship.</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Proof Delivery</div>
+      <div class="spec-value">48 hrs</div>
+      <div class="spec-note">Digital proof after artwork is received.</div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="faq-header">
+      <div>
+        <span class="eyebrow">Common Questions</span>
+        <h2>Everything You <em>Need to Know</em></h2>
+      </div>
+      <p>
+        Most questions answered here. Can't find yours?
+        <a href="contact.html" style="color: var(--accent); text-decoration: none;">Email us directly</a> — we respond within 24 hours.
+      </p>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>Can I order multiple sizes in one run?</span>
+          <div class="faq-icon"><i data-lucide="plus" width="14" height="14"></i></div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes. You can mix sizes within the same SKU family (e.g., 8 oz, 12 oz, and 16 oz hot cups) to meet the 5,000-unit MOQ across the mix. Each size still requires a minimum of 1,000 units within the mix.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>What file format should I send my artwork in?</span>
+          <div class="faq-icon"><i data-lucide="plus" width="14" height="14"></i></div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">We prefer vector files — AI or EPS with outlined fonts. PDF and high-resolution PNG/JPG (300 dpi at print size) are also accepted. We'll supply a dieline template once your cup specs are confirmed.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>Do you offer sample cups before committing to a full order?</span>
+          <div class="faq-icon"><i data-lucide="plus" width="14" height="14"></i></div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes — sample packs are available before you commit to a full order. A small sample fee applies to all sample requests (blank and custom-printed). The full fee is credited against your first production run, so it costs you nothing in the end. <a href="contact.html" style="color:var(--accent);text-decoration:none;">Contact us</a> to arrange a sample pack.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>How do reorders work once artwork is approved?</span>
+          <div class="faq-icon"><i data-lucide="plus" width="14" height="14"></i></div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">We store your approved digital files and print-ready artwork. Reorders can typically ship within 7–10 business days — no new proof needed unless you update the artwork.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>Are your cups certified compostable?</span>
+          <div class="faq-icon"><i data-lucide="plus" width="14" height="14"></i></div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes. Our entire cup range — both hot and cold — is made from PLA (polylactic acid), a plant-based bioplastic that meets ASTM D6400 and EN 13432 compostability standards. Certification documents available on request.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>Do you ship outside Canada and the USA?</span>
+          <div class="faq-icon"><i data-lucide="plus" width="14" height="14"></i></div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Our primary markets are Canada and the United States, with a focus on the West Coast. International inquiries for large-volume orders (50,000+ units) are considered case by case — contact us to discuss.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <span class="eyebrow">Let's get started</span>
+    <h2>Ready to See Your Brand <em>on Every Cup?</em></h2>
+    <p>Submit your specs and artwork. We'll send a proof and quote within 48 hours.</p>
+    <div class="cta-actions">
+      <a href="contact.html" class="btn-primary">Start an Order</a>
+      <a href="index.html" class="btn-ghost">← Explore Hot Cups</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg width="140" height="36" viewBox="0 0 162 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 30 L4 9 L14 23 L24 9 L24 30" stroke="#C47A4A" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="28.5" cy="28" r="2.5" fill="#C47A4A"/>
+          <text x="38" y="23" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#ECE8E4" letter-spacing="2">MYTHOS</text>
+          <text x="38.5" y="35" font-family="DM Sans, sans-serif" font-size="8" font-weight="400" fill="#8B8985" letter-spacing="4.5">PRINTS</text>
+        </svg>
+        <p>Custom-printed cups for serious coffee shops across the West Coast and beyond.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="index.html">Hot Cups</a>
+        <a href="cold-cups.html">Cold Cups</a>
+        <a href="contact.html">Lids &amp; Sleeves</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="process.html">Our Process</a>
+        <a href="contact.html">Get a Quote</a>
+        <a href="contact.html">Request Samples</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:mythosprintshop@gmail.com">mythosprintshop@gmail.com</a>
+<a href="contact.html">Vancouver, BC · Canada</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Mythos Prints. All rights reserved.</span>
+      <span>Canada &amp; United States · West Coast Focused</span>
+    </div>
+  </footer>
+
+  <script>
+    try { lucide.createIcons(); } catch(e) {}
+    gsap.registerPlugin(ScrollTrigger);
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+    const hamburger = document.getElementById('nav-hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', function() {
+      const open = navLinks.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+    navLinks.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        navLinks.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    gsap.from('.page-hero', { opacity: 0, y: 30, duration: 0.9, delay: 0.2 });
+
+    gsap.utils.toArray('.step-row').forEach((row, i) => {
+      gsap.from(row, { scrollTrigger: { trigger: row, start: 'top 84%' }, opacity: 0, y: 30, duration: 0.8, delay: 0.05 * i });
+    });
+
+    gsap.utils.toArray('.spec-item').forEach((el, i) => {
+      gsap.from(el, { scrollTrigger: { trigger: '.specs-strip', start: 'top 80%' }, opacity: 0, y: 24, duration: 0.7, delay: i * 0.14 });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function(a) {
+      a.addEventListener('click', function() { fbq('track', 'Contact'); });
+    });
+  </script>
+</body>
+</html>

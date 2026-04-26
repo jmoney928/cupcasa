@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cold Cups — Mythos Prints</title>
+  <meta name="description" content="Custom-printed PLA cold cups for coffee shops. Compostable, BPA-free, full-wrap HD print. Canada and USA shipping.">
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg: #0D0E10;
+      --card: #161819;
+      --accent: #C47A4A;
+      --text: #ECE8E4;
+      --muted: #8B8985;
+      --border: rgba(236,232,228,0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.15; }
+    em { font-style: italic; }
+
+    .eyebrow {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      height: 72px;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s, background 0.4s, backdrop-filter 0.4s;
+    }
+    .nav.scrolled {
+      background: rgba(13,14,16,0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-color: var(--border);
+    }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta {
+      padding: 0.55rem 1.5rem;
+      background: var(--accent);
+      color: #0D0E10;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(196,122,74,0.35); }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 1002;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-cta { display: none; }
+
+    /* ── HERO ────────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+      padding-top: 72px;
+    }
+    .hero-content {
+      padding: 5rem 3.5rem 4rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(196,122,74,0.08);
+      border: 1px solid rgba(196,122,74,0.25);
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+    .hero h1 { font-size: clamp(2.8rem, 4.2vw, 4.6rem); margin-bottom: 1.5rem; }
+    .hero-body {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 440px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      padding: 0.9rem 2.2rem;
+      background: var(--accent);
+      color: #0D0E10;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 10px 34px rgba(196,122,74,0.3); }
+
+    .btn-ghost {
+      padding: 0.9rem 2.2rem;
+      background: transparent;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      display: inline-block;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(236,232,228,0.25); }
+
+    .hero-visual {
+      position: relative;
+      overflow: hidden;
+      border-left: 1px solid var(--border);
+      min-height: 600px;
+    }
+    .hero-visual img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(13,14,16,0.35) 0%, transparent 50%);
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px 6px 10px;
+      background: rgba(236,232,228,0.05);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .badge i { color: var(--accent); }
+
+    /* ── PRODUCTS ─────────────────────────────────────────────────── */
+    .products-section { border-top: 1px solid var(--border); }
+
+    .product-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+      min-height: 360px;
+      overflow: hidden;
+    }
+    .product-row.reverse { direction: rtl; }
+    .product-row.reverse > * { direction: ltr; }
+
+    .product-img { position: relative; overflow: hidden; min-height: 360px; }
+    .product-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s ease;
+    }
+    .product-row:hover .product-img img { transform: scale(1.05); }
+
+    .product-info {
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 1px solid var(--border);
+    }
+    .product-row.reverse .product-info { border-left: none; border-right: 1px solid var(--border); }
+    .product-info h3 { font-size: 2rem; margin-bottom: 1rem; margin-top: 0.4rem; }
+    .product-info p { color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; max-width: 380px; }
+
+    .product-sizes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; }
+    .size-tag {
+      padding: 4px 14px;
+      background: rgba(196,122,74,0.08);
+      border: 1px solid rgba(196,122,74,0.2);
+      border-radius: 100px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .product-link {
+      color: var(--accent);
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+    .product-link:hover { gap: 12px; }
+
+    /* ── USE CASES ────────────────────────────────────────────────── */
+    .use-cases {
+      border-top: 1px solid var(--border);
+      padding: 5rem 4rem;
+    }
+    .use-cases-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 4rem;
+    }
+    .use-cases-header h2 { font-size: clamp(2rem, 2.8vw, 3rem); }
+    .use-cases-header p { color: var(--muted); line-height: 1.75; }
+
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+    .use-case-card {
+      padding: 2rem 1.75rem;
+      border-right: 1px solid var(--border);
+    }
+    .use-case-card:last-child { border-right: none; }
+    .use-case-icon {
+      width: 44px; height: 44px;
+      background: rgba(196,122,74,0.08);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .use-case-card h4 { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; }
+    .use-case-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── FEATURES STRIP ───────────────────────────────────────────── */
+    .features-strip {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .feature-item {
+      padding: 0 2.5rem;
+      border-left: 1px solid var(--border);
+    }
+    .feature-item:first-child { border-left: none; padding-left: 0; }
+    .feature-icon {
+      width: 42px; height: 42px;
+      background: rgba(196,122,74,0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .feature-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.4rem; }
+    .feature-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── CTA ──────────────────────────────────────────────────────── */
+    .cta-section {
+      text-align: center;
+      padding: 8rem 4rem;
+      background: radial-gradient(ellipse at center, rgba(196,122,74,0.07) 0%, transparent 65%);
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 {
+      font-size: clamp(2.2rem, 3.5vw, 3.6rem);
+      margin-bottom: 1.2rem;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-section p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.75;
+    }
+    .cta-actions { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ───────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 4rem 4rem 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand p { color: var(--muted); font-size: 0.84rem; margin-top: 1rem; line-height: 1.65; max-width: 210px; }
+    .footer-col h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.2rem;
+    }
+    .footer-col a { display: block; color: var(--muted); text-decoration: none; font-size: 0.875rem; margin-bottom: 0.6rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ── PRICING ──────────────────────────────────────────────────── */
+    .pricing-section {
+      padding: 6rem 4rem;
+      border-top: 1px solid var(--border);
+    }
+    .pricing-header { max-width: 560px; margin-bottom: 2.5rem; }
+    .pricing-header h2 { font-size: clamp(2rem, 2.8vw, 2.8rem); margin-top: 0.5rem; }
+    .pricing-header p { color: var(--muted); line-height: 1.75; margin-top: 0.75rem; }
+
+    .pricing-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+    }
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .pricing-table th {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .pricing-table th.th-best {
+      background: rgba(196,122,74,0.08);
+      color: var(--accent);
+      border-left: 1px solid rgba(196,122,74,0.2);
+    }
+    .best-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      background: rgba(196,122,74,0.15);
+      border: 1px solid rgba(196,122,74,0.3);
+      border-radius: 100px;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .pricing-table tbody tr:hover td { background: rgba(236,232,228,0.02); }
+    .pricing-table td {
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .pricing-table tbody tr:last-child td { border-bottom: none; }
+    .pricing-table td.td-size {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      white-space: nowrap;
+      border-right: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+    }
+    .pricing-table td.td-best {
+      background: rgba(196,122,74,0.05);
+      border-left: 1px solid rgba(196,122,74,0.15);
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .per { color: var(--muted); font-size: 0.76rem; font-weight: 400; }
+    .pricing-note {
+      margin-top: 1.1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .pricing-note a { color: var(--accent); text-decoration: none; }
+
+    .service-card { opacity: 1 !important; }
+
+    @media (max-width: 900px) {
+      .nav { padding: 0 1.5rem; }
+      .nav-hamburger { display: flex; }
+      .nav-cta { display: none; }
+      .nav-links {
+        position: fixed;
+        top: 72px; left: 0; right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: rgba(13,14,16,0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 0.5rem 1.5rem 1.5rem;
+        z-index: 999;
+        transform: translateY(-110%);
+        transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+        pointer-events: none;
+      }
+      .nav-links.open { transform: translateY(0); pointer-events: auto; }
+      .nav-links a { padding: 0.875rem 0; font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,0.07); color: var(--muted); }
+      .nav-links a.active { color: var(--text); }
+      .nav-links a:last-child { border-bottom: none; }
+      .mobile-cta {
+        display: block !important;
+        margin-top: 0.75rem;
+        padding: 0.75rem 1rem;
+        background: var(--accent);
+        color: #0D0E10 !important;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        border-radius: 2px;
+        border-bottom: none !important;
+      }
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 55vw; border-left: none; border-top: 1px solid var(--border); }
+      .hero-content { padding: 2.5rem 1.5rem; }
+      .use-cases { padding: 3rem 1.5rem; }
+      .use-cases-header { grid-template-columns: 1fr; gap: 1.5rem; }
+      .use-cases-grid { grid-template-columns: 1fr 1fr; }
+      .use-case-card:nth-child(2) { border-right: none; }
+      .product-row { grid-template-columns: 1fr; }
+      .product-row.reverse { direction: ltr; }
+      .product-info { padding: 2.5rem 1.5rem; border-left: none !important; border-right: none !important; border-top: 1px solid var(--border); }
+      .features-strip { grid-template-columns: 1fr 1fr; padding: 2.5rem 1.5rem; gap: 2rem; }
+      .feature-item { border-left: none; padding-left: 0; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .cta-section { padding: 5rem 1.5rem; }
+      footer { padding: 3rem 1.5rem 1.5rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    /* ── COLD CUP SVG ─────────────────────────────────────────── */
+    .cup-wrap {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; height: 100%; position: relative;
+    }
+    .cup-wrap::before {
+      content: ''; position: absolute;
+      width: 260px; height: 260px;
+      background: radial-gradient(ellipse, rgba(74,152,196,0.09) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .cup-svg {
+      width: clamp(190px, 38%, 268px);
+      height: auto; position: relative; z-index: 1;
+      animation: cup-float 4s ease-in-out infinite;
+      filter: drop-shadow(0 28px 52px rgba(0,0,0,0.55)) drop-shadow(0 6px 16px rgba(74,152,196,0.07));
+    }
+    @keyframes cup-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-13px); }
+    }
+  </style>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '3937455279892855');
+  fbq('track', 'PageView');
+  fbq('track', 'ViewContent', { content_name: 'Custom Cold Cups', content_category: 'Product' });
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=3937455279892855&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="logo">
+      <svg width="162" height="38" viewBox="0 0 162 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Mythos Prints">
+        <path d="M4 30 L4 9 L14 23 L24 9 L24 30" stroke="#C47A4A" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="28.5" cy="28" r="2.5" fill="#C47A4A"/>
+        <text x="38" y="23" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#ECE8E4" letter-spacing="2">MYTHOS</text>
+        <text x="38.5" y="35" font-family="DM Sans, sans-serif" font-size="8" font-weight="400" fill="#8B8985" letter-spacing="4.5">PRINTS</text>
+      </svg>
+    </a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Hot Cups</a>
+      <a href="cold-cups.html" class="active">Cold Cups</a>
+      <a href="process.html">Process</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="mobile-cta">Get a Quote</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Get a Quote</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">Custom Cold Cups · West Coast</div>
+      <h1>Cold Presentation.<br><em>Hot Impressions.</em></h1>
+      <p class="hero-body">
+        Custom-printed PLA cold cups that turn every iced latte and cold brew into a branded moment.
+        Plant-based, compostable, and BPA-free — built for high-volume service and a brand that gives a damn.
+      </p>
+      <div class="hero-actions">
+        <a href="contact.html" class="btn-primary">Request a Sample Pack</a>
+        <a href="#products" class="btn-ghost">View Products →</a>
+      </div>
+      <div class="hero-badges">
+        <div class="badge"><i data-lucide="droplets" width="14" height="14"></i> BPA-Free</div>
+        <div class="badge"><i data-lucide="leaf" width="14" height="14"></i> Compostable</div>
+        <div class="badge"><i data-lucide="printer" width="14" height="14"></i> Full-Wrap Print</div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="cup-wrap">
+        <svg class="cup-svg" viewBox="0 0 280 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="coldBodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#7ea8bc" stop-opacity="0.55"/>
+              <stop offset="12%"  stop-color="#c4dce8" stop-opacity="0.60"/>
+              <stop offset="46%"  stop-color="#e4f2f8" stop-opacity="0.38"/>
+              <stop offset="85%"  stop-color="#b0ceda" stop-opacity="0.58"/>
+              <stop offset="100%" stop-color="#6e98aa" stop-opacity="0.55"/>
+            </linearGradient>
+            <linearGradient id="coldCoffeeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#140804"/>
+              <stop offset="42%"  stop-color="#240e05"/>
+              <stop offset="100%" stop-color="#0e0602"/>
+            </linearGradient>
+            <linearGradient id="coldIceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stop-color="#ddeef6"/>
+              <stop offset="100%" stop-color="#a4c8de" stop-opacity="0.72"/>
+            </linearGradient>
+            <linearGradient id="coldLidGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#7a9eb0"/>
+              <stop offset="35%"  stop-color="#bcd6e2"/>
+              <stop offset="60%"  stop-color="#d4eaf2"/>
+              <stop offset="85%"  stop-color="#a8cada"/>
+              <stop offset="100%" stop-color="#6e90a0"/>
+            </linearGradient>
+            <linearGradient id="coldStrawGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#b05a2a"/>
+              <stop offset="100%" stop-color="#e07840"/>
+            </linearGradient>
+            <linearGradient id="coldBaseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#4a6878"/>
+              <stop offset="50%"  stop-color="#7a9aaa"/>
+              <stop offset="100%" stop-color="#3e5868"/>
+            </linearGradient>
+            <radialGradient id="coldVignette" cx="50%" cy="50%" r="50%">
+              <stop offset="58%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="100%" stop-color="rgba(13,14,16,0.28)"/>
+            </radialGradient>
+            <clipPath id="coldCupClip">
+              <path d="M 40 88 L 240 88 L 204 418 L 76 418 Z"/>
+            </clipPath>
+          </defs>
+
+          <!-- Ground shadow -->
+          <ellipse cx="140" cy="436" rx="60" ry="9" fill="rgba(0,0,0,0.20)"/>
+
+          <!-- Coffee fill inside -->
+          <g clip-path="url(#coldCupClip)">
+            <path d="M 40 88 L 240 88 L 204 418 L 76 418 Z" fill="url(#coldCoffeeGrad)"/>
+            <!-- Cream layer on top of liquid -->
+            <ellipse cx="140" cy="98" rx="94" ry="10" fill="#c49060" opacity="0.30"/>
+            <!-- Ice cube 1 -->
+            <rect x="68" y="130" width="54" height="46" rx="5" fill="url(#coldIceGrad)" opacity="0.76" transform="rotate(-10 95 153)"/>
+            <rect x="70" y="133" width="18" height="5" rx="2.5" fill="white" opacity="0.52" transform="rotate(-10 79 135)"/>
+            <!-- Ice cube 2 -->
+            <rect x="146" y="114" width="48" height="42" rx="5" fill="url(#coldIceGrad)" opacity="0.70" transform="rotate(7 170 135)"/>
+            <rect x="148" y="117" width="16" height="4" rx="2" fill="white" opacity="0.48" transform="rotate(7 156 119)"/>
+            <!-- Ice cube 3 -->
+            <rect x="86" y="188" width="46" height="38" rx="5" fill="url(#coldIceGrad)" opacity="0.65" transform="rotate(13 109 207)"/>
+            <rect x="88" y="191" width="14" height="4" rx="2" fill="white" opacity="0.42" transform="rotate(13 95 193)"/>
+            <!-- Ice cube 4 -->
+            <rect x="156" y="174" width="40" height="34" rx="4" fill="url(#coldIceGrad)" opacity="0.60" transform="rotate(-6 176 191)"/>
+            <rect x="158" y="177" width="13" height="3" rx="1.5" fill="white" opacity="0.38" transform="rotate(-6 164 178)"/>
+          </g>
+
+          <!-- Cup body — semi-transparent clear overlay -->
+          <path d="M 40 88 L 240 88 L 204 418 L 76 418 Z" fill="url(#coldBodyGrad)"/>
+          <!-- Vignette depth -->
+          <path d="M 40 88 L 240 88 L 204 418 L 76 418 Z" fill="url(#coldVignette)"/>
+          <!-- Left edge shadow -->
+          <path d="M 40 88 L 68 88 L 86 418 L 76 418 Z" fill="rgba(0,0,0,0.17)"/>
+          <!-- Right edge shadow -->
+          <path d="M 212 88 L 240 88 L 204 418 L 194 418 Z" fill="rgba(0,0,0,0.17)"/>
+          <!-- Center vertical highlight -->
+          <path d="M 122 88 L 158 88 L 154 418 L 126 418 Z" fill="rgba(255,255,255,0.055)"/>
+
+          <!-- MYTHOS branding -->
+          <g clip-path="url(#coldCupClip)" opacity="0.90">
+            <g transform="translate(140 224)" stroke="#C47A4A" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+              <polyline points="-18,17 -18,-2 0,10 18,-2 18,17"/>
+              <circle cx="23" cy="15.5" r="2.8" fill="#C47A4A" stroke="none"/>
+            </g>
+            <text x="140" y="268" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-weight="700" font-size="24" fill="#ECE8E4" letter-spacing="5">MYTHOS</text>
+            <line x1="100" y1="278" x2="180" y2="278" stroke="#C47A4A" stroke-width="0.82" opacity="0.62"/>
+            <text x="141" y="296" text-anchor="middle" font-family="'DM Sans', Arial, sans-serif" font-weight="300" font-size="10" fill="#C47A4A" letter-spacing="6">COFFEE</text>
+          </g>
+
+          <!-- Condensation drops on outside -->
+          <ellipse cx="103" cy="318" rx="2.2" ry="3.8" fill="rgba(185,220,235,0.50)"/>
+          <ellipse cx="97"  cy="352" rx="1.8" ry="3.1" fill="rgba(185,220,235,0.40)"/>
+          <ellipse cx="178" cy="304" rx="2.0" ry="3.5" fill="rgba(185,220,235,0.45)"/>
+          <ellipse cx="185" cy="340" rx="1.6" ry="2.8" fill="rgba(185,220,235,0.40)"/>
+          <ellipse cx="115" cy="374" rx="1.8" ry="3.0" fill="rgba(185,220,235,0.38)"/>
+          <ellipse cx="167" cy="380" rx="1.5" ry="2.5" fill="rgba(185,220,235,0.38)"/>
+
+          <!-- Cup base -->
+          <ellipse cx="140" cy="418" rx="66" ry="9" fill="url(#coldBaseGrad)" opacity="0.45"/>
+          <ellipse cx="140" cy="421" rx="63" ry="7" fill="rgba(30,50,62,0.30)"/>
+
+          <!-- Lid outer rim -->
+          <ellipse cx="140" cy="88" rx="108" ry="15" fill="url(#coldLidGrad)"/>
+          <!-- Lid body -->
+          <ellipse cx="140" cy="84" rx="106" ry="13" fill="url(#coldLidGrad)"/>
+          <!-- Lid top surface -->
+          <ellipse cx="140" cy="80" rx="103" ry="12" fill="#c0d8e4"/>
+          <!-- Lid dome highlight -->
+          <ellipse cx="140" cy="78" rx="86" ry="9" fill="#d2e8f0" opacity="0.75"/>
+          <!-- Lid sheen -->
+          <ellipse cx="114" cy="74" rx="26" ry="4.5" fill="rgba(255,255,255,0.22)" transform="rotate(-5 114 74)"/>
+          <!-- Sip slot -->
+          <rect x="116" y="74" width="32" height="9" rx="4.5" fill="#8aaabb" opacity="0.80"/>
+          <rect x="120" y="76" width="24" height="5" rx="2.5" fill="#6a8898" opacity="0.60"/>
+          <!-- Rim top arc highlight -->
+          <path d="M 33 88 A 107 15 0 0 1 247 88" stroke="rgba(255,255,255,0.32)" stroke-width="1.2" fill="none"/>
+
+          <!-- Straw -->
+          <rect x="162" y="10" width="10" height="86" rx="5" fill="url(#coldStrawGrad)"/>
+          <rect x="163.5" y="12" width="3.5" height="82" rx="1.75" fill="rgba(255,255,255,0.27)"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products-section" id="products" style="padding:0;">
+
+    <div class="product-row">
+      <div class="product-img">
+        <img src="img/cold-cups-product.png" alt="PLA Cold Cups" loading="lazy" style="object-position: center;">
+      </div>
+      <div class="product-info">
+        <span class="eyebrow">Compostable &amp; Clear</span>
+        <h3>PLA <em>Cold Cups</em></h3>
+        <p>
+          High-clarity cups made from plant-based PLA — compostable, BPA-free, and a perfect canvas for
+          full-wrap 360° HD printing. Ideal for iced lattes, cold brew, lemonades, and smoothies.
+          Matches our full range of dome and flat sip lids.
+        </p>
+        <div class="product-sizes">
+          <span class="size-tag">12 oz</span>
+          <span class="size-tag">16 oz</span>
+          <span class="size-tag">20 oz</span>
+          <span class="size-tag">24 oz</span>
+          <span class="size-tag">32 oz</span>
+        </div>
+        <a href="contact.html" class="product-link">Request a Sample Pack →</a>
+        <p style="font-size:0.75rem;color:var(--muted);margin-top:0.75rem;">A small sample fee applies — credited in full against your first order.</p>
+      </div>
+    </div>
+
+
+  </section>
+
+  <!-- USE CASES -->
+  <section class="use-cases">
+    <div class="use-cases-header">
+      <div>
+        <span class="eyebrow">Built For</span>
+        <h2>Every Cold <em>Drink Format</em></h2>
+      </div>
+      <p>
+        From neighbourhood espresso bars to high-volume chain locations —
+        our cold cups are engineered for the full menu of modern coffee shop cold offerings.
+      </p>
+    </div>
+    <div class="use-cases-grid">
+      <div class="use-case-card">
+        <div class="use-case-icon"><i data-lucide="coffee" width="20" height="20"></i></div>
+        <h4>Iced Lattes</h4>
+        <p>The daily driver. High clarity lets your branded design and the drink speak for themselves.</p>
+      </div>
+      <div class="use-case-card">
+        <div class="use-case-icon"><i data-lucide="zap" width="20" height="20"></i></div>
+        <h4>Cold Brew</h4>
+        <p>Deep-pour cold brew looks exceptional in our clear PLA with a stark branded design.</p>
+      </div>
+      <div class="use-case-card">
+        <div class="use-case-icon"><i data-lucide="droplets" width="20" height="20"></i></div>
+        <h4>Blended Drinks</h4>
+        <p>Dome lids and thick-wall cups handle high-volume blended offerings with ease.</p>
+      </div>
+      <div class="use-case-card">
+        <div class="use-case-icon"><i data-lucide="leaf" width="20" height="20"></i></div>
+        <h4>Wellness Drinks</h4>
+        <p>Matcha, adaptogen lattes, and functional drinks deserve packaging that matches the premium.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <div class="features-strip">
+    <div class="feature-item">
+      <div class="feature-icon"><i data-lucide="shield-check" width="18" height="18"></i></div>
+      <div class="feature-title">BPA-Free</div>
+      <div class="feature-desc">Food-safe PET and PP materials. Every cup meets North American safety standards.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i data-lucide="printer" width="18" height="18"></i></div>
+      <div class="feature-title">360° HD Print</div>
+      <div class="feature-desc">Full-wrap colour reproduction. Your artwork reproduced exactly — vibrant and consistent.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i data-lucide="package" width="18" height="18"></i></div>
+      <div class="feature-title">5,000 MOQ</div>
+      <div class="feature-desc">Minimum 5,000 units per order. Volume pricing available for larger runs.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i data-lucide="truck" width="18" height="18"></i></div>
+      <div class="feature-title">CA &amp; US Shipping</div>
+      <div class="feature-desc">Fast delivery to BC, AB, WA, OR, CA and across North America.</div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <section class="pricing-section">
+    <div class="pricing-header">
+      <span class="eyebrow">Volume Pricing</span>
+      <h2>Clear PLA <em>Cold Cups</em></h2>
+      <p>Per-cup price drops with volume. Mix sizes across your order to qualify for a tier. Custom 360° HD printing included in every price.</p>
+    </div>
+    <div class="pricing-table-wrap">
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th class="th-size">Size</th>
+            <th>1,000 – 5,000 units</th>
+            <th>5,000 – 25,000 units</th>
+            <th>25,000 – 100,000 units</th>
+            <th class="th-best">100,000+ units <span class="best-badge">Best Value</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-size">12 oz</td>
+            <td>$0.20 <span class="per">/ cup</span></td>
+            <td>$0.15 <span class="per">/ cup</span></td>
+            <td>$0.11 <span class="per">/ cup</span></td>
+            <td class="td-best">$0.08 <span class="per">/ cup</span></td>
+          </tr>
+          <tr>
+            <td class="td-size">16 oz</td>
+            <td>$0.22 <span class="per">/ cup</span></td>
+            <td>$0.16 <span class="per">/ cup</span></td>
+            <td>$0.12 <span class="per">/ cup</span></td>
+            <td class="td-best">$0.09 <span class="per">/ cup</span></td>
+          </tr>
+          <tr>
+            <td class="td-size">24 oz</td>
+            <td>$0.26 <span class="per">/ cup</span></td>
+            <td>$0.18 <span class="per">/ cup</span></td>
+            <td>$0.14 <span class="per">/ cup</span></td>
+            <td class="td-best">$0.10 <span class="per">/ cup</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="pricing-note">Prices in CAD. Minimum order 5,000 units. Sample packs available for a small fee — credited toward your first full order. <a href="contact.html">Get a quote</a> for USD pricing or orders over 100,000 units.</p>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <span class="eyebrow">Start your order</span>
+    <h2>Make Every Cold Drink <em>Unmistakable</em></h2>
+    <p>
+      Share your artwork and cup specs. We'll send back a digital proof
+      and quote within 24 hours.
+    </p>
+    <div class="cta-actions">
+      <a href="contact.html" class="btn-primary">Get a Free Quote</a>
+      <a href="index.html" class="btn-ghost">← View Hot Cups</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg width="140" height="36" viewBox="0 0 162 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 30 L4 9 L14 23 L24 9 L24 30" stroke="#C47A4A" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="28.5" cy="28" r="2.5" fill="#C47A4A"/>
+          <text x="38" y="23" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#ECE8E4" letter-spacing="2">MYTHOS</text>
+          <text x="38.5" y="35" font-family="DM Sans, sans-serif" font-size="8" font-weight="400" fill="#8B8985" letter-spacing="4.5">PRINTS</text>
+        </svg>
+        <p>Custom-printed cups for serious coffee shops across the West Coast and beyond.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="index.html">Hot Cups</a>
+        <a href="cold-cups.html">Cold Cups</a>
+        <a href="contact.html">Lids &amp; Sleeves</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="process.html">Our Process</a>
+        <a href="contact.html">Get a Quote</a>
+        <a href="contact.html">Request Samples</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:mythosprintshop@gmail.com">mythosprintshop@gmail.com</a>
+<a href="contact.html">Vancouver, BC · Canada</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Mythos Prints. All rights reserved.</span>
+      <span>Canada &amp; United States · West Coast Focused</span>
+    </div>
+  </footer>
+
+  <script>
+    try { lucide.createIcons(); } catch(e) {}
+    gsap.registerPlugin(ScrollTrigger);
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+    const hamburger = document.getElementById('nav-hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', function() {
+      const open = navLinks.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+    navLinks.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        navLinks.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    gsap.from('.hero-tag', { opacity: 0, y: 18, duration: 0.8, delay: 0.2 });
+    gsap.from('.hero h1', { opacity: 0, y: 32, duration: 0.9, delay: 0.38 });
+    gsap.from('.hero-body', { opacity: 0, y: 20, duration: 0.8, delay: 0.54 });
+    gsap.from('.hero-actions', { opacity: 0, y: 18, duration: 0.7, delay: 0.68 });
+    gsap.from('.hero-badges', { opacity: 0, y: 16, duration: 0.7, delay: 0.82 });
+
+    gsap.utils.toArray('.product-row').forEach(row => {
+      gsap.from(row, { scrollTrigger: { trigger: row, start: 'top 82%' }, opacity: 0, y: 40, duration: 0.8 });
+    });
+
+    gsap.utils.toArray('.use-case-card').forEach((card, i) => {
+      gsap.from(card, { scrollTrigger: { trigger: '.use-cases-grid', start: 'top 80%' }, opacity: 0, y: 28, duration: 0.7, delay: i * 0.12 });
+    });
+
+    gsap.utils.toArray('.feature-item').forEach((el, i) => {
+      gsap.from(el, { scrollTrigger: { trigger: '.features-strip', start: 'top 80%' }, opacity: 0, y: 28, duration: 0.7, delay: i * 0.12 });
+    });
+
+    gsap.from('.cta-section', { scrollTrigger: { trigger: '.cta-section', start: 'top 78%' }, opacity: 0, y: 30, duration: 0.9 });
+
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function(a) {
+      a.addEventListener('click', function() { fbq('track', 'Contact'); });
+    });
+  </script>
+</body>
+</html>
