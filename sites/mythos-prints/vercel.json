@@ -4,8 +4,6 @@
   "installCommand": "npm install",
   "framework": null,
   "functions": {
-    "api/contact.js": {
-      "runtime": "nodejs20.x"
-    }
+    "api/contact.js": {}
   }
 }
