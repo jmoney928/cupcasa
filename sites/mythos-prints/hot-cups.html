@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cold Cups — Mythos Prints</title>
-  <meta name="description" content="Custom-printed PLA and PHA cold cups for coffee shops. MOQ from 500. Home compostable PHA or plant-based PLA. Full-wrap HD print. Canada and USA shipping.">
+  <title>Hot Cups — Mythos Prints</title>
+  <meta name="description" content="Custom-printed PLA and PHA hot cups for coffee shops. MOQ from 500. Home compostable PHA or plant-based PLA. Full-wrap HD print. Canada and USA shipping.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.mythosprints.ca/cold-cups.html">
+  <link rel="canonical" href="https://www.mythosprints.ca/hot-cups.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,232 +15,67 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Meta Pixel Code -->
-  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','3937455279892855');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Custom Cold Cups',content_category:'Product'});</script>
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','3937455279892855');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Custom Hot Cups',content_category:'Product'});</script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3937455279892855&ev=PageView&noscript=1"/></noscript>
   <!-- End Meta Pixel Code -->
   <style>
     :root {
-      --navy: #2c3d49;
-      --dark: #1a2b34;
-      --lime: #b2f12b;
-      --lime-hover: #9ed420;
-      --lime-dim: rgba(178,241,43,0.10);
-      --teal: #007b70;
-      --white: #ffffff;
-      --cream: #f7fee9;
-      --grey-light: #eef2f0;
-      --border: #d8e4de;
-      --text: #3a4d55;
-      --text-muted: #607585;
-      --grey: #8a9da6;
+      --navy: #2c3d49; --dark: #1a2b34; --lime: #b2f12b; --lime-hover: #9ed420;
+      --lime-dim: rgba(178,241,43,0.10); --teal: #007b70; --white: #ffffff;
+      --cream: #f7fee9; --grey-light: #eef2f0; --border: #d8e4de;
+      --text: #3a4d55; --text-muted: #607585; --grey: #8a9da6;
       --black: #2c3d49; --ivory: #f5f5f0; --gold: #b2f12b; --gold-dim: rgba(178,241,43,0.10); --card: #ffffff;
     }
-
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--white);
-      color: var(--text);
-      font-family: 'Open Sans', sans-serif;
-      font-weight: 400;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Open Sans', sans-serif;
-      font-weight: 700;
-      line-height: 1.15;
-      color: var(--dark);
-    }
-
+    body { background: var(--white); color: var(--text); font-family: 'Open Sans', sans-serif; font-weight: 400; line-height: 1.6; overflow-x: hidden; }
+    h1, h2, h3 { font-family: 'Open Sans', sans-serif; font-weight: 700; line-height: 1.15; color: var(--dark); }
     p { color: var(--text-muted); line-height: 1.75; }
     em { font-style: italic; }
+    .eyebrow { display: block; font-family: 'Open Sans', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.85rem; }
 
-    .eyebrow {
-      display: block;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 0.85rem;
-    }
-
-    /* ── NAV ─────────────────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 3rem;
-      height: 72px;
-      background: transparent;
-      transition: background 0.4s, box-shadow 0.4s;
-    }
-    nav.scrolled {
-      background: rgba(255,255,255,0.97);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 1px 24px rgba(26,43,52,0.09);
-    }
-
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 72px; background: transparent; transition: background 0.4s, box-shadow 0.4s; }
+    nav.scrolled { background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 1px 24px rgba(26,43,52,0.09); }
     .nav-logo { display: flex; align-items: center; text-decoration: none; gap: 0.75rem; }
     .nav-brand { font-family: 'Open Sans', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; transition: color 0.3s; }
     nav.scrolled .nav-brand { color: var(--dark); }
-
     .nav-links { display: flex; align-items: center; gap: 2.5rem; }
     .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
     nav.scrolled .nav-links a { color: var(--grey); }
     .nav-links a:hover, .nav-links a.active { color: #ffffff; }
     nav.scrolled .nav-links a:hover, nav.scrolled .nav-links a.active { color: var(--dark); }
-    .btn-nav {
-      padding: 0.5rem 1.4rem;
-      background: var(--lime);
-      border: none;
-      color: var(--dark) !important;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border-radius: 2px;
-      font-weight: 700;
-      transition: background 0.2s, transform 0.15s !important;
-    }
+    .btn-nav { padding: 0.5rem 1.4rem; background: var(--lime); border: none; color: var(--dark) !important; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; font-weight: 700; transition: background 0.2s, transform 0.15s !important; }
     .btn-nav:hover { background: var(--lime-hover) !important; transform: scale(1.02) !important; }
-
-    .nav-hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
-      z-index: 102;
-    }
-    .nav-hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: #ffffff;
-      border-radius: 1px;
-      transition: transform 0.3s, opacity 0.3s, background 0.3s;
-      transform-origin: center;
-    }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 102; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: #ffffff; border-radius: 1px; transition: transform 0.3s, opacity 0.3s, background 0.3s; transform-origin: center; }
     nav.scrolled .nav-hamburger span { background: var(--dark); }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* ── HERO ────────────────────────────────────────────────────── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: stretch;
-      padding-top: 72px;
-    }
-
-    .hero-content {
-      background: var(--navy);
-      padding: 8rem 3rem 6rem 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+    /* HERO */
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; padding-top: 72px; }
+    .hero-content { background: var(--navy); padding: 8rem 3rem 6rem 3rem; display: flex; flex-direction: column; justify-content: center; }
     .hero-content h1 { color: #ffffff; }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 5px 14px;
-      background: rgba(178,241,43,0.10);
-      border: 1px solid rgba(178,241,43,0.35);
-      border-radius: 100px;
-      font-size: 0.66rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--lime);
-      margin-bottom: 2rem;
-      width: fit-content;
-    }
-
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; background: rgba(178,241,43,0.10); border: 1px solid rgba(178,241,43,0.35); border-radius: 100px; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lime); margin-bottom: 2rem; width: fit-content; }
     .hero h1 { font-size: clamp(2.8rem, 5vw, 5.2rem); letter-spacing: -0.01em; margin-bottom: 1.5rem; }
     .hero-body { font-size: 1rem; color: rgba(255,255,255,0.65); max-width: 420px; margin-bottom: 2.5rem; line-height: 1.85; }
     .hero-actions { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 2rem; }
-
-    .btn-primary {
-      padding: 1rem 2.5rem;
-      background: var(--lime);
-      border: 2px solid var(--lime);
-      color: var(--dark);
-      text-decoration: none;
-      font-family: 'Open Sans', sans-serif;
-      font-weight: 700;
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      display: inline-block;
-      border-radius: 2px;
-      transition: background 0.2s, transform 0.15s;
-    }
+    .btn-primary { padding: 1rem 2.5rem; background: var(--lime); border: 2px solid var(--lime); color: var(--dark); text-decoration: none; font-family: 'Open Sans', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; display: inline-block; border-radius: 2px; transition: background 0.2s, transform 0.15s; }
     .btn-primary:hover { background: var(--lime-hover); border-color: var(--lime-hover); transform: scale(1.02); }
-
-    .btn-ghost {
-      padding: 1rem 2.2rem;
-      border: 1.5px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.7);
-      background: transparent;
-      text-decoration: none;
-      font-family: 'Open Sans', sans-serif;
-      font-weight: 500;
-      font-size: 0.82rem;
-      letter-spacing: 0.05em;
-      display: inline-block;
-      border-radius: 2px;
-      transition: border-color 0.2s, color 0.2s;
-    }
+    .btn-ghost { padding: 1rem 2.2rem; border: 1.5px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.7); background: transparent; text-decoration: none; font-family: 'Open Sans', sans-serif; font-weight: 500; font-size: 0.82rem; letter-spacing: 0.05em; display: inline-block; border-radius: 2px; transition: border-color 0.2s, color 0.2s; }
     .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #ffffff; }
-
     .hero-badges { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-    .badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 13px 5px 10px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 100px;
-      font-size: 0.72rem;
-      font-weight: 400;
-      color: rgba(255,255,255,0.65);
-    }
+    .badge { display: flex; align-items: center; gap: 6px; padding: 5px 13px 5px 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; font-size: 0.72rem; font-weight: 400; color: rgba(255,255,255,0.65); }
     .badge i { color: var(--lime); }
-
-    .hero-visual {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--cream) 0%, var(--grey-light) 100%);
-      border-left: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    /* ── CUP SVG ─────────────────────────────────────────────────── */
+    .hero-visual { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--cream) 0%, var(--grey-light) 100%); border-left: 1px solid var(--border); overflow: hidden; }
     .cup-wrap { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; position: relative; }
     .cup-wrap::before { content: ''; position: absolute; width: 280px; height: 280px; background: radial-gradient(ellipse, rgba(178,241,43,0.12) 0%, transparent 68%); pointer-events: none; }
     .cup-svg { width: clamp(190px, 36%, 260px); height: auto; position: relative; z-index: 1; animation: cup-float 4.5s ease-in-out infinite; filter: drop-shadow(0 28px 48px rgba(26,43,52,0.13)) drop-shadow(0 6px 16px rgba(0,0,0,0.06)); }
     @keyframes cup-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
 
-    /* ── MATERIAL BADGES ────────────────────────────────────────── */
+    /* MATERIAL BADGES */
     .pla-label { background: rgba(0,123,112,0.10); color: var(--teal); border: 1px solid rgba(0,123,112,0.25); border-radius: 100px; padding: 3px 12px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: inline-block; }
     .pha-label { background: rgba(178,241,43,0.12); color: #3a5a00; border: 1px solid rgba(178,241,43,0.45); border-radius: 100px; padding: 3px 12px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: inline-block; }
     .product-meta-row { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-muted); }
@@ -250,33 +85,15 @@
     .product-mat-badge { font-size: 0.7rem; }
     .products-header { padding: 5rem 3rem 1rem; }
     .products-header h2 { font-size: clamp(2rem, 3.2vw, 3.2rem); letter-spacing: -0.01em; margin-top: 0.5rem; }
-    .pricing-block { margin-bottom: 3rem; border: 1px solid var(--border); }
-    .pricing-block-header { display: flex; align-items: center; gap: 1.25rem; padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); background: var(--grey-light); }
-    .pricing-block-header h4 { font-size: 0.95rem; margin: 0 0 0.2rem; }
-    .pricing-block-header p { font-size: 0.78rem; color: var(--text-muted); margin: 0; }
-    .pricing-mat { font-size: 0.72rem; padding: 4px 14px; flex-shrink: 0; }
 
-    /* ── PHA CALLOUT ─────────────────────────────────────────────── */
-    .pha-callout { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 5rem 3rem; display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: center; background: var(--cream); }
-    .pha-callout-headline { border-right: 1px solid var(--border); padding-right: 4rem; }
-    .pha-callout-headline h2 { font-size: clamp(1.5rem, 2vw, 2.2rem); letter-spacing: -0.01em; }
-    .pha-callout-headline p { font-size: 0.88rem; margin-top: 0.75rem; }
-    .pha-callout-credentials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .pha-cred { padding: 1.5rem; background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--lime); }
-    .pha-cred-label { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.6rem; }
-    .pha-cred-title { font-family: 'Open Sans', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
-    .pha-cred p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.65; }
-
-    /* ── PRODUCTS ─────────────────────────────────────────────────── */
+    /* PRODUCTS */
     .products-section { border-top: 1px solid var(--border); }
     .product-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); min-height: 380px; overflow: hidden; }
     .product-row.reverse { direction: rtl; }
     .product-row.reverse > * { direction: ltr; }
     .product-img { position: relative; overflow: hidden; min-height: 380px; background: var(--cream); }
     .product-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s ease; }
-    .product-row:hover .product-img img { transform: scale(1.04); }
     .product-info { padding: 4rem 3rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); background: var(--white); }
-    .product-row.reverse .product-info { border-left: none; border-right: 1px solid var(--border); }
     .product-info h3 { font-size: clamp(1.7rem, 2.3vw, 2.2rem); margin-bottom: 1rem; margin-top: 0.5rem; letter-spacing: -0.01em; }
     .product-info p { font-size: 0.9rem; margin-bottom: 1.5rem; max-width: 380px; }
     .product-sizes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; }
@@ -284,7 +101,7 @@
     .product-link { color: var(--teal); font-size: 0.82rem; font-weight: 600; text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s; }
     .product-link:hover { gap: 12px; }
 
-    /* ── USE CASES ────────────────────────────────────────────────── */
+    /* USE CASES */
     .use-cases { border-top: 1px solid var(--border); padding: 8rem 3rem; background: var(--white); }
     .use-cases-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 4rem; }
     .use-cases-header h2 { font-size: clamp(2rem, 3vw, 3.2rem); letter-spacing: -0.01em; }
@@ -297,7 +114,7 @@
     .use-case-card h4 { font-family: 'Open Sans', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem; }
     .use-case-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
 
-    /* ── FEATURES STRIP ───────────────────────────────────────────── */
+    /* FEATURES */
     .features-strip { background: var(--grey-light); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(4, 1fr); }
     .feature-item { padding: 0 2.5rem; border-left: 1px solid var(--border); }
     .feature-item:first-child { border-left: none; padding-left: 0; }
@@ -305,11 +122,16 @@
     .feature-title { font-family: 'Open Sans', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
     .feature-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
 
-    /* ── PRICING ──────────────────────────────────────────────────── */
+    /* PRICING */
     .pricing-section { padding: 8rem 3rem; border-top: 1px solid var(--border); background: var(--white); }
     .pricing-header { max-width: 560px; margin-bottom: 3rem; }
     .pricing-header h2 { font-size: clamp(1.9rem, 2.8vw, 2.8rem); margin-top: 0.5rem; letter-spacing: -0.01em; }
     .pricing-header p { font-size: 0.9rem; margin-top: 0.75rem; }
+    .pricing-block { margin-bottom: 3rem; border: 1px solid var(--border); }
+    .pricing-block-header { display: flex; align-items: center; gap: 1.25rem; padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); background: var(--grey-light); }
+    .pricing-block-header h4 { font-size: 0.95rem; margin: 0 0 0.2rem; }
+    .pricing-block-header p { font-size: 0.78rem; color: var(--text-muted); margin: 0; }
+    .pricing-mat { font-size: 0.72rem; padding: 4px 14px; flex-shrink: 0; }
     .pricing-table-wrap { overflow-x: auto; border: 1px solid var(--border); }
     .pricing-table { width: 100%; border-collapse: collapse; }
     .pricing-table th { padding: 1rem 1.5rem; text-align: left; font-family: 'Open Sans', sans-serif; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); background: var(--grey-light); border-bottom: 1px solid var(--border); white-space: nowrap; }
@@ -322,17 +144,17 @@
     .pricing-table td.td-best { background: rgba(178,241,43,0.10); border-left: 2px solid rgba(178,241,43,0.4); color: var(--dark); font-weight: 700; }
     .per { color: var(--grey); font-size: 0.74rem; font-weight: 400; }
     .pricing-note { margin-top: 1.2rem; font-size: 0.78rem; color: var(--grey); }
-    .pricing-note a { color: var(--teal); text-decoration: none; transition: opacity 0.2s; }
+    .pricing-note a { color: var(--teal); text-decoration: none; }
     .pricing-note a:hover { opacity: 0.75; }
 
-    /* ── CTA ──────────────────────────────────────────────────────── */
+    /* CTA */
     .cta-section { text-align: center; padding: 8rem 3rem; background: var(--navy); }
     .cta-section .eyebrow { color: var(--lime); }
     .cta-section h2 { font-size: clamp(2rem, 3.8vw, 3.8rem); margin-bottom: 1.25rem; max-width: 680px; margin-left: auto; margin-right: auto; letter-spacing: -0.01em; color: #ffffff; }
     .cta-section p { font-size: 0.95rem; margin-bottom: 2.5rem; max-width: 460px; margin-left: auto; margin-right: auto; color: rgba(255,255,255,0.6); }
     .cta-actions { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
 
-    /* ── FOOTER ───────────────────────────────────────────────────── */
+    /* FOOTER */
     footer { border-top: 1px solid rgba(255,255,255,0.08); padding: 5rem 3rem 2.5rem; background: var(--navy); }
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3.5rem; }
     .footer-brand p { font-size: 0.84rem; margin-top: 1rem; max-width: 240px; color: rgba(255,255,255,0.48); }
@@ -341,93 +163,29 @@
     .footer-col a:hover { color: var(--lime); }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; color: rgba(255,255,255,0.28); }
 
-    /* ── PHA CALLOUT ─────────────────────────────────────────────── */
-    .pha-callout {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 5rem 3rem;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 4rem;
-      align-items: center;
-      background: rgba(198, 169, 107, 0.02);
-    }
-    .pha-callout-headline {
-      border-right: 1px solid var(--border);
-      padding-right: 4rem;
-    }
-    .pha-callout-headline h2 { font-size: clamp(1.6rem, 2.2vw, 2.4rem); letter-spacing: 0.03em; }
-    .pha-callout-headline p { font-size: 0.88rem; margin-top: 0.75rem; }
-    .pha-callout-credentials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .pha-cred {
-      padding: 1.5rem;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border);
-      border-top: 2px solid var(--gold);
-    }
-    .pha-cred-label {
-      font-size: 0.64rem;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.6rem;
-    }
-    .pha-cred-title {
-      font-family: 'Open Sans', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--dark);
-      margin-bottom: 0.4rem;
-    }
-    .pha-cred p { font-size: 0.78rem; color: var(--grey); line-height: 1.65; }
-
-    .service-card { opacity: 1 !important; }
-
     @media (max-width: 768px) {
       nav { padding: 0 1.5rem; }
       .nav-links { display: none; flex-direction: column; }
-      .nav-links.open {
-        display: flex;
-        position: fixed;
-        top: 72px; left: 0; right: 0;
-        background: rgba(255,255,255,0.98);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border);
-        padding: 1rem 1.5rem 2rem;
-        gap: 0;
-        z-index: 101;
-      }
+      .nav-links.open { display: flex; position: fixed; top: 72px; left: 0; right: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem 2rem; gap: 0; z-index: 101; }
       .nav-links.open a { padding: 0.875rem 0; font-size: 0.9rem; border-bottom: 1px solid var(--border); color: var(--text-muted); letter-spacing: 0.1em; }
       .nav-links.open a.active, .nav-links.open a:hover { color: var(--navy); }
       .nav-links.open a:last-child { border-bottom: none; }
-      .nav-links.open .btn-nav { margin-top: 0.75rem; padding: 0.75rem 1rem; text-align: center; border: 2px solid var(--lime); }
+      .nav-links.open .btn-nav { margin-top: 0.75rem; padding: 0.75rem 1rem; text-align: center; }
       .nav-hamburger { display: flex; }
-
       .hero { grid-template-columns: 1fr; }
       .hero-visual { min-height: 65vw; border-left: none; border-top: 1px solid var(--border); }
       .hero-content { padding: 5rem 1.5rem 3rem; }
-
       .product-row { grid-template-columns: 1fr; }
       .product-row.reverse { direction: ltr; }
       .product-info { padding: 2.5rem 1.5rem; border-left: none !important; border-right: none !important; border-top: 1px solid var(--border); }
-
       .use-cases { padding: 4rem 1.5rem; }
       .use-cases-header { grid-template-columns: 1fr; gap: 1.5rem; }
       .use-cases-grid { grid-template-columns: 1fr 1fr; }
       .use-case-card:nth-child(2) { border-right: none; }
-
-      .pha-callout { grid-template-columns: 1fr; gap: 2.5rem; padding: 3.5rem 1.5rem; }
-      .pha-callout-headline { border-right: none; padding-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
-      .pha-callout-credentials { grid-template-columns: 1fr; }
-
       .features-strip { grid-template-columns: 1fr 1fr; padding: 3rem 1.5rem; gap: 2rem; }
       .feature-item { border-left: none; padding-left: 0; }
-
       .pricing-section { padding: 5rem 1.5rem; }
       .cta-section { padding: 5rem 1.5rem; }
-
       footer { padding: 4rem 1.5rem 2rem; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
       .footer-brand { grid-column: 1 / -1; }
@@ -451,8 +209,8 @@
     </button>
     <div class="nav-links" id="nav-links">
       <a href="index.html">Why PHA?</a>
-      <a href="hot-cups.html">Hot Cups</a>
-      <a href="cold-cups.html" class="active">Cold Cups</a>
+      <a href="hot-cups.html" class="active">Hot Cups</a>
+      <a href="cold-cups.html">Cold Cups</a>
       <a href="process.html">Process</a>
       <a href="contact.html">Contact</a>
       <a href="contact.html" class="btn-nav">Get a Quote</a>
@@ -462,14 +220,14 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
-      <div class="hero-tag">Cold Cups · PLA &amp; PHA · West Coast</div>
-      <h1>Cold Presentation.<br><em>Every Budget.</em></h1>
+      <div class="hero-tag">Hot Cups · PLA &amp; PHA · West Coast</div>
+      <h1>Hot Drinks.<br><em>Every Budget.</em></h1>
       <p class="hero-body">
-        PLA cold cups from MOQ 500. Fully home-compostable PHA cold cups from MOQ 5,000.
-        12 oz and 16 oz, branded or plain — built for the full cold menu, every service style.
+        PLA hot cups from MOQ 500. Fully home-compostable PHA hot cups from MOQ 5,000.
+        12 oz and 16 oz, branded or plain — built for espresso bars, filter coffee, and everything in between.
       </p>
       <div class="hero-actions">
-        <a href="#products" class="btn-primary">See All Cold Cups</a>
+        <a href="#products" class="btn-primary">See All Hot Cups</a>
         <a href="contact.html" class="btn-ghost">Get a Quote →</a>
       </div>
       <div class="hero-badges">
@@ -478,123 +236,66 @@
         <div class="badge"><i data-lucide="printer" width="13" height="13"></i> Full-Wrap Print</div>
       </div>
     </div>
-
     <div class="hero-visual">
       <div class="cup-wrap">
-        <svg class="cup-svg" viewBox="0 0 280 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg class="cup-svg" viewBox="0 0 280 450" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
-            <linearGradient id="coldBodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#7ea8bc" stop-opacity="0.55"/>
-              <stop offset="12%"  stop-color="#c4dce8" stop-opacity="0.60"/>
-              <stop offset="46%"  stop-color="#e4f2f8" stop-opacity="0.38"/>
-              <stop offset="85%"  stop-color="#b0ceda" stop-opacity="0.58"/>
-              <stop offset="100%" stop-color="#6e98aa" stop-opacity="0.55"/>
+            <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#b8b0a4"/>
+              <stop offset="10%"  stop-color="#ede8de"/>
+              <stop offset="46%"  stop-color="#faf8f4"/>
+              <stop offset="85%"  stop-color="#e8e2d6"/>
+              <stop offset="100%" stop-color="#b4ac9e"/>
             </linearGradient>
-            <linearGradient id="coldCoffeeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#140804"/>
-              <stop offset="42%"  stop-color="#240e05"/>
-              <stop offset="100%" stop-color="#0e0602"/>
+            <linearGradient id="stripeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%"   stop-color="#9ed420"/>
+              <stop offset="100%" stop-color="#7aaa10"/>
             </linearGradient>
-            <linearGradient id="coldIceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stop-color="#ddeef6"/>
-              <stop offset="100%" stop-color="#a4c8de" stop-opacity="0.72"/>
-            </linearGradient>
-            <linearGradient id="coldLidGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#7a9eb0"/>
-              <stop offset="35%"  stop-color="#bcd6e2"/>
-              <stop offset="60%"  stop-color="#d4eaf2"/>
-              <stop offset="85%"  stop-color="#a8cada"/>
-              <stop offset="100%" stop-color="#6e90a0"/>
-            </linearGradient>
-            <linearGradient id="coldStrawGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#a08030"/>
-              <stop offset="100%" stop-color="#c6a96b"/>
-            </linearGradient>
-            <linearGradient id="coldBaseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#4a6878"/>
-              <stop offset="50%"  stop-color="#7a9aaa"/>
-              <stop offset="100%" stop-color="#3e5868"/>
-            </linearGradient>
-            <radialGradient id="coldVignette" cx="50%" cy="50%" r="50%">
-              <stop offset="58%" stop-color="rgba(0,0,0,0)"/>
-              <stop offset="100%" stop-color="rgba(11,11,12,0.28)"/>
+            <radialGradient id="coffeeGrad" cx="40%" cy="38%" r="62%">
+              <stop offset="0%"   stop-color="#3a1a0a"/>
+              <stop offset="55%"  stop-color="#1c0d04"/>
+              <stop offset="100%" stop-color="#0e0702"/>
             </radialGradient>
-            <clipPath id="coldCupClip">
-              <path d="M 40 88 L 240 88 L 204 418 L 76 418 Z"/>
+            <linearGradient id="rimHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%"   stop-color="rgba(255,255,255,0.28)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+            </linearGradient>
+            <linearGradient id="vignetteGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="rgba(0,0,0,0.05)"/>
+              <stop offset="18%"  stop-color="rgba(0,0,0,0)"/>
+              <stop offset="82%"  stop-color="rgba(0,0,0,0)"/>
+              <stop offset="100%" stop-color="rgba(0,0,0,0.05)"/>
+            </linearGradient>
+            <radialGradient id="baseGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="#d4cec4"/>
+              <stop offset="100%" stop-color="#a8a094"/>
+            </radialGradient>
+            <clipPath id="cupClip">
+              <path d="M 38 92 L 242 92 L 204 388 L 76 388 Z"/>
             </clipPath>
           </defs>
-          <ellipse cx="140" cy="436" rx="60" ry="9" fill="rgba(0,0,0,0.20)"/>
-          <g clip-path="url(#coldCupClip)">
-            <path d="M 40 88 L 240 88 L 204 418 L 76 418 Z" fill="url(#coldCoffeeGrad)"/>
-            <ellipse cx="140" cy="98" rx="94" ry="10" fill="#c49060" opacity="0.30"/>
-            <rect x="68" y="130" width="54" height="46" rx="5" fill="url(#coldIceGrad)" opacity="0.76" transform="rotate(-10 95 153)"/>
-            <rect x="70" y="133" width="18" height="5" rx="2.5" fill="white" opacity="0.52" transform="rotate(-10 79 135)"/>
-            <rect x="146" y="114" width="48" height="42" rx="5" fill="url(#coldIceGrad)" opacity="0.70" transform="rotate(7 170 135)"/>
-            <rect x="148" y="117" width="16" height="4" rx="2" fill="white" opacity="0.48" transform="rotate(7 156 119)"/>
-            <rect x="86" y="188" width="46" height="38" rx="5" fill="url(#coldIceGrad)" opacity="0.65" transform="rotate(13 109 207)"/>
-            <rect x="88" y="191" width="14" height="4" rx="2" fill="white" opacity="0.42" transform="rotate(13 95 193)"/>
-            <rect x="156" y="174" width="40" height="34" rx="4" fill="url(#coldIceGrad)" opacity="0.60" transform="rotate(-6 176 191)"/>
-            <rect x="158" y="177" width="13" height="3" rx="1.5" fill="white" opacity="0.38" transform="rotate(-6 164 178)"/>
+          <ellipse cx="140" cy="408" rx="56" ry="8" fill="rgba(0,0,0,0.18)"/>
+          <path d="M 38 92 L 242 92 L 204 388 L 76 388 Z" fill="url(#bodyGrad)"/>
+          <path d="M 38 92 L 242 92 L 239 108 L 41 108 Z" fill="url(#stripeGrad)"/>
+          <path d="M 77 374 L 203 374 L 204 388 L 76 388 Z" fill="url(#stripeGrad)"/>
+          <path d="M 38 92 L 242 92 L 204 388 L 76 388 Z" fill="url(#vignetteGrad)"/>
+          <ellipse cx="140" cy="92" rx="102" ry="14" fill="url(#coffeeGrad)"/>
+          <ellipse cx="112" cy="87" rx="28" ry="5" fill="rgba(255,185,110,0.10)" transform="rotate(-8 112 87)"/>
+          <path d="M 38 92 L 242 92 L 240 100 L 40 100 Z" fill="url(#rimHighlight)"/>
+          <ellipse cx="140" cy="388" rx="64" ry="9" fill="url(#baseGrad)"/>
+          <g transform="translate(140 182)" stroke="#b2f12b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <polyline points="-21,20 -21,-2 0,11 21,-2 21,20"/>
+            <circle cx="26.5" cy="18" r="3.2" fill="#b2f12b" stroke="none"/>
           </g>
-          <path d="M 40 88 L 240 88 L 204 418 L 76 418 Z" fill="url(#coldBodyGrad)"/>
-          <path d="M 40 88 L 240 88 L 204 418 L 76 418 Z" fill="url(#coldVignette)"/>
-          <path d="M 40 88 L 68 88 L 86 418 L 76 418 Z" fill="rgba(0,0,0,0.17)"/>
-          <path d="M 212 88 L 240 88 L 204 418 L 194 418 Z" fill="rgba(0,0,0,0.17)"/>
-          <path d="M 122 88 L 158 88 L 154 418 L 126 418 Z" fill="rgba(255,255,255,0.055)"/>
-          <g clip-path="url(#coldCupClip)" opacity="0.90">
-            <g transform="translate(140 224)" stroke="#b2f12b" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
-              <polyline points="-18,17 -18,-2 0,10 18,-2 18,17"/>
-              <circle cx="23" cy="15.5" r="2.8" fill="#b2f12b" stroke="none"/>
-            </g>
-            <text x="140" y="268" text-anchor="middle" font-family="'Outfit', Arial, sans-serif" font-weight="500" font-size="22" fill="#F5F1E8" letter-spacing="5">MYTHOS</text>
-            <line x1="100" y1="278" x2="180" y2="278" stroke="#b2f12b" stroke-width="0.82" opacity="0.62"/>
-            <text x="141" y="296" text-anchor="middle" font-family="'Outfit', Arial, sans-serif" font-weight="300" font-size="10" fill="#b2f12b" letter-spacing="6">COFFEE</text>
+          <text x="140" y="236" text-anchor="middle" font-family="'Open Sans', Arial, sans-serif" font-weight="700" font-size="24" fill="#1a2b34" letter-spacing="5">MYTHOS</text>
+          <line x1="96" y1="248" x2="184" y2="248" stroke="#b2f12b" stroke-width="0.85" opacity="0.65"/>
+          <text x="141" y="270" text-anchor="middle" font-family="'Open Sans', Arial, sans-serif" font-weight="400" font-size="11" fill="#607585" letter-spacing="6.5">PRINTS</text>
+          <g stroke="#b8b0a4" stroke-width="1.7" fill="none" stroke-linecap="round">
+            <path d="M 116 80 C 112 63 120 56 116 40"/>
+            <path d="M 140 74 C 136 57 144 50 140 34" style="animation-delay:0.95s"/>
+            <path d="M 164 80 C 160 63 168 56 164 40" style="animation-delay:1.9s"/>
           </g>
-          <ellipse cx="103" cy="318" rx="2.2" ry="3.8" fill="rgba(185,220,235,0.50)"/>
-          <ellipse cx="97"  cy="352" rx="1.8" ry="3.1" fill="rgba(185,220,235,0.40)"/>
-          <ellipse cx="178" cy="304" rx="2.0" ry="3.5" fill="rgba(185,220,235,0.45)"/>
-          <ellipse cx="185" cy="340" rx="1.6" ry="2.8" fill="rgba(185,220,235,0.40)"/>
-          <ellipse cx="115" cy="374" rx="1.8" ry="3.0" fill="rgba(185,220,235,0.38)"/>
-          <ellipse cx="167" cy="380" rx="1.5" ry="2.5" fill="rgba(185,220,235,0.38)"/>
-          <ellipse cx="140" cy="418" rx="66" ry="9" fill="url(#coldBaseGrad)" opacity="0.45"/>
-          <ellipse cx="140" cy="421" rx="63" ry="7" fill="rgba(30,50,62,0.30)"/>
-          <ellipse cx="140" cy="88" rx="108" ry="15" fill="url(#coldLidGrad)"/>
-          <ellipse cx="140" cy="84" rx="106" ry="13" fill="url(#coldLidGrad)"/>
-          <ellipse cx="140" cy="80" rx="103" ry="12" fill="#c0d8e4"/>
-          <ellipse cx="140" cy="78" rx="86" ry="9" fill="#d2e8f0" opacity="0.75"/>
-          <ellipse cx="114" cy="74" rx="26" ry="4.5" fill="rgba(255,255,255,0.22)" transform="rotate(-5 114 74)"/>
-          <rect x="116" y="74" width="32" height="9" rx="4.5" fill="#8aaabb" opacity="0.80"/>
-          <rect x="120" y="76" width="24" height="5" rx="2.5" fill="#6a8898" opacity="0.60"/>
-          <path d="M 33 88 A 107 15 0 0 1 247 88" stroke="rgba(255,255,255,0.32)" stroke-width="1.2" fill="none"/>
-          <rect x="162" y="10" width="10" height="86" rx="5" fill="url(#coldStrawGrad)"/>
-          <rect x="163.5" y="12" width="3.5" height="82" rx="1.75" fill="rgba(255,255,255,0.27)"/>
         </svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- PHA CALLOUT -->
-  <section class="pha-callout">
-    <div class="pha-callout-headline">
-      <span class="eyebrow">Why PHA</span>
-      <h2>The Next Generation of <em>Compostable</em></h2>
-      <p>PHA (polyhydroxyalkanoates) is produced by bacteria from plant sugars. It breaks down in your backyard compost — no industrial facility required.</p>
-    </div>
-    <div class="pha-callout-credentials">
-      <div class="pha-cred">
-        <div class="pha-cred-label">Planet</div>
-        <div class="pha-cred-title">Home Compostable</div>
-        <p>Fully breaks down in 6–12 months in backyard compost and soil. Marine biodegradable. No landfill residue.</p>
-      </div>
-      <div class="pha-cred">
-        <div class="pha-cred-label">Health</div>
-        <div class="pha-cred-title">Zero Microplastics</div>
-        <p>PHA biodegrades completely — it never fragments into microplastics. No BPA, no PFAS, no phthalates. FDA food contact approved.</p>
-      </div>
-      <div class="pha-cred">
-        <div class="pha-cred-label">Brand</div>
-        <div class="pha-cred-title">Genuinely Sustainable</div>
-        <p>Not "compostable in theory" — compostable in reality. A claim your customers can verify at home, not just on a label.</p>
       </div>
     </div>
   </section>
@@ -602,17 +303,17 @@
   <!-- PRODUCTS -->
   <section class="products-section" id="products">
     <div class="products-header">
-      <span class="eyebrow">Cold Cup Range</span>
+      <span class="eyebrow">Hot Cup Range</span>
       <h2>PLA &amp; PHA. Branded &amp; Plain.<br><em>12 oz and 16 oz.</em></h2>
     </div>
     <div class="product-row">
       <div class="product-img">
-        <img src="img/pla-cold-unbranded.png" alt="PLA Non-Branded Cold Cups" loading="lazy">
+        <img src="img/pla-plain.png" alt="PLA Non-Branded Hot Cups" loading="lazy">
       </div>
       <div class="product-info">
         <span class="eyebrow">PLA · Non-Branded · MOQ 500</span>
-        <h3>Non-Branded<br><em>PLA Cold Cups</em></h3>
-        <p>Plain clear PLA cold cups — no artwork required. The easiest way to move to plant-based packaging. BPA-free, PFAS-free, made from renewable corn starch. Requires industrial composting to break down — we recommend directing customers to those facilities where available.</p>
+        <h3>Non-Branded<br><em>PLA Hot Cups</em></h3>
+        <p>Plain white PLA hot cups — no artwork required. The most accessible starting point on our range. Plant-based, BPA-free, made from renewable corn starch. Ideal for new cafés or those testing volume before committing to a custom print run.</p>
         <div class="product-sizes">
           <span class="size-tag">12 oz</span>
           <span class="size-tag">16 oz</span>
@@ -627,8 +328,8 @@
     <div class="product-row reverse">
       <div class="product-info" style="border-left:none;border-right:1px solid var(--border);">
         <span class="eyebrow">PLA · Custom Branded · MOQ 2,000</span>
-        <h3>Custom Branded<br><em>PLA Cold Cups</em></h3>
-        <p>Full 360° HD printing on clear PLA cold cups. Your logo in full colour on a plant-based cup — a genuine step up from conventional plastic. Ideal for cafés building their brand identity at accessible volume. Honest with customers about industrial composting requirements.</p>
+        <h3>Custom Branded<br><em>PLA Hot Cups</em></h3>
+        <p>Full 360° HD printing on plant-based PLA hot cups. BPA-free, PFAS-free, made from renewable corn starch. The right entry point for branded eco packaging. Requires industrial composting to biodegrade — we'll help you communicate that clearly to your customers.</p>
         <div class="product-sizes">
           <span class="size-tag">12 oz</span>
           <span class="size-tag">16 oz</span>
@@ -640,17 +341,17 @@
         <a href="contact.html" class="product-link">Get a Quote →</a>
       </div>
       <div class="product-img">
-        <img src="img/pla-cold-branded.png" alt="PLA Custom Branded Cold Cups" loading="lazy">
+        <img src="img/pla-branded-hot.png" alt="PLA Custom Branded Hot Cups" loading="lazy">
       </div>
     </div>
     <div class="product-row">
       <div class="product-img">
-        <img src="img/pha-cup.png" alt="PHA Non-Branded Cold Cups" loading="lazy">
+        <img src="img/pha-cup.png" alt="PHA Non-Branded Hot Cups" loading="lazy">
       </div>
       <div class="product-info">
         <span class="eyebrow">PHA · Non-Branded · MOQ 5,000</span>
-        <h3>Non-Branded<br><em>PHA Cold Cups</em></h3>
-        <p>High-clarity PHA cold cups — home compostable, marine biodegradable, zero microplastics. No custom print required. The cleanest cold cup on the market, plain white. For operators who prioritise what's inside the cup and what happens to it after.</p>
+        <h3>Non-Branded<br><em>PHA Hot Cups</em></h3>
+        <p>The gold standard in eco hot cups, plain white. Home compostable, marine biodegradable, zero microplastics — no custom print required. For operators who care deeply about materials and want to serve the best possible cup, regardless of branding.</p>
         <div class="product-sizes">
           <span class="size-tag">12 oz</span>
           <span class="size-tag">16 oz</span>
@@ -669,33 +370,30 @@
     <div class="use-cases-header">
       <div>
         <span class="eyebrow">Built For</span>
-        <h2>Every Cold <em>Drink Format</em></h2>
+        <h2>Every Hot <em>Drink Format</em></h2>
       </div>
-      <p>
-        From neighbourhood espresso bars to high-volume chain locations —
-        our cold cups are engineered for the full menu of modern coffee shop cold offerings.
-      </p>
+      <p>From neighbourhood espresso bars to high-volume chain locations — our hot cups handle the full menu of modern coffee shop hot offerings, from flat whites to filter coffee.</p>
     </div>
     <div class="use-cases-grid">
       <div class="use-case-card">
         <div class="use-case-icon"><i data-lucide="coffee" width="20" height="20"></i></div>
-        <h4>Iced Lattes</h4>
-        <p>The daily driver. High clarity lets your branded design and the drink speak for themselves.</p>
+        <h4>Espresso Drinks</h4>
+        <p>Lattes, cappuccinos, flat whites — the 12 oz hits every signature espresso format.</p>
       </div>
       <div class="use-case-card">
         <div class="use-case-icon"><i data-lucide="zap" width="20" height="20"></i></div>
-        <h4>Cold Brew</h4>
-        <p>Deep-pour cold brew looks exceptional in our clear PHA with a stark branded design.</p>
+        <h4>Filter Coffee</h4>
+        <p>The 16 oz is built for pour-over, batch brew, and americanos — high volume, fast service.</p>
       </div>
       <div class="use-case-card">
         <div class="use-case-icon"><i data-lucide="droplets" width="20" height="20"></i></div>
-        <h4>Blended Drinks</h4>
-        <p>Dome lids and thick-wall cups handle high-volume blended offerings with ease.</p>
+        <h4>Matcha &amp; Tea</h4>
+        <p>Premium wellness drinks deserve packaging that reflects the care behind them.</p>
       </div>
       <div class="use-case-card">
         <div class="use-case-icon"><i data-lucide="leaf" width="20" height="20"></i></div>
-        <h4>Wellness Drinks</h4>
-        <p>Matcha, adaptogen lattes, and functional drinks deserve packaging that matches the premium.</p>
+        <h4>Seasonal Drinks</h4>
+        <p>Limited edition cups for seasonal menus — your brand story, every single serving.</p>
       </div>
     </div>
   </section>
@@ -703,24 +401,24 @@
   <!-- FEATURES -->
   <div class="features-strip">
     <div class="feature-item">
-      <div class="feature-icon"><i data-lucide="microscope" width="18" height="18"></i></div>
-      <div class="feature-title">Zero Microplastics</div>
-      <div class="feature-desc">PHA fully biodegrades — never fragments into microplastics. No BPA, PFAS, or phthalates.</div>
+      <div class="feature-icon"><i data-lucide="leaf" width="18" height="18"></i></div>
+      <div class="feature-title">PLA &amp; PHA Options</div>
+      <div class="feature-desc">Plant-based PLA from MOQ 500. Fully home-compostable PHA from MOQ 5,000. You choose the tier that fits.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i data-lucide="shield-check" width="18" height="18"></i></div>
+      <div class="feature-title">BPA &amp; PFAS Free</div>
+      <div class="feature-desc">Both PLA and PHA are free of BPA, PFAS, and phthalates. No harmful compounds near your customers' drinks.</div>
     </div>
     <div class="feature-item">
       <div class="feature-icon"><i data-lucide="printer" width="18" height="18"></i></div>
       <div class="feature-title">360° HD Print</div>
-      <div class="feature-desc">Full-wrap colour reproduction. Your artwork reproduced exactly — vibrant and consistent.</div>
-    </div>
-    <div class="feature-item">
-      <div class="feature-icon"><i data-lucide="package" width="18" height="18"></i></div>
-      <div class="feature-title">MOQ from 500</div>
-      <div class="feature-desc">PLA non-branded from 500 units. PLA branded from 2,000. PHA from 5,000. Volume pricing on all lines.</div>
+      <div class="feature-desc">Full-wrap colour printing across the entire cup. Your artwork reproduced exactly — no shortcuts.</div>
     </div>
     <div class="feature-item">
       <div class="feature-icon"><i data-lucide="truck" width="18" height="18"></i></div>
       <div class="feature-title">CA &amp; US Shipping</div>
-      <div class="feature-desc">Fast delivery to BC, AB, WA, OR, CA and across North America.</div>
+      <div class="feature-desc">BC, AB, WA, OR, CA and beyond. West Coast focused, coast-to-coast capable.</div>
     </div>
   </div>
 
@@ -728,7 +426,7 @@
   <section class="pricing-section">
     <div class="pricing-header">
       <span class="eyebrow">Pricing &amp; MOQs</span>
-      <h2>Cold Cups.<br><em>All Four Lines.</em></h2>
+      <h2>Hot Cups.<br><em>All Three Lines.</em></h2>
       <p>12 oz and 16 oz across all products. Volume pricing applies — mix sizes within a product to qualify for a tier.</p>
     </div>
 
@@ -736,8 +434,8 @@
       <div class="pricing-block-header">
         <span class="pricing-mat pla-label">PLA</span>
         <div>
-          <h4>Non-Branded Cold Cups</h4>
-          <p>MOQ 500 · Plain clear · No artwork required</p>
+          <h4>Non-Branded Hot Cups</h4>
+          <p>MOQ 500 · Plain white · No artwork required</p>
         </div>
       </div>
       <div class="pricing-table-wrap">
@@ -762,7 +460,7 @@
       <div class="pricing-block-header">
         <span class="pricing-mat pla-label">PLA</span>
         <div>
-          <h4>Custom Branded Cold Cups</h4>
+          <h4>Custom Branded Hot Cups</h4>
           <p>MOQ 2,000 · Full 360° HD print · Artwork proof included</p>
         </div>
       </div>
@@ -788,8 +486,8 @@
       <div class="pricing-block-header">
         <span class="pricing-mat pha-label">PHA</span>
         <div>
-          <h4>Non-Branded Cold Cups</h4>
-          <p>MOQ 5,000 · Plain clear · Home compostable</p>
+          <h4>Non-Branded Hot Cups</h4>
+          <p>MOQ 5,000 · Plain white · Home compostable</p>
         </div>
       </div>
       <div class="pricing-table-wrap">
@@ -816,11 +514,11 @@
   <!-- CTA -->
   <section class="cta-section">
     <span class="eyebrow">Start your order</span>
-    <h2>Make Every Cold Drink <em>Unmistakable</em></h2>
+    <h2>Make Every Hot Drink <em>Unmistakable</em></h2>
     <p>Share your artwork and cup specs. We'll send back a digital proof and quote within 24 hours.</p>
     <div class="cta-actions">
       <a href="contact.html" class="btn-primary">Get a Free Quote</a>
-      <a href="hot-cups.html" class="btn-ghost">← View Hot Cups</a>
+      <a href="cold-cups.html" class="btn-ghost">View Cold Cups →</a>
     </div>
   </section>
 
@@ -831,21 +529,21 @@
         <svg width="150" height="34" viewBox="0 0 162 38" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4 30 L4 9 L14 23 L24 9 L24 30" stroke="#b2f12b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
           <circle cx="28.5" cy="28" r="2.5" fill="#b2f12b"/>
-          <text x="38" y="23" font-family="Outfit, sans-serif" font-size="14" font-weight="500" fill="#ffffff" letter-spacing="2">MYTHOS</text>
-          <text x="38.5" y="35" font-family="Outfit, sans-serif" font-size="8" font-weight="300" fill="rgba(255,255,255,0.4)" letter-spacing="4.5">PRINTS</text>
+          <text x="38" y="23" font-family="Open Sans, sans-serif" font-size="14" font-weight="700" fill="#ffffff" letter-spacing="2">MYTHOS</text>
+          <text x="38.5" y="35" font-family="Open Sans, sans-serif" font-size="8" font-weight="400" fill="rgba(255,255,255,0.4)" letter-spacing="4.5">PRINTS</text>
         </svg>
-        <p>Custom-printed cups for serious coffee shops across the West Coast and beyond.</p>
+        <p>Custom-printed PLA &amp; PHA cups for coffee shops across the West Coast and beyond.</p>
       </div>
       <div class="footer-col">
         <h4>Products</h4>
         <a href="hot-cups.html">Hot Cups</a>
         <a href="cold-cups.html">Cold Cups</a>
-        <a href="index.html">Why PHA?</a>
+        <a href="contact.html">Get a Quote</a>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
+        <a href="index.html">Why PHA?</a>
         <a href="process.html">Our Process</a>
-        <a href="contact.html">Get a Quote</a>
         <a href="contact.html">Request Samples</a>
         <a href="mailto:mythosprintshop@gmail.com">mythosprintshop@gmail.com</a>
         <a href="contact.html">Vancouver, BC · Canada</a>
@@ -861,10 +559,8 @@
     try { lucide.createIcons(); } catch(e) {}
     gsap.registerPlugin(ScrollTrigger);
     document.getElementById('year').textContent = new Date().getFullYear();
-
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
-
     const hamburger = document.getElementById('nav-hamburger');
     const navLinks = document.getElementById('nav-links');
     hamburger.addEventListener('click', function() {
@@ -879,14 +575,12 @@
         hamburger.setAttribute('aria-expanded', 'false');
       });
     });
-
     gsap.from('.hero-tag', { opacity: 0, y: 18, duration: 0.9, delay: 0.2 });
     gsap.from('.hero h1', { opacity: 0, y: 36, duration: 1, delay: 0.38 });
     gsap.from('.hero-body', { opacity: 0, y: 22, duration: 0.9, delay: 0.55 });
     gsap.from('.hero-actions', { opacity: 0, y: 18, duration: 0.8, delay: 0.7 });
     gsap.from('.hero-badges', { opacity: 0, y: 14, duration: 0.7, delay: 0.85 });
     gsap.from('.cup-svg', { opacity: 0, y: 28, duration: 1.2, delay: 0.5, ease: 'power2.out' });
-
     gsap.utils.toArray('.product-row').forEach(row => {
       gsap.from(row, { scrollTrigger: { trigger: row, start: 'top 82%' }, opacity: 0, y: 40, duration: 0.9 });
     });
@@ -897,10 +591,6 @@
       gsap.from(el, { scrollTrigger: { trigger: '.features-strip', start: 'top 80%' }, opacity: 0, y: 28, duration: 0.7, delay: i * 0.12 });
     });
     gsap.from('.cta-section', { scrollTrigger: { trigger: '.cta-section', start: 'top 78%' }, opacity: 0, y: 30, duration: 0.9 });
-
-    document.querySelectorAll('a[href^="mailto:"]').forEach(function(a) {
-      a.addEventListener('click', function() { fbq('track', 'Contact'); });
-    });
   </script>
 </body>
 </html>

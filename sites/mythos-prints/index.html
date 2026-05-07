@@ -2,859 +2,787 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mythos Prints — Custom Printed Hot Cups for Coffee Shops</title>
-  <meta name="description" content="Premium custom-printed hot cups for coffee shops across Canada and the United States. BPA-free, compostable, minimum 5,000 units.">
-
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <title>Mythos Prints — Custom Printed PHA Cups for Coffee Shops</title>
+  <meta name="description" content="Premium custom-printed PHA cups for coffee shops across Canada and the United States. Home compostable, marine biodegradable, zero microplastics. Minimum 5,000 units.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.mythosprints.ca/index.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-
+  <!-- Meta Pixel Code -->
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','3937455279892855');fbq('track','PageView');fbq('track','ViewContent',{content_name:'Custom PHA Hot Cups',content_category:'Product'});</script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3937455279892855&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
   <style>
     :root {
-      --bg: #0D0E10;
-      --card: #161819;
-      --accent: #C47A4A;
-      --text: #ECE8E4;
-      --muted: #8B8985;
-      --border: rgba(236,232,228,0.08);
+      --navy: #2c3d49;
+      --dark: #1a2b34;
+      --lime: #b2f12b;
+      --lime-hover: #9ed420;
+      --lime-dim: rgba(178,241,43,0.10);
+      --teal: #007b70;
+      --white: #ffffff;
+      --cream: #f7fee9;
+      --grey-light: #eef2f0;
+      --border: #d8e4de;
+      --text: #3a4d55;
+      --text-muted: #607585;
+      --grey: #8a9da6;
+      /* backward-compat aliases used in inline HTML */
+      --black: #2c3d49;
+      --ivory: #f5f5f0;
+      --gold: #b2f12b;
+      --gold-dim: rgba(178,241,43,0.10);
+      --card: #ffffff;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
+      background: var(--white);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Open Sans', sans-serif;
       font-weight: 400;
       line-height: 1.6;
       overflow-x: hidden;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      opacity: 0.04;
-      pointer-events: none;
-      z-index: 9999;
+    h1, h2, h3, h4 {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--dark);
     }
 
-    h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.15; }
+    p { color: var(--text-muted); line-height: 1.75; }
     em { font-style: italic; }
 
     .eyebrow {
       display: block;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
+      color: var(--teal);
+      margin-bottom: 0.85rem;
     }
 
     /* ── NAV ─────────────────────────────────────────────────────── */
-    .nav {
+    nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 1000;
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 4rem;
+      padding: 0 3rem;
       height: 72px;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.4s, background 0.4s, backdrop-filter 0.4s;
+      background: transparent;
+      transition: background 0.4s, box-shadow 0.4s;
     }
-    .nav.scrolled {
-      background: rgba(13,14,16,0.88);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-color: var(--border);
+    nav.scrolled {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 1px 24px rgba(26,43,52,0.09);
     }
-    .logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; gap: 0.75rem; }
+    .nav-brand { font-family: 'Open Sans', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; transition: color 0.3s; }
+    nav.scrolled .nav-brand { color: var(--dark); }
     .nav-links { display: flex; align-items: center; gap: 2.5rem; }
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--text); }
-    .nav-cta {
-      padding: 0.55rem 1.5rem;
-      background: var(--accent);
-      color: #0D0E10;
-      text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+    nav.scrolled .nav-links a { color: var(--grey); }
+    .nav-links a:hover, .nav-links a.active { color: #ffffff; }
+    nav.scrolled .nav-links a:hover, nav.scrolled .nav-links a.active { color: var(--dark); }
+    .btn-nav {
+      padding: 0.5rem 1.4rem;
+      background: var(--lime);
+      border: none;
+      color: var(--dark) !important;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       border-radius: 2px;
-      transition: transform 0.2s, box-shadow 0.2s;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.15s !important;
     }
-    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(196,122,74,0.35); }
+    .btn-nav:hover { background: var(--lime-hover) !important; transform: scale(1.02) !important; }
     .nav-hamburger {
       display: none;
       flex-direction: column;
-      justify-content: center;
       gap: 5px;
       background: none;
       border: none;
       cursor: pointer;
       padding: 8px;
-      z-index: 1002;
+      z-index: 102;
     }
     .nav-hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: transform 0.3s, opacity 0.3s;
+      display: block; width: 22px; height: 2px;
+      background: #ffffff; border-radius: 1px;
+      transition: transform 0.3s, opacity 0.3s, background 0.3s;
       transform-origin: center;
     }
+    nav.scrolled .nav-hamburger span { background: var(--dark); }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-cta { display: none; }
 
     /* ── HERO ────────────────────────────────────────────────────── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding-top: 72px;
+    .hero-scroll-wrap {
+      position: relative;
+      height: 350vh;
     }
-    .hero-content { padding: 4rem 3.5rem 4rem 4rem; }
-
+    .hero-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(26,43,52,0.82) 0%,
+        rgba(26,43,52,0.55) 45%,
+        rgba(26,43,52,0.10) 100%
+      );
+    }
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 6vw;
+      padding-top: 72px;
+      max-width: 700px;
+    }
+    .hero-content h1 { color: #ffffff; }
     .hero-tag {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 14px;
-      background: rgba(196,122,74,0.08);
-      border: 1px solid rgba(196,122,74,0.25);
+      padding: 5px 14px;
+      background: rgba(178,241,43,0.10);
+      border: 1px solid rgba(178,241,43,0.35);
       border-radius: 100px;
-      font-size: 0.7rem;
+      font-size: 0.66rem;
       font-weight: 600;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--lime);
       margin-bottom: 2rem;
+      width: fit-content;
     }
-
-    .hero h1 {
-      font-size: clamp(2.8rem, 4.2vw, 4.6rem);
-      margin-bottom: 1.5rem;
-      color: var(--text);
-    }
-    .hero-body {
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 440px;
-      margin-bottom: 2.5rem;
-      line-height: 1.8;
-    }
+    .hero h1 { font-size: clamp(2.8rem, 5vw, 5.2rem); letter-spacing: -0.01em; margin-bottom: 1.5rem; }
+    .hero-body { font-size: 1rem; color: rgba(255,255,255,0.65); max-width: 420px; margin-bottom: 2.5rem; line-height: 1.85; }
     .hero-actions { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
-
     .btn-primary {
-      padding: 0.9rem 2.2rem;
-      background: var(--accent);
-      color: #0D0E10;
+      padding: 1rem 2.5rem;
+      background: var(--lime);
+      border: 2px solid var(--lime);
+      color: var(--dark);
       text-decoration: none;
+      font-family: 'Open Sans', sans-serif;
       font-weight: 700;
-      font-size: 0.82rem;
-      letter-spacing: 0.07em;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      border-radius: 2px;
       display: inline-block;
-      transition: transform 0.2s, box-shadow 0.2s;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
     }
-    .btn-primary:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 10px 34px rgba(196,122,74,0.3); }
-
+    .btn-primary:hover { background: var(--lime-hover); border-color: var(--lime-hover); transform: scale(1.02); }
     .btn-ghost {
-      padding: 0.9rem 2.2rem;
+      padding: 1rem 2.2rem;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.7);
       background: transparent;
-      color: var(--text);
       text-decoration: none;
+      font-family: 'Open Sans', sans-serif;
       font-weight: 500;
-      font-size: 0.85rem;
-      letter-spacing: 0.03em;
-      border: 1px solid var(--border);
-      border-radius: 2px;
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
       display: inline-block;
-      transition: border-color 0.2s;
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .btn-ghost:hover { border-color: rgba(236,232,228,0.25); }
-
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #ffffff; }
     .hero-stats {
       display: flex;
       gap: 2.5rem;
       margin-top: 3rem;
       padding-top: 2rem;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(255,255,255,0.12);
     }
     .stat-num {
       display: block;
-      font-family: 'Playfair Display', serif;
+      font-family: 'Open Sans', sans-serif;
       font-size: 1.9rem;
-      font-weight: 700;
-      color: var(--accent);
+      font-weight: 800;
+      color: var(--lime);
       line-height: 1;
       margin-bottom: 0.3rem;
     }
-    .stat-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; }
-
-    .hero-visual {
-      position: relative;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(ellipse at 60% 40%, rgba(196,122,74,0.06) 0%, transparent 65%);
-      border-left: 1px solid var(--border);
-      overflow: hidden;
-    }
-    /* ── CUP ILLUSTRATION ───────────────────────────────────────── */
-    .cup-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
-    .cup-wrap::before {
-      content: '';
+    .stat-label { font-size: 0.68rem; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; text-transform: uppercase; }
+    .hero-scroll-hint {
       position: absolute;
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(ellipse, rgba(196,122,74,0.10) 0%, transparent 68%);
-      pointer-events: none;
-    }
-    .cup-svg {
-      width: clamp(190px, 38%, 268px);
-      height: auto;
-      position: relative;
-      z-index: 1;
-      animation: cup-float 4s ease-in-out infinite;
-      filter: drop-shadow(0 28px 52px rgba(0,0,0,0.55)) drop-shadow(0 6px 16px rgba(196,122,74,0.08));
-    }
-    .steam-1, .steam-2, .steam-3 {
-      animation: steam-rise 3.4s ease-in-out infinite;
-      transform-box: fill-box;
-      transform-origin: bottom center;
-    }
-    .steam-2 { animation-delay: 0.95s; }
-    .steam-3 { animation-delay: 1.9s; }
-    @keyframes cup-float {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-13px); }
-    }
-    @keyframes steam-rise {
-      0%   { opacity: 0;   transform: translateY(0)    scaleX(1);   }
-      25%  { opacity: 0.55; }
-      70%  { opacity: 0.35; transform: translateY(-10px) scaleX(1.12); }
-      100% { opacity: 0;   transform: translateY(-16px) scaleX(0.9); }
-    }
-
-    /* ── PRODUCTS ─────────────────────────────────────────────────── */
-    .products-section { border-top: 1px solid var(--border); }
-
-    .product-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-bottom: 1px solid var(--border);
-      min-height: 360px;
-      overflow: hidden;
-    }
-    .product-row.reverse { direction: rtl; }
-    .product-row.reverse > * { direction: ltr; }
-
-    .product-img { position: relative; overflow: hidden; min-height: 360px; }
-    .product-img img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.7s ease;
-    }
-    .product-row:hover .product-img img { transform: scale(1.05); }
-
-    .product-info {
-      padding: 4rem;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      border-left: 1px solid var(--border);
-    }
-    .product-row.reverse .product-info { border-left: none; border-right: 1px solid var(--border); }
-    .product-info h3 { font-size: 2rem; margin-bottom: 1rem; margin-top: 0.4rem; }
-    .product-info p { color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; max-width: 380px; }
-
-    .product-sizes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; }
-    .size-tag {
-      padding: 4px 14px;
-      background: rgba(196,122,74,0.08);
-      border: 1px solid rgba(196,122,74,0.2);
-      border-radius: 100px;
-      font-size: 0.74rem;
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    .product-link {
-      color: var(--accent);
-      font-size: 0.84rem;
-      font-weight: 600;
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: gap 0.2s;
+      gap: 8px;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: hint-fade 2.5s ease-in-out infinite;
     }
-    .product-link:hover { gap: 12px; }
+    .hero-scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    }
+    @keyframes hint-fade { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-    /* ── FEATURES STRIP ───────────────────────────────────────────── */
-    .features-strip {
-      background: var(--card);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 3.5rem 4rem;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-    }
-    .feature-item {
-      padding: 0 2.5rem;
-      border-left: 1px solid var(--border);
-    }
-    .feature-item:first-child { border-left: none; padding-left: 0; }
-    .feature-icon {
-      width: 42px; height: 42px;
-      background: rgba(196,122,74,0.1);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-    .feature-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.4rem; }
-    .feature-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+    /* ── BRAND STATEMENT ─────────────────────────────────────────── */
+    .brand-statement { padding: 8rem 3rem; border-top: 1px solid var(--border); background: var(--white); }
+    .bs-inner { max-width: 1200px; margin: 0 auto; }
+    .bs-top { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; margin-bottom: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--border); }
+    .bs-top h2 { font-size: clamp(2.2rem, 4vw, 3.8rem); letter-spacing: -0.01em; }
+    .bs-top-right { display: flex; flex-direction: column; justify-content: flex-end; padding-top: 1rem; }
+    .bs-quote { font-family: 'Open Sans', sans-serif; font-size: clamp(1rem, 1.4vw, 1.2rem); font-weight: 400; font-style: italic; color: var(--text); line-height: 1.65; border-left: 3px solid var(--lime); padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .bs-top-right > p { font-size: 0.9rem; padding-left: 1.5rem; }
+    .bs-pillars { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border); }
+    .bs-pillar { padding: 2.5rem; border-right: 1px solid var(--border); background: var(--white); transition: background 0.25s; }
+    .bs-pillar:last-child { border-right: none; }
+    .bs-pillar:hover { background: var(--cream); }
+    .pillar-num { display: block; font-family: 'Open Sans', sans-serif; font-size: 2rem; font-weight: 800; color: var(--teal); opacity: 0.28; line-height: 1; margin-bottom: 1.25rem; }
+    .bs-pillar h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--dark); }
+    .bs-pillar p { font-size: 0.85rem; line-height: 1.7; }
+
+    /* ── MATERIAL BADGES ────────────────────────────────────────── */
+    .pla-label { background: rgba(0,123,112,0.10); color: var(--teal); border: 1px solid rgba(0,123,112,0.25); border-radius: 100px; padding: 3px 12px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: inline-block; }
+    .pha-label { background: rgba(178,241,43,0.12); color: #3a5a00; border: 1px solid rgba(178,241,43,0.45); border-radius: 100px; padding: 3px 12px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: inline-block; }
+
+    /* ── OUR CUP RANGE ───────────────────────────────────────────── */
+    .range-section { padding: 8rem 3rem; border-top: 1px solid var(--border); background: var(--white); }
+    .range-inner { max-width: 1200px; margin: 0 auto; }
+    .range-header { margin-bottom: 4rem; max-width: 640px; }
+    .range-header h2 { font-size: clamp(2.2rem, 3.8vw, 3.8rem); letter-spacing: -0.01em; margin-top: 0.5rem; }
+    .range-header p { margin-top: 1rem; font-size: 0.95rem; line-height: 1.75; }
+    .range-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border); }
+    .range-card { padding: 2.5rem 2rem; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 1rem; }
+    .range-card:last-child { border-right: none; }
+    .range-card h3 { font-size: 1.05rem; line-height: 1.4; margin: 0; }
+    .range-card p { font-size: 0.82rem; line-height: 1.7; color: var(--text-muted); flex: 1; }
+    .range-card-pha { background: var(--cream); }
+    .range-specs { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .range-specs li { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text); }
+    .range-specs li span { color: var(--text-muted); font-weight: 500; }
+    .range-cta { font-size: 0.78rem; font-weight: 700; color: var(--teal); text-decoration: none; letter-spacing: 0.04em; padding-top: 0.25rem; }
+    .range-cta:hover { color: var(--navy); }
+
+
+    /* ── THE PROBLEM ─────────────────────────────────────────────── */
+    .problem-section { padding: 8rem 3rem; border-top: 1px solid var(--border); background: var(--cream); }
+    .problem-header { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: end; margin-bottom: 5rem; }
+    .problem-header h2 { font-size: clamp(2.2rem, 3.8vw, 3.8rem); letter-spacing: -0.01em; }
+    .problem-header p { font-size: 0.95rem; }
+    .problem-stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); background: var(--white); }
+    .problem-stat { padding: 3rem 2.5rem; border-right: 1px solid var(--border); }
+    .problem-stat:last-child { border-right: none; }
+    .ps-num { display: block; font-family: 'Open Sans', sans-serif; font-size: clamp(2.6rem, 3.8vw, 3.8rem); font-weight: 800; color: var(--teal); line-height: 1; margin-bottom: 1rem; }
+    .ps-label { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* ── PLA FALLS SHORT ─────────────────────────────────────────── */
+    .pla-section { padding: 8rem 3rem; border-top: 1px solid var(--border); background: var(--white); }
+    .pla-header { margin-bottom: 4rem; max-width: 640px; }
+    .pla-header h2 { font-size: clamp(2rem, 3.2vw, 3.2rem); letter-spacing: -0.01em; margin-top: 0.5rem; }
+    .pla-header p { margin-top: 1rem; font-size: 0.9rem; }
+    .pla-points { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border); }
+    .pla-point { padding: 3rem 2.5rem; border-right: 1px solid var(--border); }
+    .pla-point:last-child { border-right: none; }
+    .pla-big { font-family: 'Open Sans', sans-serif; font-size: 3rem; font-weight: 800; color: rgba(44,61,73,0.10); line-height: 1; margin-bottom: 1.5rem; }
+    .pla-point h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--dark); }
+    .pla-point p { font-size: 0.85rem; line-height: 1.7; }
+    .pla-disclaimer { margin-top: 2rem; padding: 1.25rem 1.75rem; background: rgba(0,123,112,0.05); border: 1px solid rgba(0,123,112,0.18); border-radius: 3px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; }
+    .pla-disclaimer strong { color: var(--dark); font-weight: 600; }
+
+    /* ── WHAT IS PHA ─────────────────────────────────────────────── */
+    .pha-section { padding: 8rem 3rem; border-top: 1px solid var(--border); background: var(--cream); }
+    .pha-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+    .pha-intro h2 { font-size: clamp(2rem, 3.2vw, 3.2rem); letter-spacing: -0.01em; margin-top: 0.5rem; margin-bottom: 1.5rem; }
+    .pha-intro > p { font-size: 0.92rem; margin-bottom: 1.25rem; }
+    .pha-body-fact { display: flex; align-items: flex-start; gap: 0.85rem; margin-top: 2rem; padding: 1.5rem; background: rgba(178,241,43,0.08); border: 1px solid rgba(178,241,43,0.3); border-left: 3px solid var(--lime); border-radius: 2px; }
+    .pha-body-fact i { color: var(--teal); flex-shrink: 0; margin-top: 2px; }
+    .pha-body-fact p { font-size: 0.84rem; line-height: 1.65; }
+    .pha-body-fact strong { color: var(--dark); font-weight: 600; }
+    .pha-props { display: flex; flex-direction: column; gap: 2.5rem; }
+    .pha-props-group h5 { font-family: 'Open Sans', sans-serif; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal); margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+    .pha-prop-list { display: flex; flex-direction: column; gap: 1rem; }
+    .pha-prop { display: flex; align-items: flex-start; gap: 0.85rem; font-size: 0.85rem; }
+    .pha-prop i { color: var(--lime); flex-shrink: 0; margin-top: 2px; }
+    .pha-prop strong { display: block; color: var(--dark); font-weight: 600; margin-bottom: 1px; }
+    .pha-prop span { color: var(--text-muted); line-height: 1.5; }
+
+    /* ── COMPARISON TABLE ────────────────────────────────────────── */
+    .comparison-section { padding: 8rem 3rem; border-top: 1px solid var(--border); background: var(--white); }
+    .comp-header { margin-bottom: 3.5rem; max-width: 640px; }
+    .comp-header h2 { font-size: clamp(2rem, 3.2vw, 3.2rem); letter-spacing: -0.01em; margin-top: 0.5rem; }
+    .comp-header p { margin-top: 0.85rem; font-size: 0.9rem; }
+    .comp-table-wrap { overflow-x: auto; border: 1px solid var(--border); }
+    .comp-table { width: 100%; border-collapse: collapse; min-width: 640px; }
+    .comp-table thead th { padding: 1.1rem 1.5rem; text-align: left; font-family: 'Open Sans', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey); background: var(--grey-light); border-bottom: 1px solid var(--border); white-space: nowrap; }
+    .comp-table thead th.pha-col { background: var(--lime); color: var(--dark); font-weight: 700; }
+    .pha-badge { display: inline-block; padding: 2px 8px; background: rgba(26,43,52,0.12); border-radius: 100px; font-size: 0.56rem; letter-spacing: 0.1em; color: var(--dark); margin-left: 6px; vertical-align: middle; font-weight: 700; }
+    .comp-table .section-row td { padding: 0.6rem 1.5rem; font-family: 'Open Sans', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); background: rgba(0,123,112,0.05); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .comp-table tbody tr:not(.section-row) td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 0.88rem; font-weight: 400; }
+    .comp-table tbody tr:not(.section-row):last-child td { border-bottom: none; }
+    .comp-table td.row-label { color: var(--text); font-weight: 500; border-right: 1px solid var(--border); background: var(--grey-light); }
+    .comp-table td.pha-col { background: rgba(178,241,43,0.07); border-left: 2px solid rgba(178,241,43,0.4); border-right: 2px solid rgba(178,241,43,0.4); text-align: center; }
+    .comp-table td:not(.row-label):not(.pha-col) { text-align: center; color: var(--grey); }
+    .check { color: var(--teal); font-size: 1.1rem; font-weight: 700; }
+    .cross { color: rgba(44,61,73,0.22); font-size: 1.1rem; }
+    .partial { color: var(--grey); font-size: 0.78rem; font-style: italic; }
+
 
     /* ── CTA SECTION ──────────────────────────────────────────────── */
-    .cta-section {
-      text-align: center;
-      padding: 8rem 4rem;
-      background: radial-gradient(ellipse at center, rgba(196,122,74,0.07) 0%, transparent 65%);
-      border-top: 1px solid var(--border);
-    }
-    .cta-section h2 {
-      font-size: clamp(2.2rem, 3.5vw, 3.6rem);
-      margin-bottom: 1.2rem;
-      max-width: 680px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .cta-section p {
-      color: var(--muted);
-      font-size: 1rem;
-      margin-bottom: 2.5rem;
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.75;
-    }
+    .cta-section { text-align: center; padding: 8rem 3rem; background: var(--navy); }
+    .cta-section .eyebrow { color: var(--lime); }
+    .cta-section h2 { font-size: clamp(2rem, 3.8vw, 3.8rem); margin-bottom: 1.25rem; max-width: 680px; margin-left: auto; margin-right: auto; letter-spacing: -0.01em; color: #ffffff; }
+    .cta-section p { font-size: 0.95rem; margin-bottom: 2.5rem; max-width: 460px; margin-left: auto; margin-right: auto; color: rgba(255,255,255,0.6); }
     .cta-actions { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
 
     /* ── FOOTER ───────────────────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 4rem 4rem 2rem;
-    }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-    .footer-brand p {
-      color: var(--muted);
-      font-size: 0.84rem;
-      margin-top: 1rem;
-      line-height: 1.65;
-      max-width: 210px;
-    }
-    .footer-col h4 {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.2rem;
-    }
-    .footer-col a {
-      display: block;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.875rem;
-      margin-bottom: 0.6rem;
-      transition: color 0.2s;
-    }
-    .footer-col a:hover { color: var(--text); }
-    .footer-bottom {
-      border-top: 1px solid var(--border);
-      padding-top: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
+    footer { border-top: 1px solid rgba(255,255,255,0.08); padding: 5rem 3rem 2.5rem; background: var(--navy); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3.5rem; }
+    .footer-brand p { font-size: 0.84rem; margin-top: 1rem; max-width: 240px; color: rgba(255,255,255,0.48); }
+    .footer-col h4 { font-family: 'Open Sans', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 1.25rem; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.52); text-decoration: none; font-size: 0.84rem; margin-bottom: 0.65rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--lime); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; color: rgba(255,255,255,0.28); }
 
-    /* ── PRICING ──────────────────────────────────────────────────── */
-    .pricing-section {
-      padding: 6rem 4rem;
-      border-top: 1px solid var(--border);
-    }
-    .pricing-header { max-width: 560px; margin-bottom: 2.5rem; }
-    .pricing-header h2 { font-size: clamp(2rem, 2.8vw, 2.8rem); margin-top: 0.5rem; }
-    .pricing-header p { color: var(--muted); line-height: 1.75; margin-top: 0.75rem; }
-
-    .pricing-table-wrap {
-      overflow-x: auto;
-      border: 1px solid var(--border);
-    }
-    .pricing-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .pricing-table th {
-      padding: 1rem 1.5rem;
-      text-align: left;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap;
-    }
-    .pricing-table th.th-best {
-      background: rgba(196,122,74,0.08);
-      color: var(--accent);
-      border-left: 1px solid rgba(196,122,74,0.2);
-    }
-    .best-badge {
-      display: inline-block;
-      padding: 2px 8px;
-      background: rgba(196,122,74,0.15);
-      border: 1px solid rgba(196,122,74,0.3);
-      border-radius: 100px;
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      margin-left: 6px;
-      vertical-align: middle;
-    }
-    .pricing-table tbody tr:hover td { background: rgba(236,232,228,0.02); }
-    .pricing-table td {
-      padding: 1.1rem 1.5rem;
-      border-bottom: 1px solid var(--border);
-      color: var(--text);
-      font-weight: 500;
-      font-size: 1rem;
-    }
-    .pricing-table tbody tr:last-child td { border-bottom: none; }
-    .pricing-table td.td-size {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      white-space: nowrap;
-      border-right: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-    }
-    .pricing-table td.td-best {
-      background: rgba(196,122,74,0.05);
-      border-left: 1px solid rgba(196,122,74,0.15);
-      color: var(--accent);
-      font-weight: 700;
-    }
-    .per { color: var(--muted); font-size: 0.76rem; font-weight: 400; }
-    .pricing-note {
-      margin-top: 1.1rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-    .pricing-note a { color: var(--accent); text-decoration: none; }
-
-    /* ── SAFETY ───────────────────────────────────────────────────── */
     .service-card { opacity: 1 !important; }
 
     /* ── RESPONSIVE ───────────────────────────────────────────────── */
-    @media (max-width: 900px) {
-      .nav { padding: 0 1.5rem; }
-      .nav-hamburger { display: flex; }
-      .nav-cta { display: none; }
-      .nav-links {
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; flex-direction: column; }
+      .nav-links.open {
+        display: flex;
         position: fixed;
         top: 72px; left: 0; right: 0;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        background: rgba(13,14,16,0.97);
+        background: rgba(255,255,255,0.98);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         border-bottom: 1px solid var(--border);
-        padding: 0.5rem 1.5rem 1.5rem;
-        z-index: 999;
-        transform: translateY(-110%);
-        transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-        pointer-events: none;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        padding: 1rem 1.5rem 2rem;
+        gap: 0; z-index: 101;
       }
-      .nav-links.open { transform: translateY(0); pointer-events: auto; }
-      .nav-links a { padding: 0.875rem 0; font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,0.07); color: var(--muted); }
-      .nav-links a.active { color: var(--text); }
-      .nav-links a:last-child { border-bottom: none; }
-      .mobile-cta {
-        display: block !important;
-        margin-top: 0.75rem;
-        padding: 0.75rem 1rem;
-        background: var(--accent);
-        color: #0D0E10 !important;
-        text-align: center;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        font-size: 0.78rem;
-        border-radius: 2px;
-        border-bottom: none !important;
-      }
-      .hero { grid-template-columns: 1fr; }
-      .hero-visual { height: 65vw; min-height: 300px; border-left: none; border-top: 1px solid var(--border); }
-      .hero-content { padding: 2.5rem 1.5rem; }
-      .product-row { grid-template-columns: 1fr; }
-      .product-row.reverse { direction: ltr; }
-      .product-info { padding: 2.5rem 1.5rem; border-left: none !important; border-right: none !important; border-top: 1px solid var(--border); }
-      .features-strip { grid-template-columns: 1fr 1fr; padding: 2.5rem 1.5rem; gap: 2rem; }
-      .feature-item { border-left: none; padding-left: 0; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .nav-links.open a { padding: 0.875rem 0; font-size: 0.88rem; border-bottom: 1px solid var(--border); color: var(--text); letter-spacing: 0.1em; }
+      .nav-links.open a.active, .nav-links.open a:hover { color: var(--dark); }
+      .nav-links.open a:last-child { border-bottom: none; }
+      .nav-links.open .btn-nav { margin-top: 0.75rem; padding: 0.75rem 1rem; text-align: center; }
+      .nav-hamburger { display: flex; }
+
+      .hero-scroll-wrap { height: 280vh; }
+      .hero-content { padding: 0 1.5rem; padding-top: 72px; max-width: 100%; }
+      .hero-stats { gap: 1.5rem; }
+
+      .brand-statement { padding: 5rem 1.5rem; }
+      .bs-top { grid-template-columns: 1fr; gap: 2.5rem; margin-bottom: 3rem; padding-bottom: 3rem; }
+      .bs-pillars { grid-template-columns: 1fr; }
+      .bs-pillar { border-right: none; border-bottom: 1px solid var(--border); }
+      .bs-pillar:last-child { border-bottom: none; }
+
+      .problem-section { padding: 5rem 1.5rem; }
+      .problem-header { grid-template-columns: 1fr; gap: 2rem; margin-bottom: 3rem; }
+      .problem-stats { grid-template-columns: 1fr 1fr; }
+      .problem-stat { padding: 2rem 1.5rem; }
+      .problem-stat:nth-child(2) { border-right: none; }
+      .problem-stat:nth-child(3) { border-right: 1px solid var(--border); }
+
+      .pla-section { padding: 5rem 1.5rem; }
+      .pla-points { grid-template-columns: 1fr; }
+      .pla-point { border-right: none; border-bottom: 1px solid var(--border); }
+      .pla-point:last-child { border-bottom: none; }
+
+      .pha-section { padding: 5rem 1.5rem; }
+      .pha-layout { grid-template-columns: 1fr; gap: 3rem; }
+
+      .comparison-section { padding: 5rem 1.5rem; }
+
       .cta-section { padding: 5rem 1.5rem; }
-      footer { padding: 3rem 1.5rem 1.5rem; }
-      .footer-bottom { padding: 1rem 0; flex-direction: column; gap: 0.5rem; text-align: center; }
+
+      footer { padding: 4rem 1.5rem 2rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; padding-top: 1.25rem; }
     }
   </style>
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '3937455279892855');
-  fbq('track', 'PageView');
-  fbq('track', 'ViewContent', { content_name: 'Custom Hot Cups', content_category: 'Product' });
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=3937455279892855&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
 </head>
 <body>
 
   <!-- NAV -->
-  <nav class="nav" id="nav">
-    <a href="index.html" class="logo">
-      <svg width="162" height="38" viewBox="0 0 162 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Mythos Prints">
-        <path d="M4 30 L4 9 L14 23 L24 9 L24 30" stroke="#C47A4A" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="28.5" cy="28" r="2.5" fill="#C47A4A"/>
-        <text x="38" y="23" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#ECE8E4" letter-spacing="2">MYTHOS</text>
-        <text x="38.5" y="35" font-family="DM Sans, sans-serif" font-size="8" font-weight="400" fill="#8B8985" letter-spacing="4.5">PRINTS</text>
+  <nav id="nav">
+    <a href="index.html" class="nav-logo">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 26 L4 8 L16 20 L28 8 L28 26" stroke="#b2f12b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="24" r="2" fill="#b2f12b"/>
       </svg>
+      <span class="nav-brand">Mythos Prints</span>
     </a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="nav-links">
-      <a href="index.html" class="active">Hot Cups</a>
+      <a href="index.html" class="active">Why PHA?</a>
+      <a href="hot-cups.html">Hot Cups</a>
       <a href="cold-cups.html">Cold Cups</a>
       <a href="process.html">Process</a>
       <a href="contact.html">Contact</a>
-      <a href="contact.html" class="mobile-cta">Get a Quote</a>
+      <a href="contact.html" class="btn-nav">Get a Quote</a>
     </div>
-    <a href="contact.html" class="nav-cta">Get a Quote</a>
   </nav>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-tag">Custom Hot Cups · West Coast</div>
-      <h1>Your Brand.<br><em>Every Cup.</em></h1>
-      <p class="hero-body">
-        Premium custom-printed hot cups for coffee shops across Canada and the United States.
-        BPA-free, compostable stock — designed to showcase your brand with every serve.
-        Minimum 5,000 units.
-      </p>
-      <div class="hero-actions">
-        <a href="contact.html" class="btn-primary">Request a Sample Pack</a>
-        <a href="process.html" class="btn-ghost">How It Works →</a>
-      </div>
-      <div class="hero-stats">
-        <div>
-          <span class="stat-num">5,000</span>
-          <span class="stat-label">MOQ Units</span>
-        </div>
-        <div>
-          <span class="stat-num">17–19</span>
-          <span class="stat-label">Day Turnaround</span>
-        </div>
-        <div>
-          <span class="stat-num">CA &amp; US</span>
-          <span class="stat-label">Shipping Zones</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-visual">
-      <div class="cup-wrap">
-        <svg class="cup-svg" viewBox="0 0 280 450" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <!-- Cylindrical body shading: light center, darker edges -->
-            <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#b8b0a4"/>
-              <stop offset="10%"  stop-color="#ede8de"/>
-              <stop offset="46%"  stop-color="#faf8f4"/>
-              <stop offset="85%"  stop-color="#e8e2d6"/>
-              <stop offset="100%" stop-color="#b4ac9e"/>
-            </linearGradient>
-            <!-- Amber top stripe gradient (slightly beveled) -->
-            <linearGradient id="stripeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%"   stop-color="#d48a56"/>
-              <stop offset="100%" stop-color="#a85f2e"/>
-            </linearGradient>
-            <!-- Coffee surface (dark, wet) -->
-            <radialGradient id="coffeeGrad" cx="40%" cy="38%" r="62%">
-              <stop offset="0%"   stop-color="#3a1a0a"/>
-              <stop offset="55%"  stop-color="#1c0d04"/>
-              <stop offset="100%" stop-color="#0e0702"/>
-            </radialGradient>
-            <!-- Rim top highlight -->
-            <linearGradient id="rimHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%"   stop-color="rgba(255,255,255,0.28)"/>
-              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-            </linearGradient>
-            <!-- Subtle edge vignette (cylindrical) -->
-            <linearGradient id="vignetteGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="rgba(0,0,0,0.05)"/>
-              <stop offset="18%"  stop-color="rgba(0,0,0,0)"/>
-              <stop offset="82%"  stop-color="rgba(0,0,0,0)"/>
-              <stop offset="100%" stop-color="rgba(0,0,0,0.05)"/>
-            </linearGradient>
-            <!-- Bottom base gradient -->
-            <radialGradient id="baseGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%"   stop-color="#d4cec4"/>
-              <stop offset="100%" stop-color="#a8a094"/>
-            </radialGradient>
-            <clipPath id="cupClip">
-              <path d="M 38 92 L 242 92 L 204 388 L 76 388 Z"/>
-            </clipPath>
-          </defs>
-
-          <!-- Ground shadow -->
-          <ellipse cx="140" cy="408" rx="56" ry="8" fill="rgba(0,0,0,0.18)"/>
-
-          <!-- Cup body -->
-          <path d="M 38 92 L 242 92 L 204 388 L 76 388 Z" fill="url(#bodyGrad)"/>
-
-          <!-- Amber top stripe -->
-          <path d="M 38 92 L 242 92 L 239 108 L 41 108 Z" fill="url(#stripeGrad)"/>
-
-          <!-- Amber bottom stripe -->
-          <path d="M 77 374 L 203 374 L 204 388 L 76 388 Z" fill="url(#stripeGrad)"/>
-
-          <!-- Cylindrical vignette overlay (keeps edges looking curved) -->
-          <path d="M 38 92 L 242 92 L 204 388 L 76 388 Z" fill="url(#vignetteGrad)"/>
-
-          <!-- Coffee surface (open top — ellipse inside the rim) -->
-          <ellipse cx="140" cy="92" rx="102" ry="14" fill="url(#coffeeGrad)"/>
-          <!-- Coffee sheen (subtle highlight) -->
-          <ellipse cx="112" cy="87" rx="28" ry="5"
-            fill="rgba(255,185,110,0.10)" transform="rotate(-8 112 87)"/>
-
-          <!-- Rim top highlight (bright edge on the rolled rim) -->
-          <path d="M 38 92 L 242 92 L 240 100 L 40 100 Z" fill="url(#rimHighlight)"/>
-
-          <!-- Bottom base disc -->
-          <ellipse cx="140" cy="388" rx="64" ry="9" fill="url(#baseGrad)"/>
-
-          <!-- ── LABEL CONTENT ────────────────────────────── -->
-
-          <!-- M logo (matches nav mark exactly) -->
-          <g transform="translate(140 182)"
-             stroke="#C47A4A" stroke-width="3.2"
-             stroke-linecap="round" stroke-linejoin="round" fill="none">
-            <polyline points="-21,20 -21,-2 0,11 21,-2 21,20"/>
-            <circle cx="26.5" cy="18" r="3.2" fill="#C47A4A" stroke="none"/>
-          </g>
-
-          <!-- MYTHOS wordmark -->
-          <text x="140" y="236"
-            text-anchor="middle"
-            font-family="'DM Sans', Arial, sans-serif"
-            font-weight="700"
-            font-size="28"
-            fill="#18140e"
-            letter-spacing="5">MYTHOS</text>
-
-          <!-- Amber rule -->
-          <line x1="96" y1="248" x2="184" y2="248"
-            stroke="#C47A4A" stroke-width="0.85" opacity="0.65"/>
-
-          <!-- COFFEE sub-label -->
-          <text x="141" y="270"
-            text-anchor="middle"
-            font-family="'DM Sans', Arial, sans-serif"
-            font-weight="300"
-            font-size="11"
-            fill="#C47A4A"
-            letter-spacing="6.5">COFFEE</text>
-
-          <!-- Steam wisps (3 paths, CSS-animated) -->
-          <g stroke="#ddd8d0" stroke-width="1.7" fill="none" stroke-linecap="round">
-            <path class="steam-1" d="M 116 80 C 112 63 120 56 116 40"/>
-            <path class="steam-2" d="M 140 74 C 136 57 144 50 140 34"/>
-            <path class="steam-3" d="M 164 80 C 160 63 168 56 164 40"/>
-          </g>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRODUCTS -->
-  <section class="products-section" style="padding:0;">
-
-    <div class="product-row">
-      <div class="product-img">
-        <img src="img/hot-cups-product.png" alt="Double Wall Insulated Hot Cups" loading="lazy" style="object-position: center;">
-      </div>
-      <div class="product-info">
-        <span class="eyebrow">Premium Insulated</span>
-        <h3>Double Wall <em>Insulated Cups</em></h3>
-        <p>
-          Superior double-wall construction keeps drinks hot longer and hands comfortable —
-          no sleeve required. Popular with specialty cafés who want a premium tactile experience to match their brand.
-          Matte or gloss finish available. Full 360° HD print on every cup.
+  <div class="hero-scroll-wrap">
+    <div class="hero-sticky hero">
+      <video class="hero-video" id="heroVideo" src="assets/hero.mp4" muted playsinline preload="auto"></video>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-tag">Custom Cups · PLA &amp; PHA · West Coast</div>
+        <h1>Your Brand.<br><em>Every Cup.</em></h1>
+        <p class="hero-body">
+          Custom-printed hot and cold cups for coffee shops across Canada and the United States.
+          PLA options from MOQ 500. Fully home-compostable PHA for brands that want to go further.
+          Honest materials. Real transparency.
         </p>
-        <div class="product-sizes">
-          <span class="size-tag">8 oz</span>
-          <span class="size-tag">12 oz</span>
-          <span class="size-tag">16 oz</span>
-          <span class="size-tag">20 oz</span>
+        <div class="hero-actions">
+          <a href="#our-range" class="btn-primary">See Our Cup Range</a>
+          <a href="#why-pha" class="btn-ghost">Why PHA? →</a>
         </div>
-        <a href="contact.html" class="product-link">Request a Sample Pack →</a>
-        <p style="font-size:0.75rem;color:var(--muted);margin-top:0.75rem;">A small sample fee applies — credited in full against your first order.</p>
+        <div class="hero-stats">
+          <div>
+            <span class="stat-num">500</span>
+            <span class="stat-label">MOQ from</span>
+          </div>
+          <div>
+            <span class="stat-num">17–19</span>
+            <span class="stat-label">Day Turnaround</span>
+          </div>
+          <div>
+            <span class="stat-num">CA &amp; US</span>
+            <span class="stat-label">Shipping Zones</span>
+          </div>
+        </div>
       </div>
-    </div>
-
-  </section>
-
-  <!-- FEATURES -->
-  <div class="features-strip">
-    <div class="feature-item">
-      <div class="feature-icon"><i data-lucide="leaf" width="18" height="18"></i></div>
-      <div class="feature-title">Compostable</div>
-      <div class="feature-desc">Certified compostable board and PLA liners. Align your cups with your values.</div>
-    </div>
-    <div class="feature-item">
-      <div class="feature-icon"><i data-lucide="shield-check" width="18" height="18"></i></div>
-      <div class="feature-title">BPA-Free</div>
-      <div class="feature-desc">Food-safe liners across every product line. No trade-offs on health or taste.</div>
-    </div>
-    <div class="feature-item">
-      <div class="feature-icon"><i data-lucide="printer" width="18" height="18"></i></div>
-      <div class="feature-title">360° HD Print</div>
-      <div class="feature-desc">Full-wrap colour printing. Your artwork reproduced exactly — no shortcuts.</div>
-    </div>
-    <div class="feature-item">
-      <div class="feature-icon"><i data-lucide="truck" width="18" height="18"></i></div>
-      <div class="feature-title">CA &amp; US Shipping</div>
-      <div class="feature-desc">BC, AB, WA, OR, CA and beyond. West Coast focused, coast-to-coast capable.</div>
+      <div class="hero-scroll-hint">Scroll</div>
     </div>
   </div>
 
-  <!-- PRICING -->
-  <section class="pricing-section">
-    <div class="pricing-header">
-      <span class="eyebrow">Volume Pricing</span>
-      <h2>Double Wall PLA <em>Hot Cups</em></h2>
-      <p>Per-cup price drops with volume. Mix sizes across your order to qualify for a tier. Custom 360° HD printing included in every price.</p>
+  <!-- OUR CUP RANGE -->
+  <section class="range-section" id="our-range">
+    <div class="range-inner">
+      <div class="range-header">
+        <span class="eyebrow">Our Products</span>
+        <h2>Three Cup Lines.<br><em>One Honest Supplier.</em></h2>
+        <p>Whether you're starting with 500 unbranded cups or scaling to 5,000 fully custom PHA — we have a product that fits where you are, with transparent material information so you can make the right choice for your brand.</p>
+      </div>
+      <div class="range-grid">
+        <div class="range-card">
+          <div class="range-card-label pla-label">PLA</div>
+          <h3>Non-Branded<br>Hot &amp; Cold Cups</h3>
+          <p>Plain white PLA cups, no custom printing. Perfect for cafés that want an eco-forward cup without a branding commitment. Plant-based, BPA-free, and accepted at industrial composting facilities.</p>
+          <ul class="range-specs">
+            <li><span>MOQ</span>500 units</li>
+            <li><span>Sizes</span>12, 16 oz</li>
+            <li><span>Material</span>PLA (plant-based)</li>
+            <li><span>Disposal</span>Industrial compost</li>
+          </ul>
+          <a href="contact.html" class="range-cta">Get a Quote →</a>
+        </div>
+        <div class="range-card">
+          <div class="range-card-label pla-label">PLA</div>
+          <h3>Custom Branded<br>Hot &amp; Cold Cups</h3>
+          <p>Full 360° HD custom printing on PLA cups. Your logo, your colours, your story — on a plant-based cup that requires industrial composting to break down. The right choice for brands building their eco identity at accessible volume.</p>
+          <ul class="range-specs">
+            <li><span>MOQ</span>2,000 units</li>
+            <li><span>Sizes</span>12, 16 oz</li>
+            <li><span>Material</span>PLA (plant-based)</li>
+            <li><span>Disposal</span>Industrial compost</li>
+          </ul>
+          <a href="contact.html" class="range-cta">Get a Quote →</a>
+        </div>
+        <div class="range-card range-card-pha">
+          <div class="range-card-label pha-label">PHA</div>
+          <h3>Non-Branded<br>Hot &amp; Cold Cups</h3>
+          <p>Plain white PHA cups — the gold standard in eco packaging, no printing required. Home compostable, marine biodegradable, zero microplastics. For operators who want the best material without a custom print run.</p>
+          <ul class="range-specs">
+            <li><span>MOQ</span>5,000 units</li>
+            <li><span>Sizes</span>12, 16 oz</li>
+            <li><span>Material</span>PHA (bio-fermented)</li>
+            <li><span>Disposal</span>Home compost, soil, ocean</li>
+          </ul>
+          <a href="contact.html" class="range-cta">Get a Quote →</a>
+        </div>
+      </div>
     </div>
-    <div class="pricing-table-wrap">
-      <table class="pricing-table">
+  </section>
+
+  <!-- THE PROBLEM -->
+  <section class="problem-section">
+    <div class="problem-header">
+      <div>
+        <span class="eyebrow">The Reality</span>
+        <h2>500 Billion Cups.<br><em>Most of Them a Problem.</em></h2>
+      </div>
+      <p>The disposable cup industry has a sustainability problem that goes far deeper than what the labels say — and a health problem that most people haven't been told about.</p>
+    </div>
+    <div class="problem-stats">
+      <div class="problem-stat">
+        <span class="ps-num">500B</span>
+        <span class="ps-label">Disposable cups discarded globally every year</span>
+      </div>
+      <div class="problem-stat">
+        <span class="ps-num">&lt;10%</span>
+        <span class="ps-label">of PLA cups that reach industrial composting in North America</span>
+      </div>
+      <div class="problem-stat">
+        <span class="ps-num">100+</span>
+        <span class="ps-label">Years for a conventional cup to break down in landfill</span>
+      </div>
+      <div class="problem-stat">
+        <span class="ps-num">0</span>
+        <span class="ps-label">Acceptable level of microplastic in a cup of coffee</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- UNDERSTANDING PLA -->
+  <section class="pla-section">
+    <div class="pla-header">
+      <span class="eyebrow">Understanding PLA</span>
+      <h2>A Real Step Forward —<br><em>With One Caveat</em></h2>
+      <p>PLA (polylactic acid) is made from plant starch — typically corn or sugarcane. It's BPA-free, PFAS-free, and a genuine improvement over conventional petroleum plastic. We offer it because it's a meaningful choice for many businesses. Here's what you should know about how it works.</p>
+    </div>
+    <div class="pla-points">
+      <div class="pla-point">
+        <div class="pla-big">🌱</div>
+        <h4>Plant-Based &amp; BPA-Free</h4>
+        <p>PLA is derived from renewable plant sources, not petroleum. It contains no BPA, PFAS, or phthalates — making it a cleaner choice for customers than conventional plastic cups at every price point.</p>
+      </div>
+      <div class="pla-point">
+        <div class="pla-big">140°F</div>
+        <h4>Needs Industrial Composting</h4>
+        <p>To fully break down, PLA requires sustained heat above 140°F and controlled humidity — conditions found in industrial composting facilities. Where those facilities exist, PLA breaks down cleanly. Where they don't, it should be directed to recycling, not landfill.</p>
+      </div>
+      <div class="pla-point">
+        <div class="pla-big">→</div>
+        <h4>The Middle Ground</h4>
+        <p>PLA sits between conventional plastic and fully home-compostable PHA. It's the right choice for businesses who want eco-forward packaging at accessible MOQs, and who are transparent with customers about how to properly dispose of it.</p>
+      </div>
+    </div>
+    <p class="pla-disclaimer"><strong>Our commitment:</strong> We don't overstate what PLA can do — and we don't understate it either. If industrial composting isn't accessible in your city, PHA is available at MOQ 5,000. If you're starting out, PLA at MOQ 500 is a real improvement over conventional plastic and a solid starting point.</p>
+  </section>
+
+  <!-- WHAT IS PHA -->
+  <section class="pha-section">
+    <div class="pha-layout">
+      <div class="pha-intro">
+        <span class="eyebrow">The Solution</span>
+        <h2>What Is <em>PHA?</em></h2>
+        <p>PHA (Polyhydroxyalkanoates) is a bioplastic produced by bacteria that feed on plant-based sugars and oils. Under nutrient stress, these bacteria store energy by producing PHA granules inside their own cells — essentially growing bioplastic from within a living organism.</p>
+        <p>The result is a material that behaves like plastic during use, but breaks down in home compost, soil, and seawater after. No industrial infrastructure required. No microplastics. No toxic residue.</p>
+        <p>Unlike PLA, PHA doesn't need special conditions to decompose. It just breaks down — the way nature intended.</p>
+        <div class="pha-body-fact">
+          <i data-lucide="dna" width="17" height="17"></i>
+          <p><strong>The human body connection:</strong> PHAs — including PHB (polyhydroxybutyrate) — are naturally produced in the human body as energy storage molecules. PHA is biocompatible at a molecular level. Your biology already knows what it is, which is why it's used in FDA-approved medical devices, surgical sutures, and drug delivery applications.</p>
+        </div>
+      </div>
+      <div class="pha-props">
+        <div class="pha-props-group">
+          <h5>For the Planet</h5>
+          <div class="pha-prop-list">
+            <div class="pha-prop">
+              <i data-lucide="check-circle" width="15" height="15"></i>
+              <div><strong>Home compostable</strong><span>Breaks down in 6–12 months in backyard compost — no industrial facility needed</span></div>
+            </div>
+            <div class="pha-prop">
+              <i data-lucide="check-circle" width="15" height="15"></i>
+              <div><strong>Marine biodegradable</strong><span>Degrades in seawater and ocean environments — no ocean plastic contribution</span></div>
+            </div>
+            <div class="pha-prop">
+              <i data-lucide="check-circle" width="15" height="15"></i>
+              <div><strong>Soil biodegradable</strong><span>Breaks down naturally in soil — even in landfill conditions, over time</span></div>
+            </div>
+            <div class="pha-prop">
+              <i data-lucide="check-circle" width="15" height="15"></i>
+              <div><strong>Zero toxic residue</strong><span>Degrades into natural hydroxy acids — nothing harmful left behind</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="pha-props-group">
+          <h5>For Your Health</h5>
+          <div class="pha-prop-list">
+            <div class="pha-prop">
+              <i data-lucide="check-circle" width="15" height="15"></i>
+              <div><strong>Zero microplastics</strong><span>Degrades into natural compounds — never fragments into plastic particles</span></div>
+            </div>
+            <div class="pha-prop">
+              <i data-lucide="check-circle" width="15" height="15"></i>
+              <div><strong>No BPA, phthalates, or PFAS</strong><span>Free of every major plastic-associated health concern — no forever chemicals</span></div>
+            </div>
+            <div class="pha-prop">
+              <i data-lucide="check-circle" width="15" height="15"></i>
+              <div><strong>No leaching at high temperatures</strong><span>Chemically inert in contact with hot liquids — safe for every drink you serve</span></div>
+            </div>
+            <div class="pha-prop">
+              <i data-lucide="check-circle" width="15" height="15"></i>
+              <div><strong>FDA food contact approved</strong><span>Cleared for direct contact with food and beverages — the highest standard</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="comparison-section">
+    <div class="comp-header">
+      <span class="eyebrow">Side by Side</span>
+      <h2>PHA vs PLA vs<br><em>Conventional Plastic</em></h2>
+      <p>The cup on your counter tells a story. Here's what each material actually delivers.</p>
+    </div>
+    <div class="comp-table-wrap">
+      <table class="comp-table">
         <thead>
           <tr>
-            <th class="th-size">Size</th>
-            <th>1,000 – 5,000 units</th>
-            <th>5,000 – 25,000 units</th>
-            <th>25,000 – 100,000 units</th>
-            <th class="th-best">100,000+ units <span class="best-badge">Best Value</span></th>
+            <th style="width:30%"></th>
+            <th>Conventional Plastic</th>
+            <th>PLA</th>
+            <th class="pha-col">PHA <span class="pha-badge">What We Use</span></th>
           </tr>
         </thead>
         <tbody>
+          <tr class="section-row"><td colspan="4">Environmental Impact</td></tr>
           <tr>
-            <td class="td-size">8 oz</td>
-            <td>$0.24 <span class="per">/ cup</span></td>
-            <td>$0.18 <span class="per">/ cup</span></td>
-            <td>$0.13 <span class="per">/ cup</span></td>
-            <td class="td-best">$0.09 <span class="per">/ cup</span></td>
+            <td class="row-label">Home Compostable</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td class="pha-col"><span class="check">✓</span></td>
           </tr>
           <tr>
-            <td class="td-size">12 oz</td>
-            <td>$0.26 <span class="per">/ cup</span></td>
-            <td>$0.19 <span class="per">/ cup</span></td>
-            <td>$0.14 <span class="per">/ cup</span></td>
-            <td class="td-best">$0.10 <span class="per">/ cup</span></td>
+            <td class="row-label">Marine Biodegradable</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td class="pha-col"><span class="check">✓</span></td>
           </tr>
           <tr>
-            <td class="td-size">16 oz</td>
-            <td>$0.28 <span class="per">/ cup</span></td>
-            <td>$0.20 <span class="per">/ cup</span></td>
-            <td>$0.15 <span class="per">/ cup</span></td>
-            <td class="td-best">$0.11 <span class="per">/ cup</span></td>
+            <td class="row-label">Soil Biodegradable</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td class="pha-col"><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td class="row-label">Breaks Down in Landfill</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td class="pha-col"><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td class="row-label">Industrial Compost Only</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check" style="color:var(--grey);font-size:0.85rem;">Required</span></td>
+            <td class="pha-col"><span class="check">Not required</span></td>
+          </tr>
+          <tr class="section-row"><td colspan="4">Health &amp; Safety</td></tr>
+          <tr>
+            <td class="row-label">Zero Microplastics</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="partial">Partial</span></td>
+            <td class="pha-col"><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td class="row-label">BPA-Free</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+            <td class="pha-col"><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td class="row-label">PFAS-Free</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+            <td class="pha-col"><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td class="row-label">No Leaching at High Temp</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="partial">Partial</span></td>
+            <td class="pha-col"><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td class="row-label">Biocompatible</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td class="pha-col"><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td class="row-label">FDA Food Contact Approved</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td class="pha-col"><span class="check">✓</span></td>
+          </tr>
+          <tr class="section-row"><td colspan="4">Performance</td></tr>
+          <tr>
+            <td class="row-label">360° HD Custom Print</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td class="pha-col"><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td class="row-label">Hot &amp; Cold Suitable</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td class="pha-col"><span class="check">✓</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="pricing-note">Prices in CAD. Minimum order 5,000 units. Sample packs available for a small fee — credited toward your first full order. <a href="contact.html">Get a quote</a> for USD pricing or orders over 100,000 units.</p>
   </section>
 
   <!-- CTA -->
   <section class="cta-section">
-    <span class="eyebrow">Ready to print?</span>
-    <h2>Start With a <em>Free Sample Pack</em></h2>
+    <span class="eyebrow">Ready to Order?</span>
+    <h2>Explore Our <em>Cup Range</em></h2>
     <p>
-      Tell us your cup size, volume, and brand details. We'll respond within 24 hours
-      with a digital proof and a quote.
+      PLA cups from MOQ 500. Fully home-compostable PHA from MOQ 5,000.
+      Browse the product lines and get a quote in 24 hours.
     </p>
     <div class="cta-actions">
-      <a href="contact.html" class="btn-primary">Request Sample Pack</a>
-      <a href="cold-cups.html" class="btn-ghost">Explore Cold Cups →</a>
+      <a href="hot-cups.html" class="btn-primary">Shop Hot Cups</a>
+      <a href="cold-cups.html" class="btn-ghost">Shop Cold Cups →</a>
     </div>
   </section>
 
@@ -862,30 +790,27 @@
   <footer>
     <div class="footer-grid">
       <div class="footer-brand">
-        <svg width="140" height="36" viewBox="0 0 162 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 30 L4 9 L14 23 L24 9 L24 30" stroke="#C47A4A" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="28.5" cy="28" r="2.5" fill="#C47A4A"/>
-          <text x="38" y="23" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#ECE8E4" letter-spacing="2">MYTHOS</text>
-          <text x="38.5" y="35" font-family="DM Sans, sans-serif" font-size="8" font-weight="400" fill="#8B8985" letter-spacing="4.5">PRINTS</text>
+        <svg width="150" height="34" viewBox="0 0 162 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 30 L4 9 L14 23 L24 9 L24 30" stroke="#b2f12b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="28.5" cy="28" r="2.5" fill="#b2f12b"/>
+          <text x="38" y="23" font-family="Open Sans, sans-serif" font-size="14" font-weight="700" fill="#ffffff" letter-spacing="2">MYTHOS</text>
+          <text x="38.5" y="35" font-family="Open Sans, sans-serif" font-size="8" font-weight="400" fill="rgba(255,255,255,0.4)" letter-spacing="4.5">PRINTS</text>
         </svg>
-        <p>Custom-printed cups for serious coffee shops across the West Coast and beyond.</p>
+        <p>Custom-printed PLA &amp; PHA cups for coffee shops across the West Coast and beyond. Honest materials, transparent pricing.</p>
       </div>
       <div class="footer-col">
         <h4>Products</h4>
-        <a href="index.html">Hot Cups</a>
-        <a href="cold-cups.html">Cold Cups</a>
-        <a href="contact.html">Lids &amp; Sleeves</a>
+        <a href="hot-cups.html">Hot Cups (PLA &amp; PHA)</a>
+        <a href="cold-cups.html">Cold Cups (PLA &amp; PHA)</a>
+        <a href="index.html">Why PHA?</a>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <a href="process.html">Our Process</a>
         <a href="contact.html">Get a Quote</a>
         <a href="contact.html">Request Samples</a>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
         <a href="mailto:mythosprintshop@gmail.com">mythosprintshop@gmail.com</a>
-<a href="contact.html">Vancouver, BC · Canada</a>
+        <a href="contact.html">Vancouver, BC · Canada</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -899,7 +824,6 @@
     gsap.registerPlugin(ScrollTrigger);
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Nav scroll
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
 
@@ -918,31 +842,46 @@
       });
     });
 
-    // Hero entrance
-    gsap.from('.hero-tag', { opacity: 0, y: 18, duration: 0.8, delay: 0.2 });
-    gsap.from('.hero h1', { opacity: 0, y: 32, duration: 0.9, delay: 0.38 });
-    gsap.from('.hero-body', { opacity: 0, y: 20, duration: 0.8, delay: 0.54 });
-    gsap.from('.hero-actions', { opacity: 0, y: 18, duration: 0.7, delay: 0.68 });
-    gsap.from('.hero-stats', { opacity: 0, y: 16, duration: 0.7, delay: 0.82 });
-    gsap.from('.cup-svg', { opacity: 0, y: 24, duration: 1.1, delay: 0.5, ease: 'power2.out' });
+    gsap.from('.hero-tag',     { opacity: 0, y: 18, duration: 0.9, delay: 0.3 });
+    gsap.from('.hero h1',      { opacity: 0, y: 36, duration: 1,   delay: 0.5 });
+    gsap.from('.hero-body',    { opacity: 0, y: 22, duration: 0.9, delay: 0.65 });
+    gsap.from('.hero-actions', { opacity: 0, y: 18, duration: 0.8, delay: 0.8 });
+    gsap.from('.hero-stats',   { opacity: 0, y: 16, duration: 0.7, delay: 0.95 });
 
-    // Scroll animations
-    gsap.utils.toArray('.product-row').forEach((row, i) => {
-      gsap.from(row, {
-        scrollTrigger: { trigger: row, start: 'top 82%' },
-        opacity: 0, y: 40, duration: 0.8
-      });
-    });
-    gsap.utils.toArray('.feature-item').forEach((el, i) => {
-      gsap.from(el, {
-        scrollTrigger: { trigger: '.features-strip', start: 'top 80%' },
-        opacity: 0, y: 28, duration: 0.7, delay: i * 0.12
-      });
-    });
-    gsap.from('.cta-section', {
-      scrollTrigger: { trigger: '.cta-section', start: 'top 78%' },
-      opacity: 0, y: 30, duration: 0.9
-    });
+    // Scroll-driven video scrub
+    (function() {
+      var video = document.getElementById('heroVideo');
+      var wrap  = document.querySelector('.hero-scroll-wrap');
+      video.pause();
+      video.currentTime = 0;
+      var raf = null;
+      function scrub() {
+        var wrapTop    = wrap.getBoundingClientRect().top + window.scrollY;
+        var scrollable = wrap.offsetHeight - window.innerHeight;
+        var scrolled   = Math.max(0, window.scrollY - wrapTop);
+        var progress   = Math.min(1, scrolled / scrollable);
+        if (video.readyState >= 2 && video.duration) {
+          video.currentTime = progress * video.duration;
+        }
+        raf = null;
+      }
+      window.addEventListener('scroll', function() {
+        if (!raf) raf = requestAnimationFrame(scrub);
+      }, { passive: true });
+    })();
+
+    const scrollFade = (sel, opts) => gsap.utils.toArray(sel).forEach((el, i) =>
+      gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 84%' }, opacity: 0, y: 30, duration: 0.8, delay: (opts?.stagger || 0) * i, ...opts })
+    );
+
+    scrollFade('.bs-top');
+    scrollFade('.bs-pillar', { stagger: 0.1 });
+    scrollFade('.problem-stat', { stagger: 0.1 });
+    scrollFade('.pla-point', { stagger: 0.1 });
+    scrollFade('.pha-intro');
+    scrollFade('.pha-props-group', { stagger: 0.15 });
+    scrollFade('.comp-header');
+    scrollFade('.cta-section');
 
     document.querySelectorAll('a[href^="mailto:"]').forEach(function(a) {
       a.addEventListener('click', function() { fbq('track', 'Contact'); });
