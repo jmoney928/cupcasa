@@ -1,0 +1,6 @@
+{
+  "outputDirectory": "sites/mythos-prints",
+  "builds": [
+    { "src": "sites/mythos-prints/**", "use": "@vercel/static" }
+  ]
+}
