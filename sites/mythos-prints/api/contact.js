@@ -27,9 +27,9 @@ export default async function handler(req, res) {
 
   const html = `
 <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a;">
-  <div style="background:#0D0E10;padding:24px 32px;border-bottom:3px solid #C47A4A;">
-    <p style="color:#C47A4A;font-size:11px;letter-spacing:2px;margin:0 0 4px;text-transform:uppercase;">Mythos Prints</p>
-    <h1 style="color:#ECE8E4;font-size:22px;margin:0;font-weight:700;">New Inquiry</h1>
+  <div style="background:#2c3d49;padding:24px 32px;border-bottom:3px solid #b2f12b;">
+    <p style="color:#b2f12b;font-size:11px;letter-spacing:2px;margin:0 0 4px;text-transform:uppercase;">Mythos Prints</p>
+    <h1 style="color:#ffffff;font-size:22px;margin:0;font-weight:700;">New Inquiry</h1>
   </div>
   <div style="padding:32px;">
     <table style="width:100%;border-collapse:collapse;">
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
       ${row('Location', location)}
       ${row('Timeline', timeline)}
     </table>
-    ${message ? `<div style="margin-top:24px;padding:16px 20px;background:#f8f7f5;border-left:3px solid #C47A4A;">
+    ${message ? `<div style="margin-top:24px;padding:16px 20px;background:#f7fee9;border-left:3px solid #b2f12b;">
       <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.5px;color:#888;text-transform:uppercase;">Message</p>
       <p style="margin:0;font-size:14px;line-height:1.7;color:#333;">${esc(message)}</p>
     </div>` : ''}
