@@ -417,10 +417,12 @@
       .faq-header { grid-template-columns: 1fr; gap: 1.5rem; }
 
       .cta-section { padding: 5rem 1.5rem; }
+      .cta-actions { flex-direction: column; align-items: stretch; }
+      .cta-actions .btn-primary, .cta-actions .btn-ghost { text-align: center; }
 
       footer { padding: 4rem 1.5rem 2rem; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-      .footer-brand { grid-column: 1 / -1; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-brand { grid-column: auto; }
       .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; padding-top: 1.25rem; }
     }
   </style>

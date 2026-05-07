@@ -386,9 +386,13 @@
       .trust-item:nth-child(3) { border-right: 1px solid var(--border); }
       .trust-item { padding: 1.5rem; }
 
+      .trust-strip { grid-template-columns: 1fr; }
+      .trust-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .trust-item:last-child { border-bottom: none; }
+
       footer { padding: 4rem 1.5rem 2rem; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-      .footer-brand { grid-column: 1 / -1; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-brand { grid-column: auto; }
       .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; padding-top: 1.25rem; }
     }
   </style>
