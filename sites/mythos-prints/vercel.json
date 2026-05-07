@@ -2,8 +2,4 @@
   "buildCommand": null,
   "outputDirectory": ".",
   "installCommand": "npm install",
-  "framework": null,
-  "functions": {
-    "api/contact.js": {}
-  }
-}
+  "framework": null}
