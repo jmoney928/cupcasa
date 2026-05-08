@@ -872,14 +872,29 @@
     (function() {
       var video = document.getElementById('heroVideo');
       var wrap  = document.querySelector('.hero-scroll-wrap');
-      video.pause();
+      if (!video || !wrap) return;
+      video.muted = true;
       video.currentTime = 0;
+
+      // iOS Safari blocks currentTime scrubbing until the element is unlocked
+      // via a user-gesture play. One play→pause on first touch is enough.
+      var unlocked = false;
+      function unlock() {
+        if (unlocked) return;
+        unlocked = true;
+        var p = video.play();
+        if (p && p.then) p.then(function() { video.pause(); scrub(); }).catch(function() {});
+      }
+      document.addEventListener('touchstart', unlock, { once: true, passive: true });
+      document.addEventListener('click',      unlock, { once: true });
+
       var raf = null;
       function scrub() {
-        var wrapTop    = wrap.getBoundingClientRect().top + window.scrollY;
+        var sy         = window.scrollY || window.pageYOffset || 0;
+        var wrapTop    = wrap.getBoundingClientRect().top + sy;
         var scrollable = wrap.offsetHeight - window.innerHeight;
-        var scrolled   = Math.max(0, window.scrollY - wrapTop);
-        var progress   = Math.min(1, scrolled / scrollable);
+        var scrolled   = Math.max(0, sy - wrapTop);
+        var progress   = scrollable > 0 ? Math.min(1, scrolled / scrollable) : 0;
         if (video.readyState >= 2 && video.duration) {
           video.currentTime = progress * video.duration;
         }
@@ -888,6 +903,7 @@
       window.addEventListener('scroll', function() {
         if (!raf) raf = requestAnimationFrame(scrub);
       }, { passive: true });
+      window.addEventListener('load', scrub);
     })();
 
     const scrollFade = (sel, opts) => gsap.utils.toArray(sel).forEach((el, i) =>
