@@ -415,7 +415,7 @@
       .nav-links.open .btn-nav { margin-top: 0.75rem; padding: 0.75rem 1rem; text-align: center; }
       .nav-hamburger { display: flex; }
 
-      .hero-scroll-wrap { height: 100vh; }
+      .hero-scroll-wrap { height: 220vh; }
       .hero-content { padding: 0 1.5rem; padding-top: 72px; max-width: 100%; }
       .hero-stats { gap: 1.5rem; }
 
@@ -868,32 +868,12 @@
     gsap.from('.hero-actions', { opacity: 0, y: 18, duration: 0.8, delay: 0.8 });
     gsap.from('.hero-stats',   { opacity: 0, y: 16, duration: 0.7, delay: 0.95 });
 
-    // Scroll-driven video scrub (desktop) / autoplay (mobile)
+    // Scroll-driven video scrub
     (function() {
       var video = document.getElementById('heroVideo');
       var wrap  = document.querySelector('.hero-scroll-wrap');
       if (!video || !wrap) return;
       video.muted = true;
-
-      // Mobile: iOS never preloads video so currentTime scrubbing silently
-      // fails. Just autoplay — the sticky hero looks great on mobile as-is.
-      if (window.matchMedia('(max-width: 768px)').matches) {
-        video.loop = true;
-        video.play().catch(function() {});
-        return;
-      }
-
-      // Desktop: scroll-driven scrub
-      video.currentTime = 0;
-      var unlocked = false;
-      function unlock() {
-        if (unlocked) return;
-        unlocked = true;
-        var p = video.play();
-        if (p && p.then) p.then(function() { video.pause(); scrub(); }).catch(function() {});
-      }
-      document.addEventListener('touchstart', unlock, { once: true, passive: true });
-      document.addEventListener('click',      unlock, { once: true });
 
       var raf = null;
       function scrub() {
@@ -907,10 +887,46 @@
         }
         raf = null;
       }
-      window.addEventListener('scroll', function() {
-        if (!raf) raf = requestAnimationFrame(scrub);
-      }, { passive: true });
-      window.addEventListener('load', scrub);
+
+      function startScrub() {
+        video.pause();
+        scrub();
+        window.addEventListener('scroll', function() {
+          if (!raf) raf = requestAnimationFrame(scrub);
+        }, { passive: true });
+      }
+
+      // iOS never preloads video, so currentTime is not seekable until
+      // the element has actually played. Prime the buffer with play(),
+      // then switch to scrub once canplay fires (data is ready).
+      var primed = false;
+      function prime() {
+        if (primed) return;
+        primed = true;
+        var p = video.play();
+        if (p && p.then) {
+          p.then(function() {
+            if (video.readyState >= 3) {
+              startScrub();
+            } else {
+              video.addEventListener('canplay', startScrub, { once: true });
+            }
+          }).catch(function() {
+            // Autoplay blocked (shouldn't happen for muted video, but fallback)
+            video.loop = true;
+            video.play().catch(function() {});
+          });
+        }
+      }
+
+      // On desktop prime immediately; on mobile wait for first touch
+      // so the play() call is inside a user-gesture context.
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        document.addEventListener('touchstart', prime, { once: true, passive: true });
+      } else {
+        prime();
+        window.addEventListener('load', scrub);
+      }
     })();
 
     const scrollFade = (sel, opts) => gsap.utils.toArray(sel).forEach((el, i) =>
