@@ -415,7 +415,7 @@
       .nav-links.open .btn-nav { margin-top: 0.75rem; padding: 0.75rem 1rem; text-align: center; }
       .nav-hamburger { display: flex; }
 
-      .hero-scroll-wrap { height: 280vh; }
+      .hero-scroll-wrap { height: 100vh; }
       .hero-content { padding: 0 1.5rem; padding-top: 72px; max-width: 100%; }
       .hero-stats { gap: 1.5rem; }
 
@@ -868,16 +868,23 @@
     gsap.from('.hero-actions', { opacity: 0, y: 18, duration: 0.8, delay: 0.8 });
     gsap.from('.hero-stats',   { opacity: 0, y: 16, duration: 0.7, delay: 0.95 });
 
-    // Scroll-driven video scrub
+    // Scroll-driven video scrub (desktop) / autoplay (mobile)
     (function() {
       var video = document.getElementById('heroVideo');
       var wrap  = document.querySelector('.hero-scroll-wrap');
       if (!video || !wrap) return;
       video.muted = true;
-      video.currentTime = 0;
 
-      // iOS Safari blocks currentTime scrubbing until the element is unlocked
-      // via a user-gesture play. One play→pause on first touch is enough.
+      // Mobile: iOS never preloads video so currentTime scrubbing silently
+      // fails. Just autoplay — the sticky hero looks great on mobile as-is.
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        video.loop = true;
+        video.play().catch(function() {});
+        return;
+      }
+
+      // Desktop: scroll-driven scrub
+      video.currentTime = 0;
       var unlocked = false;
       function unlock() {
         if (unlocked) return;
