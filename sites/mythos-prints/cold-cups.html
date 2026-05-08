@@ -54,7 +54,7 @@
       font-family: 'Open Sans', sans-serif;
       font-weight: 400;
       line-height: 1.6;
-      overflow-x: hidden;
+      overflow-x: clip;
     }
 
     h1, h2, h3 {
@@ -841,15 +841,16 @@
     gsap.from('.cup-svg', { opacity: 0, y: 28, duration: 1.2, delay: 0.5, ease: 'power2.out' });
 
     gsap.utils.toArray('.product-row').forEach(row => {
-      gsap.from(row, { scrollTrigger: { trigger: row, start: 'top 82%' }, opacity: 0, y: 40, duration: 0.9 });
+      gsap.from(row, { scrollTrigger: { trigger: row, start: 'top 88%', once: true }, opacity: 0, y: 40, duration: 0.9 });
     });
     gsap.utils.toArray('.use-case-card').forEach((card, i) => {
-      gsap.from(card, { scrollTrigger: { trigger: '.use-cases-grid', start: 'top 80%' }, opacity: 0, y: 28, duration: 0.7, delay: i * 0.12 });
+      gsap.from(card, { scrollTrigger: { trigger: '.use-cases-grid', start: 'top 88%', once: true }, opacity: 0, y: 28, duration: 0.7, delay: i * 0.12 });
     });
     gsap.utils.toArray('.feature-item').forEach((el, i) => {
-      gsap.from(el, { scrollTrigger: { trigger: '.features-strip', start: 'top 80%' }, opacity: 0, y: 28, duration: 0.7, delay: i * 0.12 });
+      gsap.from(el, { scrollTrigger: { trigger: '.features-strip', start: 'top 88%', once: true }, opacity: 0, y: 28, duration: 0.7, delay: i * 0.12 });
     });
-    gsap.from('.cta-section', { scrollTrigger: { trigger: '.cta-section', start: 'top 78%' }, opacity: 0, y: 30, duration: 0.9 });
+    gsap.from('.cta-section', { scrollTrigger: { trigger: '.cta-section', start: 'top 88%', once: true }, opacity: 0, y: 30, duration: 0.9 });
+    window.addEventListener('load', () => ScrollTrigger.refresh());
 
     document.querySelectorAll('a[href^="mailto:"]').forEach(function(a) {
       a.addEventListener('click', function() { fbq('track', 'Contact'); });
