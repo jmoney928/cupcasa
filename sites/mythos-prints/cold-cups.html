@@ -457,6 +457,58 @@
       .footer-brand { grid-column: auto; }
       .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; padding-top: 1.25rem; }
     }
+    /* ── PRICE CALCULATOR ──────────────────────────────────── */
+    .calc-section { padding: 7rem 3rem; border-top: 1px solid var(--border); background: var(--cream); }
+    .calc-head { margin-bottom: 2.5rem; }
+    .calc-head h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -0.01em; margin-top: 0.3rem; }
+    .calc-card { border: 1px solid var(--border); overflow: hidden; }
+    .calc-controls-4 { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .calc-controls-3 { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .calc-field { padding: 1.75rem 2rem; background: var(--white); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .calc-field:last-child { border-right: none; }
+    .calc-label { display: block; font-family: 'Open Sans', sans-serif; font-size: 0.63rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey); margin-bottom: 0.85rem; }
+    .calc-seg { display: inline-flex; }
+    .seg-btn { padding: 0.5rem 1.1rem; background: var(--white); border: 1px solid var(--border); border-right: none; font-family: 'Open Sans', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; color: var(--text-muted); cursor: pointer; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .seg-btn:first-child { border-radius: 2px 0 0 2px; }
+    .seg-btn:last-child { border-right: 1px solid var(--border); border-radius: 0 2px 2px 0; }
+    .seg-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); position: relative; z-index: 1; }
+    .seg-btn:hover:not(.active):not(:disabled) { background: var(--grey-light); color: var(--dark); }
+    .seg-btn:disabled { opacity: 0.28; cursor: not-allowed; pointer-events: none; }
+    .calc-qty { display: inline-flex; align-items: stretch; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+    .qty-btn { width: 38px; background: var(--grey-light); border: none; font-size: 1.1rem; line-height: 1; color: var(--dark); cursor: pointer; transition: background 0.15s; display: flex; align-items: center; justify-content: center; }
+    .qty-btn:hover { background: var(--border); }
+    .qty-input { width: 90px; border: none; border-left: 1px solid var(--border); border-right: 1px solid var(--border); padding: 0.55rem 0; text-align: center; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--dark); outline: none; }
+    .qty-input::-webkit-inner-spin-button, .qty-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .calc-output { display: flex; align-items: center; padding: 2rem 2.5rem; background: var(--white); }
+    .calc-out-col { flex: 1; padding: 0 2rem; border-right: 1px solid var(--border); }
+    .calc-out-col:first-child { padding-left: 0; }
+    .calc-out-col:last-of-type { border-right: none; }
+    .calc-out-label { font-family: 'Open Sans', sans-serif; font-size: 0.63rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey); margin-bottom: 0.45rem; }
+    .calc-out-val { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 700; color: var(--dark); line-height: 1.1; }
+    .calc-out-val.is-total { color: var(--teal); }
+    .calc-out-val.is-contact { font-size: 0.9rem; font-weight: 600; color: var(--teal); }
+    .calc-out-val.is-total.is-contact { font-size: 0.9rem; }
+    .calc-out-val.is-moq { font-size: 0.85rem; font-weight: 600; color: #b34800; }
+    .calc-out-val.is-total.is-moq { font-size: 0.85rem; }
+    .calc-tier-pill { display: inline-block; padding: 4px 12px; background: rgba(178,241,43,0.10); border: 1px solid rgba(178,241,43,0.4); border-radius: 100px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; color: #3a5a00; white-space: nowrap; }
+    .calc-tier-pill.is-moq { background: rgba(179,72,0,0.08); border-color: rgba(179,72,0,0.3); color: #b34800; }
+    .calc-out-cta { flex-shrink: 0; padding-left: 2.5rem; border-left: 1px solid var(--border); }
+    @media (max-width: 900px) {
+      .calc-section { padding: 5rem 2rem; }
+      .calc-controls-4, .calc-controls-3 { grid-template-columns: 1fr 1fr; }
+      .calc-field:nth-child(even) { border-right: none; }
+      .calc-output { flex-wrap: wrap; gap: 1.5rem; padding: 1.75rem; }
+      .calc-out-col { flex: 0 0 calc(50% - 0.75rem); border-right: none; padding: 0; }
+      .calc-out-cta { flex: 0 0 100%; padding-left: 0; border-left: none; border-top: 1px solid var(--border); padding-top: 1.5rem; }
+      .calc-out-cta .btn-primary { width: 100%; text-align: center; }
+      .calc-out-val { font-size: 1.6rem; }
+    }
+    @media (max-width: 600px) {
+      .calc-section { padding: 4rem 1.5rem; }
+      .calc-controls-4, .calc-controls-3 { grid-template-columns: 1fr; }
+      .calc-field { border-right: none; }
+      .calc-out-col { flex: 0 0 100%; }
+    }
   </style>
 </head>
 <body>
@@ -766,6 +818,139 @@
     <p class="pricing-note">All prices in CAD. Sample packs available for a small fee — credited in full toward your first order. <a href="contact.html">Contact us</a> for USD pricing or orders over 100,000 units.</p>
   </section>
 
+  <!-- PRICE CALCULATOR -->
+  <section class="calc-section">
+    <div class="calc-head">
+      <span class="eyebrow">Estimate Your Order</span>
+      <h2>Price Calculator</h2>
+    </div>
+    <div class="calc-card">
+      <div class="calc-controls-3">
+        <div class="calc-field">
+          <label class="calc-label">Type</label>
+          <div class="calc-seg" id="calc-type">
+            <button class="seg-btn active" data-val="plain">Non-Branded</button>
+            <button class="seg-btn" data-val="branded">Custom Branded</button>
+          </div>
+        </div>
+        <div class="calc-field">
+          <label class="calc-label">Cup Size</label>
+          <div class="calc-seg" id="calc-size">
+            <button class="seg-btn active" data-val="12">12 oz</button>
+            <button class="seg-btn" data-val="16">16 oz</button>
+          </div>
+        </div>
+        <div class="calc-field">
+          <label class="calc-label">Quantity</label>
+          <div class="calc-qty">
+            <button class="qty-btn qty-dec" type="button">&#8722;</button>
+            <input class="qty-input" id="calc-qty" type="number" value="1000" min="500" max="99999">
+            <button class="qty-btn qty-inc" type="button">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="calc-output">
+        <div class="calc-out-col">
+          <div class="calc-out-label">Unit Price</div>
+          <div class="calc-out-val" id="co-unit">—</div>
+        </div>
+        <div class="calc-out-col">
+          <div class="calc-out-label">Estimated Total</div>
+          <div class="calc-out-val is-total" id="co-total">—</div>
+        </div>
+        <div class="calc-out-col">
+          <div class="calc-out-label">Volume Tier</div>
+          <div id="co-tier">—</div>
+        </div>
+        <div class="calc-out-cta">
+          <a href="contact.html" class="btn-primary">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+    <script>
+    (function() {
+      var PRICING = {
+        plain:   { moq: 500,  tiers: [
+          { min: 500,    max: 2000,    p: { '12': 0.30, '16': 0.32 } },
+          { min: 2000,   max: 10000,   p: { '12': 0.26, '16': 0.28 } },
+          { min: 10000,  max: Infinity,p: { '12': 0.22, '16': 0.24 } }
+        ]},
+        branded: { moq: 2000, tiers: [
+          { min: 2000,   max: 10000,   p: { '12': 0.32, '16': 0.34 } },
+          { min: 10000,  max: 50000,   p: { '12': 0.28, '16': 0.30 } },
+          { min: 50000,  max: Infinity,p: { '12': null,  '16': null  } }
+        ]}
+      };
+      var state = { type: 'plain', size: '12', qty: 1000 };
+      function fmtMoney(n) { return '$' + n.toLocaleString('en-CA', {minimumFractionDigits:2,maximumFractionDigits:2}); }
+      function fmtNum(n) { return n.toLocaleString('en-CA'); }
+      function update() {
+        var config  = PRICING[state.type];
+        var qty     = state.qty;
+        var unitEl  = document.getElementById('co-unit');
+        var totalEl = document.getElementById('co-total');
+        var tierEl  = document.getElementById('co-tier');
+        if (qty < config.moq) {
+          unitEl.textContent  = '—';
+          unitEl.className    = 'calc-out-val is-moq';
+          totalEl.textContent = 'MOQ ' + fmtNum(config.moq);
+          totalEl.className   = 'calc-out-val is-total is-moq';
+          tierEl.innerHTML    = '<span class="calc-tier-pill is-moq">Below MOQ</span>';
+          return;
+        }
+        var tier = null;
+        for (var i = 0; i < config.tiers.length; i++) {
+          if (qty >= config.tiers[i].min && qty < config.tiers[i].max) { tier = config.tiers[i]; break; }
+        }
+        if (!tier) tier = config.tiers[config.tiers.length - 1];
+        var price  = tier.p[state.size];
+        var tLabel = fmtNum(tier.min) + (tier.max === Infinity ? '+' : ' – ' + fmtNum(tier.max));
+        if (price === null) {
+          unitEl.textContent  = 'Contact us';
+          unitEl.className    = 'calc-out-val is-contact';
+          totalEl.textContent = 'Request a quote';
+          totalEl.className   = 'calc-out-val is-total is-contact';
+        } else {
+          unitEl.textContent  = fmtMoney(price) + ' / cup';
+          unitEl.className    = 'calc-out-val';
+          totalEl.textContent = fmtMoney(price * qty);
+          totalEl.className   = 'calc-out-val is-total';
+        }
+        tierEl.innerHTML = '<span class="calc-tier-pill">' + tLabel + ' units</span>';
+      }
+      function bindSeg(id, key) {
+        var seg = document.getElementById(id);
+        if (!seg) return;
+        seg.addEventListener('click', function(e) {
+          var btn = e.target.closest('.seg-btn');
+          if (!btn || btn.disabled) return;
+          seg.querySelectorAll('.seg-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          state[key] = btn.dataset.val;
+          update();
+        });
+      }
+      bindSeg('calc-type', 'type');
+      bindSeg('calc-size', 'size');
+      var qtyInput = document.getElementById('calc-qty');
+      function step(dir) {
+        var v = parseInt(qtyInput.value) || 500;
+        var s = v < 1000 ? 100 : v < 5000 ? 500 : 1000;
+        v = dir > 0 ? Math.min(99999, v + s) : Math.max(500, v - s);
+        qtyInput.value = v; state.qty = v; update();
+      }
+      document.querySelector('.qty-dec').addEventListener('click', function() { step(-1); });
+      document.querySelector('.qty-inc').addEventListener('click', function() { step(1); });
+      qtyInput.addEventListener('input', function() { state.qty = parseInt(this.value) || 0; update(); });
+      qtyInput.addEventListener('blur', function() {
+        if (!this.value || parseInt(this.value) < 500) this.value = 500;
+        state.qty = parseInt(this.value); update();
+      });
+      update();
+    })();
+    </script>
+  </section>
+
   <!-- CTA -->
   <section class="cta-section">
     <span class="eyebrow">Start your order</span>
@@ -849,6 +1034,7 @@
     gsap.utils.toArray('.feature-item').forEach((el, i) => {
       gsap.from(el, { scrollTrigger: { trigger: '.features-strip', start: 'top 88%', once: true }, opacity: 0, y: 28, duration: 0.7, delay: i * 0.12 });
     });
+    gsap.from('.calc-section', { scrollTrigger: { trigger: '.calc-section', start: 'top 88%', once: true }, opacity: 0, y: 30, duration: 0.9 });
     gsap.from('.cta-section', { scrollTrigger: { trigger: '.cta-section', start: 'top 88%', once: true }, opacity: 0, y: 30, duration: 0.9 });
     window.addEventListener('load', () => ScrollTrigger.refresh());
 
