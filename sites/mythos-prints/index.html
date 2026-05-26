@@ -308,8 +308,11 @@
     .range-specs { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .range-specs li { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text); }
     .range-specs li span { color: var(--text-muted); font-weight: 500; }
-    .range-cta { font-size: 0.78rem; font-weight: 700; color: var(--teal); text-decoration: none; letter-spacing: 0.04em; padding-top: 0.25rem; }
+    .range-cta-row { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; padding-top: 0.25rem; }
+    .range-cta { font-size: 0.78rem; font-weight: 700; color: var(--teal); text-decoration: none; letter-spacing: 0.04em; }
     .range-cta:hover { color: var(--navy); }
+    .range-cta-sec { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); text-decoration: none; letter-spacing: 0.04em; }
+    .range-cta-sec:hover { color: var(--navy); }
 
 
     /* ── THE PROBLEM ─────────────────────────────────────────────── */
@@ -541,7 +544,11 @@
             <li><span>Material</span>PLA (plant-based)</li>
             <li><span>Disposal</span>Industrial compost</li>
           </ul>
-          <a href="contact.html" class="range-cta">Get a Quote →</a>
+          <div class="range-cta-row">
+            <a href="contact.html" class="range-cta">Get a Quote →</a>
+            <a href="hot-cups.html" class="range-cta-sec">Hot Cups →</a>
+            <a href="cold-cups.html" class="range-cta-sec">Cold Cups →</a>
+          </div>
         </div>
         <div class="range-card">
           <div class="range-card-label pla-label">PLA</div>
@@ -553,7 +560,11 @@
             <li><span>Material</span>PLA (plant-based)</li>
             <li><span>Disposal</span>Industrial compost</li>
           </ul>
-          <a href="contact.html" class="range-cta">Get a Quote →</a>
+          <div class="range-cta-row">
+            <a href="contact.html" class="range-cta">Get a Quote →</a>
+            <a href="hot-cups.html" class="range-cta-sec">Hot Cups →</a>
+            <a href="cold-cups.html" class="range-cta-sec">Cold Cups →</a>
+          </div>
         </div>
         <div class="range-card range-card-pha">
           <div class="range-card-label pha-label">PHA</div>
@@ -565,7 +576,10 @@
             <li><span>Material</span>PHA (bio-fermented)</li>
             <li><span>Disposal</span>Home compost, soil, ocean</li>
           </ul>
-          <a href="contact.html" class="range-cta">Get a Quote →</a>
+          <div class="range-cta-row">
+            <a href="contact.html" class="range-cta">Get a Quote →</a>
+            <a href="hot-cups.html" class="range-cta-sec">Hot Cups →</a>
+          </div>
         </div>
       </div>
     </div>
