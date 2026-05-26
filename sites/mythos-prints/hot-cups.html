@@ -87,6 +87,9 @@
     /* MATERIAL BADGES */
     .pla-label { background: rgba(0,123,112,0.10); color: var(--teal); border: 1px solid rgba(0,123,112,0.25); border-radius: 100px; padding: 3px 12px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: inline-block; }
     .pha-label { background: rgba(178,241,43,0.12); color: #3a5a00; border: 1px solid rgba(178,241,43,0.45); border-radius: 100px; padding: 3px 12px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: inline-block; }
+    .vol-badge { display: inline-flex; align-items: center; padding: 3px 11px; background: rgba(0,123,112,0.08); border: 1px solid rgba(0,123,112,0.2); border-radius: 100px; font-family: 'Open Sans', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.9rem; }
+    .premium-badge { display: inline-flex; align-items: center; padding: 3px 11px; background: rgba(178,241,43,0.13); border: 1px solid rgba(178,241,43,0.55); border-radius: 100px; font-family: 'Open Sans', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #3a5a00; margin-bottom: 0.9rem; }
+    .pha-featured .product-info { border-left: 2px solid var(--lime) !important; background: linear-gradient(to right, rgba(178,241,43,0.035) 0%, var(--white) 55%) !important; }
     .product-meta-row { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-muted); }
     .product-img-placeholder { background: var(--grey-light); display: flex; align-items: center; justify-content: center; min-height: 320px; }
     .product-img-placeholder.pha-placeholder { background: var(--cream); }
@@ -187,6 +190,7 @@
       .product-row { grid-template-columns: 1fr; }
       .product-row.reverse { direction: ltr; }
       .product-row.reverse .product-img { order: -1; }
+      .pha-featured .product-info { border-left: none !important; border-top: 2px solid var(--lime) !important; background: linear-gradient(to bottom, rgba(178,241,43,0.04) 0%, var(--white) 50%) !important; }
       .product-img { min-height: 260px; }
       .product-info { padding: 2.5rem 1.5rem; border-left: none !important; border-right: none !important; border-top: 1px solid var(--border); }
       .use-cases { padding: 4rem 1.5rem; }
@@ -381,7 +385,7 @@
   <section class="products-section" id="products">
     <div class="products-header">
       <span class="eyebrow">Hot Cup Range</span>
-      <h2>PLA &amp; PHA. Branded &amp; Plain.<br><em>12 oz and 16 oz.</em></h2>
+      <h2>PLA at Scale. PHA at Its Finest.<br><em>Both in 12 oz and 16 oz.</em></h2>
     </div>
     <div class="product-row">
       <div class="product-img">
@@ -390,7 +394,7 @@
       <div class="product-info">
         <span class="eyebrow">PLA · Non-Branded · MOQ 500</span>
         <h3>Non-Branded<br><em>PLA Hot Cups</em></h3>
-        <p>Plain white PLA hot cups — no artwork required. The most accessible starting point on our range. Plant-based, BPA-free, made from renewable corn starch. Ideal for new cafés or those testing volume before committing to a custom print run.</p>
+        <p>Plain white PLA hot cups — no artwork required. Clean, consistent, and ready to pour from day one. Plant-based, BPA-free, PFAS-free, made from renewable corn starch. The reliable choice for any volume, from new openings to high-traffic established cafés.</p>
         <div class="product-sizes">
           <span class="size-tag">12 oz</span>
           <span class="size-tag">16 oz</span>
@@ -406,7 +410,8 @@
       <div class="product-info" style="border-left:none;border-right:1px solid var(--border);">
         <span class="eyebrow">PLA · Custom Branded · MOQ 2,000</span>
         <h3>Custom Branded<br><em>PLA Hot Cups</em></h3>
-        <p>Full 360° HD printing on plant-based PLA hot cups. BPA-free, PFAS-free, made from renewable corn starch. The right entry point for branded eco packaging. Requires industrial composting to biodegrade — we'll help you communicate that clearly to your customers.</p>
+        <span class="vol-badge">Most Ordered</span>
+        <p>Full 360° HD printing on our highest-volume cup. Plant-based PLA — BPA-free, PFAS-free, made from renewable corn starch. The proven platform for branded sustainable packaging, accessible from MOQ 2,000 and built to scale. Industrially compostable, with disposal communication support included.</p>
         <div class="product-sizes">
           <span class="size-tag">12 oz</span>
           <span class="size-tag">16 oz</span>
@@ -421,14 +426,15 @@
         <img src="img/pla-branded-hot.png" alt="PLA Custom Branded Hot Cups" loading="lazy">
       </div>
     </div>
-    <div class="product-row">
+    <div class="product-row pha-featured">
       <div class="product-img">
         <img src="img/pha-cup.png" alt="PHA Non-Branded Hot Cups" loading="lazy">
       </div>
       <div class="product-info">
         <span class="eyebrow">PHA · Non-Branded · MOQ 5,000</span>
         <h3>Non-Branded<br><em>PHA Hot Cups</em></h3>
-        <p>The gold standard in eco hot cups, plain white. Home compostable, marine biodegradable, zero microplastics — no custom print required. For operators who care deeply about materials and want to serve the best possible cup, regardless of branding.</p>
+        <span class="premium-badge">★ Gold Standard</span>
+        <p>The gold standard in eco hot cups. Home compostable, marine biodegradable, zero microplastics — in plain white. For operators who won't compromise on materials. This is where premium daily service and genuine environmental responsibility meet.</p>
         <div class="product-sizes">
           <span class="size-tag">12 oz</span>
           <span class="size-tag">16 oz</span>
@@ -589,7 +595,7 @@
   </section>
 
   <!-- PRICE CALCULATOR -->
-  <section class="calc-section">
+  <section class="calc-section" id="calculator">
     <div class="calc-head">
       <span class="eyebrow">Estimate Your Order</span>
       <h2>Price Calculator</h2>
