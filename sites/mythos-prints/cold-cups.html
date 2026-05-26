@@ -156,6 +156,8 @@
 
     .hero-content {
       background: var(--navy);
+      background-image: radial-gradient(rgba(178,241,43,0.055) 1px, transparent 1px);
+      background-size: 28px 28px;
       padding: 8rem 3rem 6rem 3rem;
       display: flex;
       flex-direction: column;
@@ -235,19 +237,12 @@
     .hero-visual {
       position: relative;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--cream) 0%, var(--grey-light) 100%);
       border-left: 1px solid var(--border);
       overflow: hidden;
+      background: var(--dark);
     }
-
-    /* ── CUP SVG ─────────────────────────────────────────────────── */
-    .cup-wrap { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; position: relative; }
-    .cup-wrap::before { content: ''; position: absolute; width: 280px; height: 280px; background: radial-gradient(ellipse, rgba(178,241,43,0.12) 0%, transparent 68%); pointer-events: none; }
-    .cup-svg { width: clamp(190px, 36%, 260px); height: auto; position: relative; z-index: 1; animation: cup-float 4.5s ease-in-out infinite; filter: drop-shadow(0 28px 48px rgba(26,43,52,0.13)) drop-shadow(0 6px 16px rgba(0,0,0,0.06)); }
-    @keyframes cup-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+    .hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .hero-visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(26,43,52,0.22) 0%, transparent 42%), linear-gradient(to bottom, transparent 55%, rgba(26,43,52,0.14) 100%); pointer-events: none; z-index: 1; }
 
     /* ── MATERIAL BADGES ────────────────────────────────────────── */
     .pla-label { background: rgba(0,123,112,0.10); color: var(--teal); border: 1px solid rgba(0,123,112,0.25); border-radius: 100px; padding: 3px 12px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; display: inline-block; }
@@ -539,7 +534,7 @@
   <section class="hero">
     <div class="hero-content">
       <div class="hero-tag">Cold Cups · PLA · West Coast</div>
-      <h1>Cold Presentation.<br><em>Every Budget.</em></h1>
+      <h1>Cold Drinks.<br><em>Your Brand.</em></h1>
       <p class="hero-body">
         PLA cold cups from MOQ 500.
         12 oz and 16 oz, branded or plain — built for the full cold menu, every service style.
@@ -556,96 +551,7 @@
     </div>
 
     <div class="hero-visual">
-      <div class="cup-wrap">
-        <svg class="cup-svg" viewBox="0 0 280 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="coldBodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#7ea8bc" stop-opacity="0.55"/>
-              <stop offset="12%"  stop-color="#c4dce8" stop-opacity="0.60"/>
-              <stop offset="46%"  stop-color="#e4f2f8" stop-opacity="0.38"/>
-              <stop offset="85%"  stop-color="#b0ceda" stop-opacity="0.58"/>
-              <stop offset="100%" stop-color="#6e98aa" stop-opacity="0.55"/>
-            </linearGradient>
-            <linearGradient id="coldCoffeeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#140804"/>
-              <stop offset="42%"  stop-color="#240e05"/>
-              <stop offset="100%" stop-color="#0e0602"/>
-            </linearGradient>
-            <linearGradient id="coldIceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stop-color="#ddeef6"/>
-              <stop offset="100%" stop-color="#a4c8de" stop-opacity="0.72"/>
-            </linearGradient>
-            <linearGradient id="coldLidGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#7a9eb0"/>
-              <stop offset="35%"  stop-color="#bcd6e2"/>
-              <stop offset="60%"  stop-color="#d4eaf2"/>
-              <stop offset="85%"  stop-color="#a8cada"/>
-              <stop offset="100%" stop-color="#6e90a0"/>
-            </linearGradient>
-            <linearGradient id="coldStrawGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#a08030"/>
-              <stop offset="100%" stop-color="#c6a96b"/>
-            </linearGradient>
-            <linearGradient id="coldBaseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#4a6878"/>
-              <stop offset="50%"  stop-color="#7a9aaa"/>
-              <stop offset="100%" stop-color="#3e5868"/>
-            </linearGradient>
-            <radialGradient id="coldVignette" cx="50%" cy="50%" r="50%">
-              <stop offset="58%" stop-color="rgba(0,0,0,0)"/>
-              <stop offset="100%" stop-color="rgba(11,11,12,0.28)"/>
-            </radialGradient>
-            <clipPath id="coldCupClip">
-              <path d="M 40 88 L 240 88 L 204 418 L 76 418 Z"/>
-            </clipPath>
-          </defs>
-          <ellipse cx="140" cy="436" rx="60" ry="9" fill="rgba(0,0,0,0.20)"/>
-          <g clip-path="url(#coldCupClip)">
-            <path d="M 40 88 L 240 88 L 204 418 L 76 418 Z" fill="url(#coldCoffeeGrad)"/>
-            <ellipse cx="140" cy="98" rx="94" ry="10" fill="#c49060" opacity="0.30"/>
-            <rect x="68" y="130" width="54" height="46" rx="5" fill="url(#coldIceGrad)" opacity="0.76" transform="rotate(-10 95 153)"/>
-            <rect x="70" y="133" width="18" height="5" rx="2.5" fill="white" opacity="0.52" transform="rotate(-10 79 135)"/>
-            <rect x="146" y="114" width="48" height="42" rx="5" fill="url(#coldIceGrad)" opacity="0.70" transform="rotate(7 170 135)"/>
-            <rect x="148" y="117" width="16" height="4" rx="2" fill="white" opacity="0.48" transform="rotate(7 156 119)"/>
-            <rect x="86" y="188" width="46" height="38" rx="5" fill="url(#coldIceGrad)" opacity="0.65" transform="rotate(13 109 207)"/>
-            <rect x="88" y="191" width="14" height="4" rx="2" fill="white" opacity="0.42" transform="rotate(13 95 193)"/>
-            <rect x="156" y="174" width="40" height="34" rx="4" fill="url(#coldIceGrad)" opacity="0.60" transform="rotate(-6 176 191)"/>
-            <rect x="158" y="177" width="13" height="3" rx="1.5" fill="white" opacity="0.38" transform="rotate(-6 164 178)"/>
-          </g>
-          <path d="M 40 88 L 240 88 L 204 418 L 76 418 Z" fill="url(#coldBodyGrad)"/>
-          <path d="M 40 88 L 240 88 L 204 418 L 76 418 Z" fill="url(#coldVignette)"/>
-          <path d="M 40 88 L 68 88 L 86 418 L 76 418 Z" fill="rgba(0,0,0,0.17)"/>
-          <path d="M 212 88 L 240 88 L 204 418 L 194 418 Z" fill="rgba(0,0,0,0.17)"/>
-          <path d="M 122 88 L 158 88 L 154 418 L 126 418 Z" fill="rgba(255,255,255,0.055)"/>
-          <g clip-path="url(#coldCupClip)" opacity="0.90">
-            <g transform="translate(140 224)" stroke="#b2f12b" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
-              <polyline points="-18,17 -18,-2 0,10 18,-2 18,17"/>
-              <circle cx="23" cy="15.5" r="2.8" fill="#b2f12b" stroke="none"/>
-            </g>
-            <text x="140" y="268" text-anchor="middle" font-family="'Outfit', Arial, sans-serif" font-weight="500" font-size="22" fill="#F5F1E8" letter-spacing="5">MYTHOS</text>
-            <line x1="100" y1="278" x2="180" y2="278" stroke="#b2f12b" stroke-width="0.82" opacity="0.62"/>
-            <text x="141" y="296" text-anchor="middle" font-family="'Outfit', Arial, sans-serif" font-weight="300" font-size="10" fill="#b2f12b" letter-spacing="6">COFFEE</text>
-          </g>
-          <ellipse cx="103" cy="318" rx="2.2" ry="3.8" fill="rgba(185,220,235,0.50)"/>
-          <ellipse cx="97"  cy="352" rx="1.8" ry="3.1" fill="rgba(185,220,235,0.40)"/>
-          <ellipse cx="178" cy="304" rx="2.0" ry="3.5" fill="rgba(185,220,235,0.45)"/>
-          <ellipse cx="185" cy="340" rx="1.6" ry="2.8" fill="rgba(185,220,235,0.40)"/>
-          <ellipse cx="115" cy="374" rx="1.8" ry="3.0" fill="rgba(185,220,235,0.38)"/>
-          <ellipse cx="167" cy="380" rx="1.5" ry="2.5" fill="rgba(185,220,235,0.38)"/>
-          <ellipse cx="140" cy="418" rx="66" ry="9" fill="url(#coldBaseGrad)" opacity="0.45"/>
-          <ellipse cx="140" cy="421" rx="63" ry="7" fill="rgba(30,50,62,0.30)"/>
-          <ellipse cx="140" cy="88" rx="108" ry="15" fill="url(#coldLidGrad)"/>
-          <ellipse cx="140" cy="84" rx="106" ry="13" fill="url(#coldLidGrad)"/>
-          <ellipse cx="140" cy="80" rx="103" ry="12" fill="#c0d8e4"/>
-          <ellipse cx="140" cy="78" rx="86" ry="9" fill="#d2e8f0" opacity="0.75"/>
-          <ellipse cx="114" cy="74" rx="26" ry="4.5" fill="rgba(255,255,255,0.22)" transform="rotate(-5 114 74)"/>
-          <rect x="116" y="74" width="32" height="9" rx="4.5" fill="#8aaabb" opacity="0.80"/>
-          <rect x="120" y="76" width="24" height="5" rx="2.5" fill="#6a8898" opacity="0.60"/>
-          <path d="M 33 88 A 107 15 0 0 1 247 88" stroke="rgba(255,255,255,0.32)" stroke-width="1.2" fill="none"/>
-          <rect x="162" y="10" width="10" height="86" rx="5" fill="url(#coldStrawGrad)"/>
-          <rect x="163.5" y="12" width="3.5" height="82" rx="1.75" fill="rgba(255,255,255,0.27)"/>
-        </svg>
-      </div>
+      <img src="img/cold-cups-product.png" alt="Custom branded cold cups" class="hero-photo">
     </div>
   </section>
 
@@ -819,7 +725,7 @@
   </section>
 
   <!-- PRICE CALCULATOR -->
-  <section class="calc-section">
+  <section class="calc-section" id="calculator">
     <div class="calc-head">
       <span class="eyebrow">Estimate Your Order</span>
       <h2>Price Calculator</h2>
