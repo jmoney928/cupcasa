@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemaps-image/1.1">
+
+  <url>
+    <loc>https://www.mythosprints.ca/</loc>
+    <image:image>
+      <image:loc>https://www.mythosprints.ca/img/pha-cup.png</image:loc>
+      <image:title>PHA Custom Printed Cup — Mythos Prints</image:title>
+      <image:caption>Home-compostable PHA cup for coffee shops, custom-printed by Mythos Prints.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.mythosprints.ca/hot-cups</loc>
+    <image:image>
+      <image:loc>https://www.mythosprints.ca/img/pla-plain.png</image:loc>
+      <image:title>PLA Non-Branded Hot Cups</image:title>
+      <image:caption>Plain white plant-based PLA hot cups, 12 oz and 16 oz, MOQ from 500.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mythosprints.ca/img/pla-branded-hot.png</image:loc>
+      <image:title>PLA Custom Branded Hot Cups</image:title>
+      <image:caption>Full 360° HD-printed PLA hot cups, 12 oz and 16 oz, MOQ from 2,000.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mythosprints.ca/img/pha-cup.png</image:loc>
+      <image:title>PHA Non-Branded Hot Cups</image:title>
+      <image:caption>Home-compostable PHA hot cups, 12 oz and 16 oz, MOQ from 5,000.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.mythosprints.ca/cold-cups</loc>
+    <image:image>
+      <image:loc>https://www.mythosprints.ca/img/pla-cold-unbranded.png</image:loc>
+      <image:title>PLA Non-Branded Cold Cups</image:title>
+      <image:caption>Plain clear PLA cold cups, 12 oz and 16 oz, MOQ from 500.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.mythosprints.ca/img/pla-cold-branded.png</image:loc>
+      <image:title>PLA Custom Branded Cold Cups</image:title>
+      <image:caption>Full 360° HD-printed clear PLA cold cups, 12 oz and 16 oz, MOQ from 2,000.</image:caption>
+    </image:image>
+  </url>
+
+</urlset>

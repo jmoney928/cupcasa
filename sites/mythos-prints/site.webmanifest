@@ -1,0 +1,16 @@
+{
+  "name": "Mythos Prints — Custom Printed PLA & PHA Cups",
+  "short_name": "Mythos Prints",
+  "description": "Custom-printed plant-based PLA and home-compostable PHA cups for coffee shops across Canada and the United States.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2c3d49",
+  "lang": "en-CA",
+  "dir": "ltr",
+  "categories": ["business", "shopping", "food"],
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
