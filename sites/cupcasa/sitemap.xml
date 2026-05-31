@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemaps-image/1.1">
+
+  <url>
+    <loc>https://www.cupcasa.com/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en-ca" href="https://www.cupcasa.com/"/>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://www.cupcasa.com/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cupcasa.com/"/>
+    <image:image>
+      <image:loc>https://www.cupcasa.com/img/pha-cup.png</image:loc>
+      <image:title>PHA Custom Printed Cup — Cupcasa</image:title>
+      <image:caption>Home-compostable PHA cup, custom-printed for coffee shops.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.cupcasa.com/hot-cups</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-ca" href="https://www.cupcasa.com/hot-cups"/>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://www.cupcasa.com/hot-cups"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cupcasa.com/hot-cups"/>
+    <image:image>
+      <image:loc>https://www.cupcasa.com/img/pla-branded-hot.png</image:loc>
+      <image:title>PLA Custom Branded Hot Cups</image:title>
+      <image:caption>Full 360° HD-printed PLA hot cups, MOQ from 2,000.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cupcasa.com/img/pla-plain.png</image:loc>
+      <image:title>PLA Non-Branded Hot Cups</image:title>
+      <image:caption>Plain white PLA hot cups, MOQ from 500.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cupcasa.com/img/pha-cup.png</image:loc>
+      <image:title>PHA Non-Branded Hot Cups</image:title>
+      <image:caption>Home-compostable PHA hot cups, MOQ from 5,000.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.cupcasa.com/cold-cups</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-ca" href="https://www.cupcasa.com/cold-cups"/>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://www.cupcasa.com/cold-cups"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cupcasa.com/cold-cups"/>
+    <image:image>
+      <image:loc>https://www.cupcasa.com/img/pla-cold-branded.png</image:loc>
+      <image:title>PLA Custom Branded Cold Cups</image:title>
+      <image:caption>Full 360° HD-printed PLA cold cups, MOQ from 2,000.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cupcasa.com/img/pla-cold-unbranded.png</image:loc>
+      <image:title>PLA Non-Branded Cold Cups</image:title>
+      <image:caption>Plain clear PLA cold cups, MOQ from 500.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.cupcasa.com/process</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.cupcasa.com/contact</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.cupcasa.com/privacy-policy</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://www.cupcasa.com/terms</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>
