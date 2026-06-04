@@ -61,7 +61,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: 'Cupcasa <onboarding@resend.dev>',
-        to: ['hello@cupcasa.com'],
+        to: ['cupcasaadmin@gmail.com'],
         reply_to: email,
         subject: `New inquiry — ${name}${business ? ` · ${business}` : ''}`,
         html,
