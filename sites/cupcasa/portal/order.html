@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Detail — Cupcasa</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #2C1A0E;
+      --dark: #1A0D07;
+      --lime: #C4874A;
+      --lime-hover: #AE7038;
+      --lime-dim: rgba(196,135,74,0.10);
+      --cream: #FDF5EC;
+      --grey-light: #F0E6DA;
+      --border: #DDD0BF;
+      --text: #3A2010;
+      --text-muted: #7A5230;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--cream);
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Portal header ─────────────────────────────────────────────── */
+    .portal-header {
+      background: var(--navy);
+      height: 64px;
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .portal-header img { height: 42px; width: auto; }
+    .portal-nav { display: flex; align-items: center; gap: 2rem; }
+    .portal-nav a {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .portal-nav a:hover, .portal-nav a.active { color: #fff; }
+    .btn-signout {
+      padding: 0.45rem 1.1rem;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-signout:hover { border-color: rgba(255,255,255,0.55); color: #fff; }
+
+    /* ── Main ──────────────────────────────────────────────────────── */
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.75rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--lime); }
+
+    .page-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .eyebrow {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 0.4rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--dark);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Status badge */
+    .badge {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .badge-pending      { background: rgba(196,135,74,0.1);  color: #7A5230; border: 1px solid rgba(196,135,74,0.3); }
+    .badge-in_production{ background: rgba(30,120,60,0.09);  color: #1a6b35; border: 1px solid rgba(30,120,60,0.25); }
+    .badge-dispatched   { background: rgba(30,80,200,0.08);  color: #1a3a8b; border: 1px solid rgba(30,80,200,0.22); }
+    .badge-delivered    { background: rgba(30,140,30,0.1);   color: #135a13; border: 1px solid rgba(30,140,30,0.3); }
+    .badge-cancelled    { background: rgba(180,30,30,0.08);  color: #8b1a1a; border: 1px solid rgba(180,30,30,0.22); }
+
+    /* ── Two-column grid ───────────────────────────────────────────── */
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.75rem;
+    }
+    .card-full { grid-column: 1 / -1; }
+
+    .card-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--grey-light);
+    }
+
+    /* Detail rows */
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--grey-light);
+      font-size: 0.88rem;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-label { color: var(--text-muted); font-size: 0.82rem; }
+    .detail-value { font-weight: 600; color: var(--dark); text-align: right; }
+
+    /* Financial highlights */
+    .fin-total {
+      background: var(--lime-dim);
+      border-radius: 2px;
+      padding: 0.75rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+    .fin-total .detail-label { font-weight: 700; color: var(--dark); font-size: 0.85rem; }
+    .fin-total .detail-value { font-size: 1.1rem; color: var(--lime); }
+
+    .balance-due { color: #c0392b !important; }
+
+    /* ── Production stages ─────────────────────────────────────────── */
+    .stages {
+      display: flex;
+      gap: 0;
+      margin-top: 0.5rem;
+    }
+    .stage {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+    .stage::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      right: -50%;
+      height: 2px;
+      background: var(--grey-light);
+      z-index: 0;
+    }
+    .stage:last-child::before { display: none; }
+    .stage-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--grey-light);
+      border: 2px solid var(--border);
+      margin: 0 auto 0.5rem;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .stage.done .stage-dot {
+      background: var(--lime);
+      border-color: var(--lime);
+      color: #fff;
+    }
+    .stage.done::before { background: var(--lime); }
+    .stage.current .stage-dot {
+      background: #fff;
+      border-color: var(--lime);
+      color: var(--lime);
+      box-shadow: 0 0 0 3px var(--lime-dim);
+    }
+    .stage-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+    .stage.done .stage-label,
+    .stage.current .stage-label { color: var(--dark); }
+
+    /* ── Files ─────────────────────────────────────────────────────── */
+    .files-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 0.25rem;
+    }
+    .file-item {
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1rem 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .file-info { min-width: 0; }
+    .file-type {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 0.2rem;
+    }
+    .file-name {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .btn-download {
+      flex-shrink: 0;
+      padding: 0.45rem 1rem;
+      background: var(--lime);
+      border: none;
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .btn-download:hover { background: var(--lime-hover); }
+
+    .no-files {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      padding: 0.5rem 0;
+    }
+
+    /* Notes */
+    .notes-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    /* Error / loading */
+    .page-error {
+      text-align: center;
+      padding: 5rem 2rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 640px) {
+      .portal-header { padding: 0 1.25rem; }
+      .main { padding: 2rem 1rem 4rem; }
+      .grid { grid-template-columns: 1fr; }
+      .stages { flex-wrap: wrap; gap: 0.75rem; }
+      .stage::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="portal-header">
+    <a href="/"><img src="/img/casalogo.png" alt="Cupcasa"></a>
+    <nav class="portal-nav">
+      <a href="/portal/dashboard" class="active">Orders</a>
+      <a href="/portal/account">Account</a>
+      <button class="btn-signout" id="signout">Sign Out</button>
+    </nav>
+  </header>
+
+  <main class="main" id="main">
+    <p style="color:var(--text-muted);padding:5rem 0;text-align:center;">Loading…</p>
+  </main>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+    import { SUPABASE_URL, SUPABASE_ANON_KEY } from './js/config.js';
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const main = document.getElementById('main');
+
+    // ── Auth guard ───────────────────────────────────────────────────
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) { window.location.replace('/portal'); }
+
+    // ── Sign out ─────────────────────────────────────────────────────
+    document.getElementById('signout').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      window.location.replace('/portal');
+    });
+
+    // ── Get order ID from URL ────────────────────────────────────────
+    const orderId = new URLSearchParams(window.location.search).get('id');
+    if (!orderId) {
+      main.innerHTML = `<div class="page-error"><p>No order ID specified.</p><a href="/portal/dashboard" class="back-link">← Back to orders</a></div>`;
+      throw new Error('no id');
+    }
+
+    // ── Fetch order + files in parallel ─────────────────────────────
+    // RLS ensures this will 404 if the order belongs to someone else.
+    const [{ data: order, error: oErr }, { data: files, error: fErr }] = await Promise.all([
+      supabase
+        .from('orders')
+        .select('*')
+        .eq('id', orderId)
+        .maybeSingle(),
+      supabase
+        .from('order_files')
+        .select('*')
+        .eq('order_id', orderId)
+        .order('created_at', { ascending: true }),
+    ]);
+
+    if (oErr || !order) {
+      main.innerHTML = `<div class="page-error"><p>Order not found.</p><a href="/portal/dashboard" class="back-link">← Back to orders</a></div>`;
+      return;
+    }
+
+    document.title = `Order ${order.id.slice(0,8).toUpperCase()} — Cupcasa`;
+
+    // ── Helpers ──────────────────────────────────────────────────────
+    const STATUS_LABEL = {
+      pending: 'Pending', in_production: 'In Production',
+      dispatched: 'Dispatched', delivered: 'Delivered', cancelled: 'Cancelled',
+    };
+
+    function fmtDate(iso, opts = { year:'numeric', month:'long', day:'numeric' }) {
+      return iso ? new Date(iso).toLocaleDateString('en-CA', opts) : '—';
+    }
+    function fmtMoney(n) {
+      return '$' + Number(n || 0).toLocaleString('en-CA', { minimumFractionDigits:2, maximumFractionDigits:2 });
+    }
+
+    // Production stages config
+    const STAGES = [
+      { key: 'awaiting_deposit', label: 'Awaiting\nDeposit' },
+      { key: 'artwork_review',   label: 'Artwork\nReview' },
+      { key: 'printing',         label: 'Printing' },
+      { key: 'quality_check',    label: 'Quality\nCheck' },
+      { key: 'dispatched',       label: 'Dispatched' },
+    ];
+
+    const currentStageIdx = STAGES.findIndex(s => s.key === order.production_stage);
+
+    function stagesHTML() {
+      return STAGES.map((s, i) => {
+        const cls = i < currentStageIdx ? 'done'
+                  : i === currentStageIdx ? 'current'
+                  : '';
+        const check = i < currentStageIdx ? '✓' : i + 1;
+        return `
+          <div class="stage ${cls}">
+            <div class="stage-dot">${check}</div>
+            <div class="stage-label">${s.label.replace('\n','<br>')}</div>
+          </div>`;
+      }).join('');
+    }
+
+    // ── Build signed download URLs for files ─────────────────────────
+    async function buildFileCards() {
+      if (!files?.length) {
+        return `<p class="no-files">No files uploaded yet — check back soon.</p>`;
+      }
+      const cards = await Promise.all(files.map(async f => {
+        const { data: signed } = await supabase.storage
+          .from('order-files')
+          .createSignedUrl(f.storage_path, 3600); // link valid for 1 hour
+        const url = signed?.signedUrl || '#';
+        return `
+          <div class="file-item">
+            <div class="file-info">
+              <div class="file-type">${f.file_type}</div>
+              <div class="file-name">${f.file_name || f.storage_path.split('/').pop()}</div>
+            </div>
+            <a href="${url}" target="_blank" rel="noopener" class="btn-download">Download</a>
+          </div>`;
+      }));
+      return `<div class="files-grid">${cards.join('')}</div>`;
+    }
+
+    const balance = Number(order.total || 0)
+                  - Number(order.deposit_paid || 0)
+                  - Number(order.balance_paid || 0);
+
+    const filesHTML = await buildFileCards();
+
+    // ── Render ───────────────────────────────────────────────────────
+    main.innerHTML = `
+      <a href="/portal/dashboard" class="back-link">← All Orders</a>
+
+      <div class="page-heading">
+        <div>
+          <span class="eyebrow">Order Detail</span>
+          <h1>${order.id.slice(0,8).toUpperCase()}</h1>
+        </div>
+        <span class="badge badge-${order.status}">${STATUS_LABEL[order.status] || order.status}</span>
+      </div>
+
+      <div class="grid">
+
+        <!-- Cup details -->
+        <div class="card">
+          <div class="card-title">Cup Details</div>
+          <div class="detail-row">
+            <span class="detail-label">Cup Type</span>
+            <span class="detail-value">${order.cup_type || '—'}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Size</span>
+            <span class="detail-value">${order.size || '—'}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Quantity</span>
+            <span class="detail-value">${order.quantity ? Number(order.quantity).toLocaleString() : '—'}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Unit Price</span>
+            <span class="detail-value">${fmtMoney(order.unit_price)}</span>
+          </div>
+        </div>
+
+        <!-- Financials -->
+        <div class="card">
+          <div class="card-title">Payment</div>
+          <div class="detail-row">
+            <span class="detail-label">Order Total</span>
+            <span class="detail-value">${fmtMoney(order.total)}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Deposit Paid</span>
+            <span class="detail-value">${fmtMoney(order.deposit_paid)}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Balance Paid</span>
+            <span class="detail-value">${fmtMoney(order.balance_paid)}</span>
+          </div>
+          <div class="fin-total">
+            <span class="detail-label">Balance Due</span>
+            <span class="detail-value ${balance > 0 ? 'balance-due' : ''}">${fmtMoney(balance)}</span>
+          </div>
+        </div>
+
+        <!-- Dates -->
+        <div class="card">
+          <div class="card-title">Dates</div>
+          <div class="detail-row">
+            <span class="detail-label">Order Date</span>
+            <span class="detail-value">${fmtDate(order.order_date)}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Est. Dispatch</span>
+            <span class="detail-value">${fmtDate(order.expected_dispatch)}</span>
+          </div>
+        </div>
+
+        ${order.notes ? `
+        <!-- Notes -->
+        <div class="card">
+          <div class="card-title">Notes</div>
+          <p class="notes-text">${order.notes}</p>
+        </div>` : ''}
+
+        <!-- Production stage — full width -->
+        <div class="card card-full">
+          <div class="card-title">Production Stage</div>
+          <div class="stages">${stagesHTML()}</div>
+        </div>
+
+        <!-- Files — full width -->
+        <div class="card card-full">
+          <div class="card-title">Files</div>
+          ${filesHTML}
+        </div>
+
+      </div>
+    `;
+  </script>
+</body>
+</html>

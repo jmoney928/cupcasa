@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account — Cupcasa</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #2C1A0E;
+      --dark: #1A0D07;
+      --lime: #C4874A;
+      --lime-hover: #AE7038;
+      --cream: #FDF5EC;
+      --grey-light: #F0E6DA;
+      --border: #DDD0BF;
+      --text: #3A2010;
+      --text-muted: #7A5230;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--cream);
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Portal header ─────────────────────────────────────────────── */
+    .portal-header {
+      background: var(--navy);
+      height: 64px;
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .portal-header img { height: 42px; width: auto; }
+    .portal-nav { display: flex; align-items: center; gap: 2rem; }
+    .portal-nav a {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .portal-nav a:hover { color: rgba(255,255,255,0.9); }
+    .portal-nav a.active { color: #fff; }
+    .btn-signout {
+      padding: 0.45rem 1.1rem;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-signout:hover { border-color: rgba(255,255,255,0.55); color: #fff; }
+
+    /* ── Main ──────────────────────────────────────────────────────── */
+    .main {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .page-heading { margin-bottom: 2.5rem; }
+    .eyebrow {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 0.5rem;
+    }
+    h1 { font-size: 1.9rem; font-weight: 700; color: var(--dark); }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .card-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--grey-light);
+    }
+
+    .form-group { margin-bottom: 1.2rem; }
+    label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--cream);
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+    }
+    input:focus { border-color: var(--lime); background: #fff; }
+    input:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .input-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    .btn-primary {
+      padding: 0.85rem 2rem;
+      background: var(--lime);
+      border: 2px solid var(--lime);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--lime-hover); border-color: var(--lime-hover); }
+    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .alert {
+      padding: 0.85rem 1rem;
+      border-radius: 2px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+    .alert-error   { background: #fdf0ec; border: 1px solid #e4b5a5; color: #8b2c1a; }
+    .alert-success { background: #f0fdf4; border: 1px solid #a3d9a5; color: #1a5c2a; }
+
+    @media (max-width: 600px) {
+      .portal-header { padding: 0 1.25rem; }
+      .main { padding: 2rem 1rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="portal-header">
+    <a href="/"><img src="/img/casalogo.png" alt="Cupcasa"></a>
+    <nav class="portal-nav">
+      <a href="/portal/dashboard">Orders</a>
+      <a href="/portal/account" class="active">Account</a>
+      <button class="btn-signout" id="signout">Sign Out</button>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="page-heading">
+      <span class="eyebrow">Customer Portal</span>
+      <h1>Account</h1>
+    </div>
+
+    <!-- Profile card -->
+    <div class="card">
+      <div class="card-title">Profile</div>
+      <div id="profile-msg"></div>
+      <form id="form-profile">
+        <div class="form-group">
+          <label for="f-email">Email</label>
+          <input type="email" id="f-email" disabled>
+          <p class="input-note">Email cannot be changed here. Contact us if you need to update it.</p>
+        </div>
+        <div class="form-group">
+          <label for="f-name">Your Name</label>
+          <input type="text" id="f-name" placeholder="Jane Smith">
+        </div>
+        <div class="form-group">
+          <label for="f-business">Business Name</label>
+          <input type="text" id="f-business" placeholder="The Coffee Collective">
+        </div>
+        <button type="submit" class="btn-primary" id="btn-profile">Save Changes</button>
+      </form>
+    </div>
+
+    <!-- Change password card -->
+    <div class="card">
+      <div class="card-title">Change Password</div>
+      <div id="pw-msg"></div>
+      <form id="form-password">
+        <div class="form-group">
+          <label for="f-pw-new">New Password</label>
+          <input type="password" id="f-pw-new" placeholder="At least 8 characters" minlength="8" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label for="f-pw-confirm">Confirm Password</label>
+          <input type="password" id="f-pw-confirm" placeholder="Repeat new password" minlength="8" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn-primary" id="btn-pw">Update Password</button>
+      </form>
+    </div>
+  </main>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+    import { SUPABASE_URL, SUPABASE_ANON_KEY } from './js/config.js';
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ── Auth guard ───────────────────────────────────────────────────
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) { window.location.replace('/portal'); }
+
+    // ── Sign out ─────────────────────────────────────────────────────
+    document.getElementById('signout').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      window.location.replace('/portal');
+    });
+
+    // ── Load existing profile ────────────────────────────────────────
+    document.getElementById('f-email').value = session.user.email;
+
+    const { data: customer } = await supabase
+      .from('customers')
+      .select('name, business_name')
+      .eq('id', session.user.id)
+      .maybeSingle();
+
+    if (customer) {
+      document.getElementById('f-name').value     = customer.name || '';
+      document.getElementById('f-business').value = customer.business_name || '';
+    }
+
+    // ── Save profile ─────────────────────────────────────────────────
+    function showMsg(containerId, text, type = 'error') {
+      document.getElementById(containerId).innerHTML =
+        `<div class="alert alert-${type}">${text}</div>`;
+    }
+    function clearMsg(containerId) {
+      document.getElementById(containerId).innerHTML = '';
+    }
+
+    document.getElementById('form-profile').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-profile');
+      btn.disabled = true;
+      btn.textContent = 'Saving…';
+      clearMsg('profile-msg');
+
+      const name         = document.getElementById('f-name').value.trim();
+      const businessName = document.getElementById('f-business').value.trim();
+
+      const { error } = await supabase
+        .from('customers')
+        .upsert({ id: session.user.id, email: session.user.email, name, business_name: businessName });
+
+      if (error) {
+        showMsg('profile-msg', error.message);
+      } else {
+        showMsg('profile-msg', 'Changes saved.', 'success');
+      }
+      btn.disabled = false;
+      btn.textContent = 'Save Changes';
+    });
+
+    // ── Change password ──────────────────────────────────────────────
+    document.getElementById('form-password').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-pw');
+      const newPw  = document.getElementById('f-pw-new').value;
+      const confirm = document.getElementById('f-pw-confirm').value;
+      clearMsg('pw-msg');
+
+      if (newPw !== confirm) {
+        showMsg('pw-msg', 'Passwords do not match.');
+        return;
+      }
+      if (newPw.length < 8) {
+        showMsg('pw-msg', 'Password must be at least 8 characters.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Updating…';
+
+      const { error } = await supabase.auth.updateUser({ password: newPw });
+
+      if (error) {
+        showMsg('pw-msg', error.message);
+      } else {
+        showMsg('pw-msg', 'Password updated.', 'success');
+        document.getElementById('f-pw-new').value = '';
+        document.getElementById('f-pw-confirm').value = '';
+      }
+      btn.disabled = false;
+      btn.textContent = 'Update Password';
+    });
+  </script>
+</body>
+</html>

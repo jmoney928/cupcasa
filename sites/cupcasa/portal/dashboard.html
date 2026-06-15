@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders — Cupcasa</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #2C1A0E;
+      --dark: #1A0D07;
+      --lime: #C4874A;
+      --lime-hover: #AE7038;
+      --cream: #FDF5EC;
+      --grey-light: #F0E6DA;
+      --border: #DDD0BF;
+      --text: #3A2010;
+      --text-muted: #7A5230;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--cream);
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Portal header ─────────────────────────────────────────────── */
+    .portal-header {
+      background: var(--navy);
+      height: 64px;
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .portal-header img { height: 42px; width: auto; }
+    .portal-nav { display: flex; align-items: center; gap: 2rem; }
+    .portal-nav a {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .portal-nav a:hover { color: rgba(255,255,255,0.9); }
+    .portal-nav a.active { color: #fff; }
+    .btn-signout {
+      padding: 0.45rem 1.1rem;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-signout:hover { border-color: rgba(255,255,255,0.55); color: #fff; }
+
+    /* ── Main ──────────────────────────────────────────────────────── */
+    .main {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .page-heading { margin-bottom: 2rem; }
+    .eyebrow {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 0.5rem;
+    }
+    h1 { font-size: 1.9rem; font-weight: 700; color: var(--dark); }
+
+    /* ── Orders table ──────────────────────────────────────────────── */
+    .orders-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead { background: var(--grey-light); }
+    th {
+      padding: 0.8rem 1.25rem;
+      text-align: left;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    td {
+      padding: 1rem 1.25rem;
+      font-size: 0.88rem;
+      border-bottom: 1px solid var(--grey-light);
+      vertical-align: middle;
+      color: var(--text);
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background 0.15s; cursor: pointer; }
+    tbody tr:hover td { background: rgba(196,135,74,0.05); }
+
+    .order-id {
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: 0.05em;
+    }
+
+    /* Status badges */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .badge-pending      { background: rgba(196,135,74,0.1);  color: #7A5230; border: 1px solid rgba(196,135,74,0.3); }
+    .badge-in_production{ background: rgba(30,120,60,0.09);  color: #1a6b35; border: 1px solid rgba(30,120,60,0.25); }
+    .badge-dispatched   { background: rgba(30,80,200,0.08);  color: #1a3a8b; border: 1px solid rgba(30,80,200,0.22); }
+    .badge-delivered    { background: rgba(30,140,30,0.1);   color: #135a13; border: 1px solid rgba(30,140,30,0.3); }
+    .badge-cancelled    { background: rgba(180,30,30,0.08);  color: #8b1a1a; border: 1px solid rgba(180,30,30,0.22); }
+
+    .row-arrow { color: var(--lime); font-weight: 700; font-size: 1rem; }
+
+    /* Empty state */
+    .empty-state {
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .empty-state p { color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.7; }
+    .empty-state a {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background: var(--lime);
+      color: var(--dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .empty-state a:hover { background: var(--lime-hover); }
+
+    /* Loading skeleton */
+    @keyframes shimmer {
+      0%   { background-position: -600px 0; }
+      100% { background-position: 600px 0; }
+    }
+    .skel {
+      display: inline-block;
+      height: 13px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--grey-light) 25%, #e8ddd2 50%, var(--grey-light) 75%);
+      background-size: 600px 100%;
+      animation: shimmer 1.4s infinite;
+    }
+
+    @media (max-width: 700px) {
+      .portal-header { padding: 0 1.25rem; }
+      .main { padding: 2rem 1rem 4rem; }
+      th:nth-child(3), td:nth-child(3),
+      th:nth-child(4), td:nth-child(4),
+      th:nth-child(7), td:nth-child(7) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="portal-header">
+    <a href="/"><img src="/img/casalogo.png" alt="Cupcasa"></a>
+    <nav class="portal-nav">
+      <a href="/portal/dashboard" class="active">Orders</a>
+      <a href="/portal/account">Account</a>
+      <button class="btn-signout" id="signout">Sign Out</button>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="page-heading">
+      <span class="eyebrow">Customer Portal</span>
+      <h1 id="page-title">My Orders</h1>
+    </div>
+
+    <div class="orders-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Date</th>
+            <th>Cup Type</th>
+            <th>Size / Qty</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Est. Dispatch</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="orders-body">
+          <!-- Skeleton rows while loading -->
+          <tr>
+            <td><span class="skel" style="width:72px"></span></td>
+            <td><span class="skel" style="width:80px"></span></td>
+            <td><span class="skel" style="width:36px"></span></td>
+            <td><span class="skel" style="width:90px"></span></td>
+            <td><span class="skel" style="width:60px"></span></td>
+            <td><span class="skel" style="width:88px"></span></td>
+            <td><span class="skel" style="width:74px"></span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><span class="skel" style="width:72px"></span></td>
+            <td><span class="skel" style="width:80px"></span></td>
+            <td><span class="skel" style="width:36px"></span></td>
+            <td><span class="skel" style="width:90px"></span></td>
+            <td><span class="skel" style="width:60px"></span></td>
+            <td><span class="skel" style="width:88px"></span></td>
+            <td><span class="skel" style="width:74px"></span></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+    import { SUPABASE_URL, SUPABASE_ANON_KEY } from './js/config.js';
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ── Auth guard ───────────────────────────────────────────────────
+    // getSession() also handles magic-link tokens in the URL hash automatically.
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) { window.location.replace('/portal'); }
+
+    // ── Greet with business name ─────────────────────────────────────
+    const { data: customer } = await supabase
+      .from('customers')
+      .select('name, business_name')
+      .eq('id', session.user.id)
+      .maybeSingle();
+
+    if (customer?.business_name) {
+      document.getElementById('page-title').textContent =
+        `${customer.business_name}'s Orders`;
+    } else if (customer?.name) {
+      document.getElementById('page-title').textContent =
+        `${customer.name}'s Orders`;
+    }
+
+    // ── Sign out ─────────────────────────────────────────────────────
+    document.getElementById('signout').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      window.location.replace('/portal');
+    });
+
+    // ── Load orders ──────────────────────────────────────────────────
+    const { data: orders, error } = await supabase
+      .from('orders')
+      .select('id, order_date, cup_type, size, quantity, total, status, expected_dispatch')
+      .order('order_date', { ascending: false });
+
+    const tbody = document.getElementById('orders-body');
+
+    if (error || !orders?.length) {
+      tbody.innerHTML = `
+        <tr><td colspan="8">
+          <div class="empty-state">
+            <p>No orders yet.<br>When your first order is placed it will appear here.</p>
+            <a href="/contact">Get a Quote →</a>
+          </div>
+        </td></tr>`;
+      return;
+    }
+
+    const STATUS_LABEL = {
+      pending:       'Pending',
+      in_production: 'In Production',
+      dispatched:    'Dispatched',
+      delivered:     'Delivered',
+      cancelled:     'Cancelled',
+    };
+
+    function fmtDate(iso, opts = { year:'numeric', month:'short', day:'numeric' }) {
+      return iso ? new Date(iso).toLocaleDateString('en-CA', opts) : '—';
+    }
+
+    tbody.innerHTML = orders.map(o => `
+      <tr onclick="window.location='/portal/order?id=${o.id}'">
+        <td><span class="order-id">${o.id.slice(0,8).toUpperCase()}</span></td>
+        <td>${fmtDate(o.order_date)}</td>
+        <td>${o.cup_type || '—'}</td>
+        <td>${o.size || '—'}&nbsp;/&nbsp;${o.quantity ? Number(o.quantity).toLocaleString() : '—'}</td>
+        <td>$${Number(o.total || 0).toLocaleString('en-CA', { minimumFractionDigits:2, maximumFractionDigits:2 })}</td>
+        <td><span class="badge badge-${o.status}">${STATUS_LABEL[o.status] || o.status}</span></td>
+        <td>${fmtDate(o.expected_dispatch, { month:'short', day:'numeric' })}</td>
+        <td><span class="row-arrow">→</span></td>
+      </tr>
+    `).join('');
+  </script>
+</body>
+</html>
