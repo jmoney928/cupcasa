@@ -171,6 +171,113 @@
     }
     .empty-state a:hover { background: var(--lime-hover); }
 
+    /* ── Latest order card ─────────────────────────────────────────── */
+    .latest-order {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .lo-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .lo-id {
+      font-family: 'Courier New', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: 0.05em;
+      margin-top: 0.2rem;
+    }
+    .lo-summary {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .lo-summary strong { color: var(--text); }
+
+    /* Mini timeline */
+    .lo-stages {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .lo-stage { display: flex; flex-direction: column; align-items: center; flex: 1; }
+    .lo-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--grey-light);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+    }
+    .lo-dot.done { background: var(--lime); border-color: var(--lime); color: #fff; }
+    .lo-dot.current {
+      background: #fff;
+      border-color: var(--lime);
+      color: var(--lime);
+      box-shadow: 0 0 0 3px rgba(196,135,74,0.15);
+    }
+    .lo-line {
+      flex: 1;
+      height: 2px;
+      background: var(--grey-light);
+      margin-top: -12px;
+      position: relative;
+      z-index: 0;
+    }
+    .lo-line.done { background: var(--lime); }
+    .lo-stage-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .lo-stage-label.done,
+    .lo-stage-label.current { color: var(--dark); }
+
+    .lo-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--grey-light);
+    }
+    .lo-dispatch {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .lo-dispatch strong { color: var(--lime); font-size: 0.9rem; }
+    .lo-link {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lime);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .lo-link:hover { color: var(--lime-hover); }
+
     /* Loading skeleton */
     @keyframes shimmer {
       0%   { background-position: -600px 0; }
@@ -209,6 +316,23 @@
     <div class="page-heading">
       <span class="eyebrow">Customer Portal</span>
       <h1 id="page-title">My Orders</h1>
+    </div>
+
+    <!-- Latest order spotlight -->
+    <div class="latest-order" id="latest-order" style="display:none">
+      <span class="eyebrow">Latest Order</span>
+      <div class="lo-top">
+        <div>
+          <div class="lo-id" id="lo-id"></div>
+          <div class="lo-summary" id="lo-summary"></div>
+        </div>
+        <span id="lo-badge"></span>
+      </div>
+      <div class="lo-stages" id="lo-stages"></div>
+      <div class="lo-footer">
+        <span class="lo-dispatch" id="lo-dispatch"></span>
+        <a class="lo-link" id="lo-link" href="#">View Full Order →</a>
+      </div>
     </div>
 
     <div class="orders-card">
@@ -287,10 +411,68 @@
     // ── Load orders ──────────────────────────────────────────────────
     const { data: orders, error } = await supabase
       .from('orders')
-      .select('id, order_date, cup_type, size, quantity, total, status, expected_dispatch')
+      .select('id, order_date, cup_type, size, quantity, total, status, expected_dispatch, production_stage')
       .order('order_date', { ascending: false });
 
     const tbody = document.getElementById('orders-body');
+
+    // ── Latest Order card ────────────────────────────────────────────
+    if (orders?.length) {
+      const lo = orders[0];
+      const STAGES = [
+        { key: 'awaiting_deposit', label: 'Deposit' },
+        { key: 'artwork_review',   label: 'Artwork' },
+        { key: 'printing',         label: 'Printing' },
+        { key: 'quality_check',    label: 'QC' },
+        { key: 'dispatched',       label: 'Dispatched' },
+      ];
+      const stageIdx = STAGES.findIndex(s => s.key === lo.production_stage);
+
+      const stagesHTML = STAGES.map((s, i) => {
+        const dotCls   = i < stageIdx ? 'done' : i === stageIdx ? 'current' : '';
+        const labelCls = dotCls;
+        const lineCls  = i < stageIdx ? 'done' : '';
+        const check    = i < stageIdx ? '✓' : '';
+        const line     = i < STAGES.length - 1
+          ? `<div class="lo-line ${lineCls}"></div>` : '';
+        return `
+          <div class="lo-stage">
+            <div class="lo-dot ${dotCls}">${check}</div>
+            <div class="lo-stage-label ${labelCls}">${s.label}</div>
+          </div>
+          ${line}`;
+      }).join('');
+
+      const STATUS_LABEL = {
+        pending: 'Pending', in_production: 'In Production',
+        dispatched: 'Dispatched', delivered: 'Delivered', cancelled: 'Cancelled',
+      };
+      const BADGE_CLASS = {
+        pending: 'badge-pending', in_production: 'badge-in_production',
+        dispatched: 'badge-dispatched', delivered: 'badge-delivered', cancelled: 'badge-cancelled',
+      };
+
+      function fmtDateShort(iso) {
+        return iso ? new Date(iso).toLocaleDateString('en-CA', { year:'numeric', month:'long', day:'numeric' }) : '—';
+      }
+
+      document.getElementById('lo-id').textContent = '#' + lo.id.slice(0,8).toUpperCase();
+      document.getElementById('lo-badge').innerHTML =
+        `<span class="badge ${BADGE_CLASS[lo.status] || ''}">${STATUS_LABEL[lo.status] || lo.status}</span>`;
+
+      const parts = [lo.cup_type, lo.size, lo.quantity ? Number(lo.quantity).toLocaleString() + ' units' : null].filter(Boolean);
+      document.getElementById('lo-summary').innerHTML = parts.length
+        ? `<strong>${parts.join(' · ')}</strong>` : '';
+
+      document.getElementById('lo-stages').innerHTML = stagesHTML;
+
+      document.getElementById('lo-dispatch').innerHTML = lo.expected_dispatch
+        ? `Est. Dispatch <strong>${fmtDateShort(lo.expected_dispatch)}</strong>`
+        : 'No dispatch date set yet';
+
+      document.getElementById('lo-link').href = `/portal/order?id=${lo.id}`;
+      document.getElementById('latest-order').style.display = '';
+    }
 
     if (error || !orders?.length) {
       tbody.innerHTML = `

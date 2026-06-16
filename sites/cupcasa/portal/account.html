@@ -169,9 +169,12 @@
     .alert-error   { background: #fdf0ec; border: 1px solid #e4b5a5; color: #8b2c1a; }
     .alert-success { background: #f0fdf4; border: 1px solid #a3d9a5; color: #1a5c2a; }
 
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
     @media (max-width: 600px) {
       .portal-header { padding: 0 1.25rem; }
       .main { padding: 2rem 1rem 4rem; }
+      .form-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -214,6 +217,43 @@
       </form>
     </div>
 
+    <!-- Shipping address card -->
+    <div class="card">
+      <div class="card-title">Shipping Address</div>
+      <div id="addr-msg"></div>
+      <form id="form-address">
+        <div class="form-group">
+          <label for="f-addr1">Address Line 1</label>
+          <input type="text" id="f-addr1" placeholder="123 Main Street">
+        </div>
+        <div class="form-group">
+          <label for="f-addr2">Address Line 2 <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <input type="text" id="f-addr2" placeholder="Unit 4B">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-city">City</label>
+            <input type="text" id="f-city" placeholder="Vancouver">
+          </div>
+          <div class="form-group">
+            <label for="f-province">Province / State</label>
+            <input type="text" id="f-province" placeholder="BC">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-postal">Postal Code</label>
+            <input type="text" id="f-postal" placeholder="V6B 1A1">
+          </div>
+          <div class="form-group">
+            <label for="f-country">Country</label>
+            <input type="text" id="f-country" placeholder="Canada">
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="btn-addr">Save Address</button>
+      </form>
+    </div>
+
     <!-- Change password card -->
     <div class="card">
       <div class="card-title">Change Password</div>
@@ -253,13 +293,19 @@
 
     const { data: customer } = await supabase
       .from('customers')
-      .select('name, business_name')
+      .select('name, business_name, address_line1, address_line2, city, province, postal_code, country')
       .eq('id', session.user.id)
       .maybeSingle();
 
     if (customer) {
       document.getElementById('f-name').value     = customer.name || '';
       document.getElementById('f-business').value = customer.business_name || '';
+      document.getElementById('f-addr1').value    = customer.address_line1 || '';
+      document.getElementById('f-addr2').value    = customer.address_line2 || '';
+      document.getElementById('f-city').value     = customer.city || '';
+      document.getElementById('f-province').value = customer.province || '';
+      document.getElementById('f-postal').value   = customer.postal_code || '';
+      document.getElementById('f-country').value  = customer.country || 'Canada';
     }
 
     // ── Save profile ─────────────────────────────────────────────────
@@ -292,6 +338,36 @@
       }
       btn.disabled = false;
       btn.textContent = 'Save Changes';
+    });
+
+    // ── Save address ─────────────────────────────────────────────────
+    document.getElementById('form-address').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-addr');
+      btn.disabled = true;
+      btn.textContent = 'Saving…';
+      clearMsg('addr-msg');
+
+      const { error } = await supabase
+        .from('customers')
+        .upsert({
+          id: session.user.id,
+          email: session.user.email,
+          address_line1: document.getElementById('f-addr1').value.trim(),
+          address_line2: document.getElementById('f-addr2').value.trim(),
+          city:          document.getElementById('f-city').value.trim(),
+          province:      document.getElementById('f-province').value.trim(),
+          postal_code:   document.getElementById('f-postal').value.trim(),
+          country:       document.getElementById('f-country').value.trim() || 'Canada',
+        });
+
+      if (error) {
+        showMsg('addr-msg', error.message);
+      } else {
+        showMsg('addr-msg', 'Address saved.', 'success');
+      }
+      btn.disabled = false;
+      btn.textContent = 'Save Address';
     });
 
     // ── Change password ──────────────────────────────────────────────

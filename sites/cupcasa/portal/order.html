@@ -133,6 +133,28 @@
     .badge-delivered    { background: rgba(30,140,30,0.1);   color: #135a13; border: 1px solid rgba(30,140,30,0.3); }
     .badge-cancelled    { background: rgba(180,30,30,0.08);  color: #8b1a1a; border: 1px solid rgba(180,30,30,0.22); }
 
+    /* Delivery callout */
+    .delivery-callout {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(196,135,74,0.08);
+      border: 1px solid rgba(196,135,74,0.25);
+      border-radius: 3px;
+      padding: 0.65rem 1.1rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+    .delivery-callout strong { color: var(--lime); font-size: 0.9rem; }
+    .delivery-callout .label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
     /* ── Two-column grid ───────────────────────────────────────────── */
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
 
@@ -465,6 +487,12 @@
         </div>
         <span class="badge badge-${order.status}">${STATUS_LABEL[order.status] || order.status}</span>
       </div>
+
+      ${order.expected_dispatch ? `
+      <div class="delivery-callout">
+        <span class="label">Est. Dispatch</span>
+        <strong>${fmtDate(order.expected_dispatch, { year:'numeric', month:'long', day:'numeric' })}</strong>
+      </div>` : ''}
 
       <div class="grid">
 
