@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Cupcasa</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #2C1A0E;
+      --dark: #1A0D07;
+      --lime: #C4874A;
+      --lime-hover: #AE7038;
+      --cream: #FDF5EC;
+      --border: #DDD0BF;
+      --text: #3A2010;
+      --text-muted: #7A5230;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--navy);
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .logo-wrap { margin-bottom: 0.75rem; text-align: center; }
+    .logo-wrap img { height: 50px; width: auto; }
+
+    .admin-badge {
+      display: inline-block;
+      margin-bottom: 2rem;
+      padding: 4px 14px;
+      background: rgba(196,135,74,0.15);
+      border: 1px solid rgba(196,135,74,0.35);
+      border-radius: 100px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--lime);
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .card-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 1.75rem;
+    }
+
+    .form-group { margin-bottom: 1.2rem; }
+    label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+    }
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--cream);
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+    }
+    input:focus { border-color: var(--lime); background: #fff; }
+
+    .btn-primary {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--lime);
+      border: 2px solid var(--lime);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.25rem;
+    }
+    .btn-primary:hover { background: var(--lime-hover); border-color: var(--lime-hover); }
+    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .alert {
+      padding: 0.85rem 1rem;
+      border-radius: 2px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+    .alert-error { background: #fdf0ec; border: 1px solid #e4b5a5; color: #8b2c1a; }
+  </style>
+</head>
+<body>
+
+  <div class="logo-wrap">
+    <a href="/"><img src="/img/casalogo.png" alt="Cupcasa"></a>
+  </div>
+  <span class="admin-badge">Admin Access</span>
+
+  <div class="card">
+    <p class="card-heading">Admin Sign In</p>
+    <div id="msg"></div>
+    <form id="form-login">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="cupcasaadmin@gmail.com" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn-primary" id="btn-login">Sign In</button>
+    </form>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+    import { SUPABASE_URL, SUPABASE_ANON_KEY } from '/portal/js/config.js';
+
+    const ADMIN_EMAIL = 'cupcasaadmin@gmail.com';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function showMsg(text) {
+      document.getElementById('msg').innerHTML = `<div class="alert alert-error">${text}</div>`;
+    }
+
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.user?.email === ADMIN_EMAIL) {
+      window.location.replace('/portal/admin/dashboard');
+    } else if (session) {
+      await supabase.auth.signOut();
+    }
+
+    document.getElementById('form-login').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-login');
+      btn.disabled = true;
+      btn.textContent = 'Signing in…';
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: document.getElementById('email').value.trim(),
+        password: document.getElementById('password').value,
+      });
+
+      if (error) {
+        showMsg(error.message);
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+        return;
+      }
+
+      if (data.user.email !== ADMIN_EMAIL) {
+        await supabase.auth.signOut();
+        showMsg('Not authorized. This page is for admin use only.');
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+        return;
+      }
+
+      window.location.replace('/portal/admin/dashboard');
+    });
+  </script>
+</body>
+</html>

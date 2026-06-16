@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Cupcasa</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #2C1A0E;
+      --dark: #1A0D07;
+      --lime: #C4874A;
+      --lime-hover: #AE7038;
+      --cream: #FDF5EC;
+      --grey-light: #F0E6DA;
+      --border: #DDD0BF;
+      --text: #3A2010;
+      --text-muted: #7A5230;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--cream);
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ─────────────────────────────────────────────────────── */
+    .admin-header {
+      background: var(--navy);
+      height: 64px;
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-left { display: flex; align-items: center; gap: 1rem; }
+    .admin-header img { height: 42px; width: auto; }
+    .admin-label {
+      padding: 3px 10px;
+      background: rgba(196,135,74,0.18);
+      border: 1px solid rgba(196,135,74,0.35);
+      border-radius: 100px;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--lime);
+    }
+    .btn-signout {
+      padding: 0.45rem 1.1rem;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-signout:hover { border-color: rgba(255,255,255,0.55); color: #fff; }
+
+    /* ── Main ──────────────────────────────────────────────────────── */
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+    }
+
+    .page-heading { margin-bottom: 2rem; }
+    .eyebrow {
+      display: block;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 0.4rem;
+    }
+    h1 { font-size: 1.8rem; font-weight: 700; color: var(--dark); }
+
+    /* ── Stats ─────────────────────────────────────────────────────── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem 1.75rem;
+    }
+    .stat-label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1;
+    }
+    .stat-card.accent .stat-value { color: var(--lime); }
+
+    /* ── Tabs ──────────────────────────────────────────────────────── */
+    .tabs-bar {
+      display: flex;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 1.5rem;
+      gap: 0;
+    }
+    .tab-btn {
+      padding: 0.7rem 1.5rem;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn.active { color: var(--lime); border-bottom-color: var(--lime); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Table ─────────────────────────────────────────────────────── */
+    .table-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .table-toolbar {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--grey-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .toolbar-count {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+    .search-input {
+      padding: 0.5rem 0.85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.82rem;
+      color: var(--text);
+      background: var(--cream);
+      outline: none;
+      width: 220px;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: var(--lime); background: #fff; }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: var(--grey-light); }
+    th {
+      padding: 0.8rem 1.25rem;
+      text-align: left;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    td {
+      padding: 0.9rem 1.25rem;
+      font-size: 0.86rem;
+      border-bottom: 1px solid var(--grey-light);
+      vertical-align: middle;
+      color: var(--text);
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background 0.12s; }
+    tbody tr:hover td { background: rgba(196,135,74,0.04); }
+
+    .cell-name { font-weight: 600; color: var(--dark); }
+    .cell-sub  { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+    .cell-mono {
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: 0.05em;
+    }
+    .cell-email { color: var(--text-muted); font-size: 0.83rem; }
+
+    /* Status badges */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .badge-pending       { background: rgba(196,135,74,0.1);  color: #7A5230; border: 1px solid rgba(196,135,74,0.3); }
+    .badge-in_production { background: rgba(30,120,60,0.09);  color: #1a6b35; border: 1px solid rgba(30,120,60,0.25); }
+    .badge-dispatched    { background: rgba(30,80,200,0.08);  color: #1a3a8b; border: 1px solid rgba(30,80,200,0.22); }
+    .badge-delivered     { background: rgba(30,140,30,0.1);   color: #135a13; border: 1px solid rgba(30,140,30,0.3); }
+    .badge-cancelled     { background: rgba(180,30,30,0.08);  color: #8b1a1a; border: 1px solid rgba(180,30,30,0.22); }
+
+    /* Status select */
+    .status-select {
+      padding: 4px 8px;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--cream);
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .status-select:focus { border-color: var(--lime); }
+    .status-select:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Empty & error states */
+    .empty-state {
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* Loading skeleton */
+    @keyframes shimmer {
+      0%   { background-position: -600px 0; }
+      100% { background-position: 600px 0; }
+    }
+    .skel {
+      display: inline-block;
+      height: 12px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--grey-light) 25%, #e8ddd2 50%, var(--grey-light) 75%);
+      background-size: 600px 100%;
+      animation: shimmer 1.4s infinite;
+    }
+
+    /* Alert */
+    .alert-banner {
+      padding: 0.85rem 1.25rem;
+      background: #fdf0ec;
+      border: 1px solid #e4b5a5;
+      border-radius: 4px;
+      color: #8b2c1a;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+    .alert-banner code {
+      background: rgba(139,44,26,0.1);
+      padding: 1px 5px;
+      border-radius: 2px;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 900px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .admin-header { padding: 0 1.25rem; }
+      .main { padding: 1.75rem 1rem 4rem; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+      .stat-value { font-size: 1.6rem; }
+      .tabs-bar { overflow-x: auto; }
+      .search-input { width: 100%; }
+      .table-toolbar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="admin-header">
+    <div class="header-left">
+      <a href="/"><img src="/img/casalogo.png" alt="Cupcasa"></a>
+      <span class="admin-label">Admin</span>
+    </div>
+    <button class="btn-signout" id="signout">Sign Out</button>
+  </header>
+
+  <main class="main">
+    <div class="page-heading">
+      <span class="eyebrow">Admin Dashboard</span>
+      <h1>Overview</h1>
+    </div>
+
+    <div id="alert-container"></div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Customers</div>
+        <div class="stat-value" id="stat-customers"><span class="skel" style="width:40px;height:28px"></span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Open Orders</div>
+        <div class="stat-value" id="stat-open"><span class="skel" style="width:40px;height:28px"></span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Closed Orders</div>
+        <div class="stat-value" id="stat-closed"><span class="skel" style="width:40px;height:28px"></span></div>
+      </div>
+      <div class="stat-card accent">
+        <div class="stat-label">Total Revenue</div>
+        <div class="stat-value" id="stat-revenue"><span class="skel" style="width:80px;height:28px"></span></div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" data-tab="customers">Customers</button>
+      <button class="tab-btn" data-tab="open">Open Orders</button>
+      <button class="tab-btn" data-tab="closed">Closed Orders</button>
+      <button class="tab-btn" data-tab="all">All Orders</button>
+    </div>
+
+    <!-- Customers tab -->
+    <div class="tab-panel active" id="tab-customers">
+      <div class="table-card">
+        <div class="table-toolbar">
+          <span class="toolbar-count" id="count-customers">Loading…</span>
+          <input class="search-input" id="search-customers" type="search" placeholder="Search customers…">
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Name / Business</th>
+              <th>Email</th>
+              <th>Member Since</th>
+              <th>Orders</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-customers">
+            <tr><td colspan="4"><div class="empty-state">Loading…</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Open Orders tab -->
+    <div class="tab-panel" id="tab-open">
+      <div class="table-card">
+        <div class="table-toolbar">
+          <span class="toolbar-count" id="count-open">Loading…</span>
+          <input class="search-input" id="search-open" type="search" placeholder="Search orders…">
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Cup Type</th>
+              <th>Size / Qty</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Est. Dispatch</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-open">
+            <tr><td colspan="8"><div class="empty-state">Loading…</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Closed Orders tab -->
+    <div class="tab-panel" id="tab-closed">
+      <div class="table-card">
+        <div class="table-toolbar">
+          <span class="toolbar-count" id="count-closed">Loading…</span>
+          <input class="search-input" id="search-closed" type="search" placeholder="Search orders…">
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Cup Type</th>
+              <th>Size / Qty</th>
+              <th>Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-closed">
+            <tr><td colspan="7"><div class="empty-state">Loading…</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- All Orders tab -->
+    <div class="tab-panel" id="tab-all">
+      <div class="table-card">
+        <div class="table-toolbar">
+          <span class="toolbar-count" id="count-all">Loading…</span>
+          <input class="search-input" id="search-all" type="search" placeholder="Search orders…">
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Cup Type</th>
+              <th>Size / Qty</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Est. Dispatch</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-all">
+            <tr><td colspan="8"><div class="empty-state">Loading…</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+    import { SUPABASE_URL, SUPABASE_ANON_KEY } from '/portal/js/config.js';
+
+    const ADMIN_EMAIL = 'cupcasaadmin@gmail.com';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ── Auth guard ───────────────────────────────────────────────────
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) { window.location.replace('/portal/admin'); }
+    if (session.user.email !== ADMIN_EMAIL) {
+      await supabase.auth.signOut();
+      window.location.replace('/portal/admin');
+    }
+
+    document.getElementById('signout').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      window.location.replace('/portal/admin');
+    });
+
+    // ── Helpers ──────────────────────────────────────────────────────
+    function fmtDate(iso, opts = { year: 'numeric', month: 'short', day: 'numeric' }) {
+      return iso ? new Date(iso).toLocaleDateString('en-CA', opts) : '—';
+    }
+    function fmtMoney(n) {
+      return '$' + Number(n || 0).toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function esc(s) {
+      return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    const STATUS_LABEL = {
+      pending:       'Pending',
+      in_production: 'In Production',
+      dispatched:    'Dispatched',
+      delivered:     'Delivered',
+      cancelled:     'Cancelled',
+    };
+    const OPEN_STATUSES   = new Set(['pending', 'in_production', 'dispatched']);
+    const CLOSED_STATUSES = new Set(['delivered', 'cancelled']);
+
+    function statusBadge(s) {
+      return `<span class="badge badge-${esc(s)}">${esc(STATUS_LABEL[s] || s)}</span>`;
+    }
+
+    function statusSelect(orderId, currentStatus) {
+      const opts = Object.keys(STATUS_LABEL).map(s =>
+        `<option value="${s}"${s === currentStatus ? ' selected' : ''}>${STATUS_LABEL[s]}</option>`
+      ).join('');
+      return `<select class="status-select" data-order-id="${orderId}">${opts}</select>`;
+    }
+
+    function showAlert(html) {
+      document.getElementById('alert-container').innerHTML =
+        `<div class="alert-banner">${html}</div>`;
+    }
+
+    // ── Tab switching ────────────────────────────────────────────────
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // ── Load data ────────────────────────────────────────────────────
+    const [custRes, ordRes] = await Promise.all([
+      supabase.from('customers').select('*').order('created_at', { ascending: false }),
+      supabase.from('orders').select('*').order('order_date', { ascending: false }),
+    ]);
+
+    if (custRes.error || ordRes.error) {
+      const errMsg = custRes.error?.message || ordRes.error?.message || 'Permission denied';
+      showAlert(
+        `<strong>Supabase permission error:</strong> ${esc(errMsg)}<br><br>
+        Run these policies in your <strong>Supabase SQL editor</strong> to grant admin access:<br><br>
+        <code>
+        CREATE POLICY "Admin reads all customers" ON public.customers FOR SELECT TO authenticated
+        USING (auth.jwt() -&gt;&gt; 'email' = '${ADMIN_EMAIL}');<br><br>
+        CREATE POLICY "Admin reads all orders" ON public.orders FOR SELECT TO authenticated
+        USING (auth.jwt() -&gt;&gt; 'email' = '${ADMIN_EMAIL}');<br><br>
+        CREATE POLICY "Admin updates orders" ON public.orders FOR UPDATE TO authenticated
+        USING (auth.jwt() -&gt;&gt; 'email' = '${ADMIN_EMAIL}');
+        </code>`
+      );
+    }
+
+    const customers = custRes.data || [];
+    const orders    = ordRes.data  || [];
+
+    // Build lookup: customer by id
+    const custById = Object.fromEntries(customers.map(c => [c.id, c]));
+
+    // Helper: find customer for an order (try common FK names)
+    function orderCustomer(o) {
+      return custById[o.customer_id] || custById[o.user_id] || null;
+    }
+
+    const openOrders   = orders.filter(o => OPEN_STATUSES.has(o.status));
+    const closedOrders = orders.filter(o => CLOSED_STATUSES.has(o.status));
+
+    // Stats
+    const totalRevenue = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);
+    document.getElementById('stat-customers').textContent = customers.length;
+    document.getElementById('stat-open').textContent      = openOrders.length;
+    document.getElementById('stat-closed').textContent    = closedOrders.length;
+    document.getElementById('stat-revenue').textContent   = fmtMoney(totalRevenue);
+
+    // ── Render customers ─────────────────────────────────────────────
+    function renderCustomers(list) {
+      const tbody = document.getElementById('tbody-customers');
+      document.getElementById('count-customers').textContent =
+        `${list.length} customer${list.length !== 1 ? 's' : ''}`;
+
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="4"><div class="empty-state">No customers yet.</div></td></tr>`;
+        return;
+      }
+
+      // Count orders per customer
+      const orderCount = {};
+      orders.forEach(o => {
+        const cid = o.customer_id || o.user_id;
+        if (cid) orderCount[cid] = (orderCount[cid] || 0) + 1;
+      });
+
+      tbody.innerHTML = list.map(c => `
+        <tr>
+          <td>
+            <div class="cell-name">${esc(c.name || '—')}</div>
+            <div class="cell-sub">${esc(c.business_name || '')}</div>
+          </td>
+          <td class="cell-email">${esc(c.email || '—')}</td>
+          <td>${fmtDate(c.created_at)}</td>
+          <td>${orderCount[c.id] || 0}</td>
+        </tr>
+      `).join('');
+    }
+
+    // ── Render order rows ────────────────────────────────────────────
+    function orderRow(o, includeDispatch, editable) {
+      const cust = orderCustomer(o);
+      const custName = cust ? (cust.business_name || cust.name || cust.email || '—') : '—';
+      const custSub  = cust && cust.business_name ? cust.name : '';
+
+      const statusCell = editable
+        ? statusSelect(o.id, o.status)
+        : statusBadge(o.status);
+
+      const dispatchCell = includeDispatch
+        ? `<td>${fmtDate(o.expected_dispatch, { month: 'short', day: 'numeric' })}</td>`
+        : '';
+
+      return `
+        <tr data-order-id="${esc(o.id)}">
+          <td><span class="cell-mono">${esc(o.id?.slice(0,8).toUpperCase() || '—')}</span></td>
+          <td>${fmtDate(o.order_date)}</td>
+          <td>
+            <div class="cell-name">${esc(custName)}</div>
+            ${custSub ? `<div class="cell-sub">${esc(custSub)}</div>` : ''}
+          </td>
+          <td>${esc(o.cup_type || '—')}</td>
+          <td>${esc(o.size || '—')} / ${o.quantity ? Number(o.quantity).toLocaleString() : '—'}</td>
+          <td>${fmtMoney(o.total)}</td>
+          <td>${statusCell}</td>
+          ${dispatchCell}
+        </tr>
+      `;
+    }
+
+    function renderOrderTable(tbodyId, countId, list, includeDispatch, editable) {
+      const tbody = document.getElementById(tbodyId);
+      const cols = includeDispatch ? 8 : 7;
+      document.getElementById(countId).textContent =
+        `${list.length} order${list.length !== 1 ? 's' : ''}`;
+
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="${cols}"><div class="empty-state">No orders.</div></td></tr>`;
+        return;
+      }
+      tbody.innerHTML = list.map(o => orderRow(o, includeDispatch, editable)).join('');
+    }
+
+    renderCustomers(customers);
+    renderOrderTable('tbody-open',   'count-open',   openOrders,   true,  true);
+    renderOrderTable('tbody-closed', 'count-closed', closedOrders, false, false);
+    renderOrderTable('tbody-all',    'count-all',    orders,       true,  true);
+
+    // ── Inline status update ─────────────────────────────────────────
+    async function handleStatusChange(select) {
+      const orderId    = select.dataset.orderId;
+      const newStatus  = select.value;
+      const original   = orders.find(o => o.id === orderId)?.status;
+
+      select.disabled = true;
+      const { error } = await supabase
+        .from('orders')
+        .update({ status: newStatus })
+        .eq('id', orderId);
+
+      if (error) {
+        alert('Failed to update status: ' + error.message);
+        select.value = original;
+      } else {
+        // Update local data and re-render
+        const o = orders.find(o => o.id === orderId);
+        if (o) o.status = newStatus;
+        const newOpen   = orders.filter(o => OPEN_STATUSES.has(o.status));
+        const newClosed = orders.filter(o => CLOSED_STATUSES.has(o.status));
+        document.getElementById('stat-open').textContent   = newOpen.length;
+        document.getElementById('stat-closed').textContent = newClosed.length;
+        renderOrderTable('tbody-open',   'count-open',   newOpen,   true,  true);
+        renderOrderTable('tbody-closed', 'count-closed', newClosed, false, false);
+        renderOrderTable('tbody-all',    'count-all',    orders,    true,  true);
+        wireSelects();
+      }
+      select.disabled = false;
+    }
+
+    function wireSelects() {
+      document.querySelectorAll('.status-select').forEach(sel => {
+        sel.addEventListener('change', () => handleStatusChange(sel));
+      });
+    }
+    wireSelects();
+
+    // ── Search / filter ──────────────────────────────────────────────
+    function filterCustomers(q) {
+      if (!q) { renderCustomers(customers); return; }
+      const lq = q.toLowerCase();
+      renderCustomers(customers.filter(c =>
+        [c.name, c.business_name, c.email].some(v => v?.toLowerCase().includes(lq))
+      ));
+    }
+
+    function filterOrders(q, list, tbodyId, countId, includeDispatch, editable) {
+      if (!q) {
+        renderOrderTable(tbodyId, countId, list, includeDispatch, editable);
+        wireSelects();
+        return;
+      }
+      const lq = q.toLowerCase();
+      const filtered = list.filter(o => {
+        const cust = orderCustomer(o);
+        return [
+          o.id, o.cup_type, o.size, o.status,
+          cust?.name, cust?.business_name, cust?.email,
+        ].some(v => v?.toLowerCase().includes(lq));
+      });
+      renderOrderTable(tbodyId, countId, filtered, includeDispatch, editable);
+      wireSelects();
+    }
+
+    document.getElementById('search-customers').addEventListener('input', e =>
+      filterCustomers(e.target.value.trim())
+    );
+    document.getElementById('search-open').addEventListener('input', e => {
+      filterOrders(e.target.value.trim(), openOrders, 'tbody-open', 'count-open', true, true);
+    });
+    document.getElementById('search-closed').addEventListener('input', e => {
+      filterOrders(e.target.value.trim(), closedOrders, 'tbody-closed', 'count-closed', false, false);
+    });
+    document.getElementById('search-all').addEventListener('input', e => {
+      filterOrders(e.target.value.trim(), orders, 'tbody-all', 'count-all', true, true);
+    });
+  </script>
+</body>
+</html>
