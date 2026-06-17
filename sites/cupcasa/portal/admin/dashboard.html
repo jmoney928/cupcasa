@@ -486,7 +486,10 @@
         <span class="eyebrow">Admin Dashboard</span>
         <h1>Overview</h1>
       </div>
-      <button class="btn-primary" id="btn-new-order">+ New Order</button>
+      <div style="display:flex;gap:0.75rem;align-items:center;">
+        <button class="btn-ghost" id="btn-new-customer">+ New Customer</button>
+        <button class="btn-primary" id="btn-new-order">+ New Order</button>
+      </div>
     </div>
 
     <div id="alert-container"></div>
@@ -625,6 +628,48 @@
       </div>
     </div>
   </main>
+
+  <!-- ── Create Customer Modal ─────────────────────────────────────── -->
+  <div class="modal-overlay" id="cust-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">New Customer</span>
+        <button class="modal-close" id="cust-modal-close">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="form-group">
+            <label class="form-label" for="cm-name">Name</label>
+            <input class="form-input" type="text" id="cm-name" placeholder="Jane Smith">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cm-business">Business Name</label>
+            <input class="form-input" type="text" id="cm-business" placeholder="The Coffee Co.">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cm-email">Email <span style="color:#8b2c1a">*</span></label>
+            <input class="form-input" type="email" id="cm-email" placeholder="jane@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cm-password">Initial Password</label>
+            <div style="display:flex;gap:0.5rem">
+              <input class="form-input" type="text" id="cm-password" readonly style="flex:1;font-family:monospace;font-size:0.85rem">
+              <button type="button" id="cm-gen-pw" style="padding:0 0.75rem;border:1.5px solid var(--border);border-radius:2px;background:var(--grey-light);cursor:pointer;font-size:0.75rem;color:var(--text-muted);white-space:nowrap" title="Generate new password">↺</button>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;line-height:1.6">
+          This creates the customer's login account. A Supabase confirmation email will be sent to them. Copy the initial password to share with them — they can change it once signed in.
+        </p>
+        <div id="cm-result" style="display:none;margin-top:1rem;padding:0.85rem 1rem;background:#f0fdf4;border:1px solid #a3d9a5;border-radius:2px;font-size:0.84rem;color:#1a5c2a;line-height:1.6"></div>
+      </div>
+      <div class="modal-footer">
+        <span class="modal-msg" id="cust-modal-msg"></span>
+        <button class="btn-ghost" id="cust-modal-cancel">Cancel</button>
+        <button class="btn-primary" id="cust-modal-save">Create Customer</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ── Create / Edit Order Modal ──────────────────────────────────── -->
   <div class="modal-overlay" id="modal-overlay">
@@ -808,6 +853,8 @@
         CREATE POLICY "Admin updates orders" ON public.orders FOR UPDATE TO authenticated
         USING (auth.jwt() -&gt;&gt; 'email' = '${ADMIN_EMAIL}');<br><br>
         CREATE POLICY "Admin inserts orders" ON public.orders FOR INSERT TO authenticated
+        WITH CHECK (auth.jwt() -&gt;&gt; 'email' = '${ADMIN_EMAIL}');<br><br>
+        CREATE POLICY "Admin inserts customers" ON public.customers FOR INSERT TO authenticated
         WITH CHECK (auth.jwt() -&gt;&gt; 'email' = '${ADMIN_EMAIL}');
         </code>`
       );
@@ -986,6 +1033,98 @@
     document.getElementById('search-all').addEventListener('input', e => {
       renderOrderTable('tbody-all', 'count-all', filterOrders(e.target.value.trim(), orders), true);
       wireTableEvents();
+    });
+
+    // ── Create Customer modal ────────────────────────────────────────
+    function genPassword() {
+      const chars = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+      let pw = '';
+      for (let i = 0; i < 10; i++) pw += chars[Math.floor(Math.random() * chars.length)];
+      return pw + '1!';
+    }
+
+    const custOverlay = document.getElementById('cust-modal-overlay');
+    const pwInput     = document.getElementById('cm-password');
+
+    function openCustModal() {
+      document.getElementById('cm-name').value     = '';
+      document.getElementById('cm-business').value = '';
+      document.getElementById('cm-email').value    = '';
+      document.getElementById('cust-modal-msg').textContent = '';
+      document.getElementById('cm-result').style.display = 'none';
+      document.getElementById('cust-modal-save').disabled = false;
+      document.getElementById('cust-modal-save').textContent = 'Create Customer';
+      pwInput.value = genPassword();
+      custOverlay.classList.add('open');
+    }
+
+    function closeCustModal() { custOverlay.classList.remove('open'); }
+
+    document.getElementById('btn-new-customer').addEventListener('click', openCustModal);
+    document.getElementById('cust-modal-close').addEventListener('click', closeCustModal);
+    document.getElementById('cust-modal-cancel').addEventListener('click', closeCustModal);
+    document.getElementById('cm-gen-pw').addEventListener('click', () => { pwInput.value = genPassword(); });
+    custOverlay.addEventListener('click', e => { if (e.target === custOverlay) closeCustModal(); });
+
+    document.getElementById('cust-modal-save').addEventListener('click', async () => {
+      const btn    = document.getElementById('cust-modal-save');
+      const msgEl  = document.getElementById('cust-modal-msg');
+      const email  = document.getElementById('cm-email').value.trim();
+      const pw     = pwInput.value;
+
+      if (!email) { msgEl.textContent = 'Email is required.'; return; }
+
+      btn.disabled = true;
+      btn.textContent = 'Creating…';
+      msgEl.textContent = '';
+
+      // Use a separate client so signUp() doesn't touch the admin's session
+      const tempClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: { persistSession: false, autoRefreshToken: false },
+      });
+
+      const { data: signUpData, error: signUpError } = await tempClient.auth.signUp({
+        email,
+        password: pw,
+        options: { emailRedirectTo: `${location.origin}/portal` },
+      });
+
+      if (signUpError) {
+        msgEl.textContent = signUpError.message;
+        btn.disabled = false;
+        btn.textContent = 'Create Customer';
+        return;
+      }
+
+      const newUserId = signUpData.user?.id;
+      const name         = document.getElementById('cm-name').value.trim() || null;
+      const businessName = document.getElementById('cm-business').value.trim() || null;
+
+      // Insert customer record using admin client
+      if (newUserId) {
+        await supabase.from('customers').upsert({
+          id: newUserId,
+          email,
+          name,
+          business_name: businessName,
+        });
+
+        // Add to local data and re-render
+        customers.unshift({ id: newUserId, email, name, business_name: businessName, created_at: new Date().toISOString() });
+        custById[newUserId] = customers[0];
+        updateStats();
+        renderAll();
+        // Rebuild customer dropdown for order modal
+        const opt = document.createElement('option');
+        opt.value = newUserId;
+        opt.textContent = businessName || name || email;
+        document.getElementById('m-customer').appendChild(opt);
+      }
+
+      const resultEl = document.getElementById('cm-result');
+      resultEl.style.display = 'block';
+      resultEl.innerHTML = `Customer created. Initial password: <strong style="font-family:monospace">${esc(pw)}</strong><br>A confirmation email has been sent to <strong>${esc(email)}</strong>.`;
+      btn.textContent = 'Done';
     });
 
     // ── Modal: populate customer dropdown ────────────────────────────
