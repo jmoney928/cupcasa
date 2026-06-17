@@ -474,17 +474,6 @@
       document.getElementById('latest-order').style.display = '';
     }
 
-    if (error || !orders?.length) {
-      tbody.innerHTML = `
-        <tr><td colspan="8">
-          <div class="empty-state">
-            <p>No orders yet.<br>When your first order is placed it will appear here.</p>
-            <a href="/contact">Get a Quote →</a>
-          </div>
-        </td></tr>`;
-      return;
-    }
-
     const STATUS_LABEL = {
       pending:       'Pending',
       in_production: 'In Production',
@@ -497,18 +486,28 @@
       return iso ? new Date(iso).toLocaleDateString('en-CA', opts) : '—';
     }
 
-    tbody.innerHTML = orders.map(o => `
-      <tr onclick="window.location='/portal/order?id=${o.id}'">
-        <td><span class="order-id">${o.id.slice(0,8).toUpperCase()}</span></td>
-        <td>${fmtDate(o.order_date)}</td>
-        <td>${o.cup_type || '—'}</td>
-        <td>${o.size || '—'}&nbsp;/&nbsp;${o.quantity ? Number(o.quantity).toLocaleString() : '—'}</td>
-        <td>$${Number(o.total || 0).toLocaleString('en-CA', { minimumFractionDigits:2, maximumFractionDigits:2 })}</td>
-        <td><span class="badge badge-${o.status}">${STATUS_LABEL[o.status] || o.status}</span></td>
-        <td>${fmtDate(o.expected_dispatch, { month:'short', day:'numeric' })}</td>
-        <td><span class="row-arrow">→</span></td>
-      </tr>
-    `).join('');
+    if (error || !orders?.length) {
+      tbody.innerHTML = `
+        <tr><td colspan="8">
+          <div class="empty-state">
+            <p>No orders yet.<br>When your first order is placed it will appear here.</p>
+            <a href="/contact">Get a Quote →</a>
+          </div>
+        </td></tr>`;
+    } else {
+      tbody.innerHTML = orders.map(o => `
+        <tr onclick="window.location='/portal/order?id=${o.id}'">
+          <td><span class="order-id">${o.id.slice(0,8).toUpperCase()}</span></td>
+          <td>${fmtDate(o.order_date)}</td>
+          <td>${o.cup_type || '—'}</td>
+          <td>${o.size || '—'}&nbsp;/&nbsp;${o.quantity ? Number(o.quantity).toLocaleString() : '—'}</td>
+          <td>$${Number(o.total || 0).toLocaleString('en-CA', { minimumFractionDigits:2, maximumFractionDigits:2 })}</td>
+          <td><span class="badge badge-${o.status}">${STATUS_LABEL[o.status] || o.status}</span></td>
+          <td>${fmtDate(o.expected_dispatch, { month:'short', day:'numeric' })}</td>
+          <td><span class="row-arrow">→</span></td>
+        </tr>
+      `).join('');
+    }
   </script>
 </body>
 </html>
