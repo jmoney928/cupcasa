@@ -79,7 +79,15 @@
       padding: 2.5rem 2rem 5rem;
     }
 
-    .page-heading { margin-bottom: 2rem; }
+    .page-heading {
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .page-heading-left {}
     .eyebrow {
       display: block;
       font-size: 0.67rem;
@@ -90,6 +98,40 @@
       margin-bottom: 0.4rem;
     }
     h1 { font-size: 1.8rem; font-weight: 700; color: var(--dark); }
+
+    .btn-primary {
+      padding: 0.7rem 1.5rem;
+      background: var(--lime);
+      border: 2px solid var(--lime);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--lime-hover); border-color: var(--lime-hover); }
+    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .btn-ghost {
+      padding: 0.7rem 1.5rem;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--text-muted); color: var(--text); }
 
     /* ── Stats ─────────────────────────────────────────────────────── */
     .stats-row {
@@ -252,6 +294,24 @@
     .status-select:focus { border-color: var(--lime); }
     .status-select:disabled { opacity: 0.5; cursor: not-allowed; }
 
+    /* Edit button */
+    .btn-edit {
+      padding: 4px 12px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .btn-edit:hover { border-color: var(--lime); color: var(--lime); }
+
     /* Empty & error states */
     .empty-state {
       padding: 4rem 2rem;
@@ -293,6 +353,107 @@
       font-size: 0.82rem;
     }
 
+    /* ── Modal ─────────────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26,13,7,0.55);
+      z-index: 200;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      width: 100%;
+      max-width: 640px;
+      margin: auto;
+      overflow: hidden;
+    }
+    .modal-header {
+      background: var(--navy);
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #fff;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.6);
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 4px;
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: #fff; }
+
+    .modal-body { padding: 1.75rem; }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .modal-grid .full { grid-column: 1 / -1; }
+
+    .form-group { margin-bottom: 0; }
+    .form-label {
+      display: block;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--cream);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus { border-color: var(--lime); background: #fff; }
+    .form-textarea { resize: vertical; min-height: 80px; }
+
+    .modal-footer {
+      padding: 1.25rem 1.75rem;
+      border-top: 1px solid var(--grey-light);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+    .modal-msg {
+      font-size: 0.82rem;
+      color: #8b2c1a;
+      flex: 1;
+    }
+
     @media (max-width: 900px) {
       .stats-row { grid-template-columns: repeat(2, 1fr); }
     }
@@ -304,6 +465,8 @@
       .tabs-bar { overflow-x: auto; }
       .search-input { width: 100%; }
       .table-toolbar { flex-direction: column; align-items: flex-start; }
+      .modal-grid { grid-template-columns: 1fr; }
+      .modal-grid .full { grid-column: 1; }
     }
   </style>
 </head>
@@ -319,8 +482,11 @@
 
   <main class="main">
     <div class="page-heading">
-      <span class="eyebrow">Admin Dashboard</span>
-      <h1>Overview</h1>
+      <div class="page-heading-left">
+        <span class="eyebrow">Admin Dashboard</span>
+        <h1>Overview</h1>
+      </div>
+      <button class="btn-primary" id="btn-new-order">+ New Order</button>
     </div>
 
     <div id="alert-container"></div>
@@ -394,10 +560,11 @@
               <th>Total</th>
               <th>Status</th>
               <th>Est. Dispatch</th>
+              <th></th>
             </tr>
           </thead>
           <tbody id="tbody-open">
-            <tr><td colspan="8"><div class="empty-state">Loading…</div></td></tr>
+            <tr><td colspan="9"><div class="empty-state">Loading…</div></td></tr>
           </tbody>
         </table>
       </div>
@@ -420,10 +587,11 @@
               <th>Size / Qty</th>
               <th>Total</th>
               <th>Status</th>
+              <th></th>
             </tr>
           </thead>
           <tbody id="tbody-closed">
-            <tr><td colspan="7"><div class="empty-state">Loading…</div></td></tr>
+            <tr><td colspan="8"><div class="empty-state">Loading…</div></td></tr>
           </tbody>
         </table>
       </div>
@@ -447,15 +615,108 @@
               <th>Total</th>
               <th>Status</th>
               <th>Est. Dispatch</th>
+              <th></th>
             </tr>
           </thead>
           <tbody id="tbody-all">
-            <tr><td colspan="8"><div class="empty-state">Loading…</div></td></tr>
+            <tr><td colspan="9"><div class="empty-state">Loading…</div></td></tr>
           </tbody>
         </table>
       </div>
     </div>
   </main>
+
+  <!-- ── Create / Edit Order Modal ──────────────────────────────────── -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="modal-title">New Order</span>
+        <button class="modal-close" id="modal-close">×</button>
+      </div>
+      <div class="modal-body">
+        <form id="modal-form">
+          <input type="hidden" id="m-order-id">
+          <div class="modal-grid">
+            <div class="form-group full">
+              <label class="form-label" for="m-customer">Customer</label>
+              <select class="form-select" id="m-customer" required>
+                <option value="">— Select a customer —</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="m-cup-type">Cup Type</label>
+              <select class="form-select" id="m-cup-type" required>
+                <option value="">— Select —</option>
+                <option value="PLA">PLA</option>
+                <option value="PHA">PHA</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="m-size">Size</label>
+              <input class="form-input" type="text" id="m-size" placeholder="e.g. 12oz">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="m-quantity">Quantity</label>
+              <input class="form-input" type="number" id="m-quantity" min="1" placeholder="500">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="m-unit-price">Unit Price ($)</label>
+              <input class="form-input" type="number" id="m-unit-price" min="0" step="0.01" placeholder="0.85">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="m-total">Total ($)</label>
+              <input class="form-input" type="number" id="m-total" min="0" step="0.01" placeholder="425.00">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="m-deposit">Deposit Paid ($)</label>
+              <input class="form-input" type="number" id="m-deposit" min="0" step="0.01" placeholder="100.00">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="m-balance">Balance Paid ($)</label>
+              <input class="form-input" type="number" id="m-balance" min="0" step="0.01" placeholder="0.00">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="m-order-date">Order Date</label>
+              <input class="form-input" type="date" id="m-order-date">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="m-dispatch">Est. Dispatch Date</label>
+              <input class="form-input" type="date" id="m-dispatch">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="m-status">Status</label>
+              <select class="form-select" id="m-status">
+                <option value="pending">Pending</option>
+                <option value="in_production">In Production</option>
+                <option value="dispatched">Dispatched</option>
+                <option value="delivered">Delivered</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="m-stage">Production Stage</label>
+              <select class="form-select" id="m-stage">
+                <option value="awaiting_deposit">Awaiting Deposit</option>
+                <option value="artwork_review">Artwork Review</option>
+                <option value="printing">Printing</option>
+                <option value="quality_check">Quality Check</option>
+                <option value="dispatched">Dispatched</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="form-label" for="m-notes">Notes</label>
+              <textarea class="form-textarea" id="m-notes" placeholder="Internal notes…"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <span class="modal-msg" id="modal-msg"></span>
+        <button class="btn-ghost" id="modal-cancel">Cancel</button>
+        <button class="btn-primary" id="modal-save">Save Order</button>
+      </div>
+    </div>
+  </div>
 
   <script type="module">
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
@@ -486,6 +747,10 @@
     }
     function esc(s) {
       return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    function isoDate(d) {
+      // Returns YYYY-MM-DD from a date value or empty string
+      return d ? new Date(d).toISOString().slice(0,10) : '';
     }
 
     const STATUS_LABEL = {
@@ -534,38 +799,41 @@
       const errMsg = custRes.error?.message || ordRes.error?.message || 'Permission denied';
       showAlert(
         `<strong>Supabase permission error:</strong> ${esc(errMsg)}<br><br>
-        Run these policies in your <strong>Supabase SQL editor</strong> to grant admin access:<br><br>
+        Run these policies in your <strong>Supabase SQL editor</strong>:<br><br>
         <code>
         CREATE POLICY "Admin reads all customers" ON public.customers FOR SELECT TO authenticated
         USING (auth.jwt() -&gt;&gt; 'email' = '${ADMIN_EMAIL}');<br><br>
         CREATE POLICY "Admin reads all orders" ON public.orders FOR SELECT TO authenticated
         USING (auth.jwt() -&gt;&gt; 'email' = '${ADMIN_EMAIL}');<br><br>
         CREATE POLICY "Admin updates orders" ON public.orders FOR UPDATE TO authenticated
-        USING (auth.jwt() -&gt;&gt; 'email' = '${ADMIN_EMAIL}');
+        USING (auth.jwt() -&gt;&gt; 'email' = '${ADMIN_EMAIL}');<br><br>
+        CREATE POLICY "Admin inserts orders" ON public.orders FOR INSERT TO authenticated
+        WITH CHECK (auth.jwt() -&gt;&gt; 'email' = '${ADMIN_EMAIL}');
         </code>`
       );
     }
 
     const customers = custRes.data || [];
-    const orders    = ordRes.data  || [];
+    let orders      = ordRes.data  || [];
 
     // Build lookup: customer by id
     const custById = Object.fromEntries(customers.map(c => [c.id, c]));
 
-    // Helper: find customer for an order (try common FK names)
     function orderCustomer(o) {
       return custById[o.customer_id] || custById[o.user_id] || null;
     }
 
-    const openOrders   = orders.filter(o => OPEN_STATUSES.has(o.status));
-    const closedOrders = orders.filter(o => CLOSED_STATUSES.has(o.status));
-
-    // Stats
-    const totalRevenue = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);
-    document.getElementById('stat-customers').textContent = customers.length;
-    document.getElementById('stat-open').textContent      = openOrders.length;
-    document.getElementById('stat-closed').textContent    = closedOrders.length;
-    document.getElementById('stat-revenue').textContent   = fmtMoney(totalRevenue);
+    // ── Stats ────────────────────────────────────────────────────────
+    function updateStats() {
+      const openOrders   = orders.filter(o => OPEN_STATUSES.has(o.status));
+      const closedOrders = orders.filter(o => CLOSED_STATUSES.has(o.status));
+      const totalRevenue = orders.reduce((sum, o) => sum + Number(o.total || 0), 0);
+      document.getElementById('stat-customers').textContent = customers.length;
+      document.getElementById('stat-open').textContent      = openOrders.length;
+      document.getElementById('stat-closed').textContent    = closedOrders.length;
+      document.getElementById('stat-revenue').textContent   = fmtMoney(totalRevenue);
+    }
+    updateStats();
 
     // ── Render customers ─────────────────────────────────────────────
     function renderCustomers(list) {
@@ -578,7 +846,6 @@
         return;
       }
 
-      // Count orders per customer
       const orderCount = {};
       orders.forEach(o => {
         const cid = o.customer_id || o.user_id;
@@ -599,14 +866,10 @@
     }
 
     // ── Render order rows ────────────────────────────────────────────
-    function orderRow(o, includeDispatch, editable) {
+    function orderRow(o, includeDispatch) {
       const cust = orderCustomer(o);
       const custName = cust ? (cust.business_name || cust.name || cust.email || '—') : '—';
       const custSub  = cust && cust.business_name ? cust.name : '';
-
-      const statusCell = editable
-        ? statusSelect(o.id, o.status)
-        : statusBadge(o.status);
 
       const dispatchCell = includeDispatch
         ? `<td>${fmtDate(o.expected_dispatch, { month: 'short', day: 'numeric' })}</td>`
@@ -623,15 +886,16 @@
           <td>${esc(o.cup_type || '—')}</td>
           <td>${esc(o.size || '—')} / ${o.quantity ? Number(o.quantity).toLocaleString() : '—'}</td>
           <td>${fmtMoney(o.total)}</td>
-          <td>${statusCell}</td>
+          <td>${statusSelect(o.id, o.status)}</td>
           ${dispatchCell}
+          <td><button class="btn-edit" data-order-id="${esc(o.id)}">Edit</button></td>
         </tr>
       `;
     }
 
-    function renderOrderTable(tbodyId, countId, list, includeDispatch, editable) {
+    function renderOrderTable(tbodyId, countId, list, includeDispatch) {
       const tbody = document.getElementById(tbodyId);
-      const cols = includeDispatch ? 8 : 7;
+      const cols = (includeDispatch ? 8 : 7) + 1; // +1 for edit column
       document.getElementById(countId).textContent =
         `${list.length} order${list.length !== 1 ? 's' : ''}`;
 
@@ -639,19 +903,25 @@
         tbody.innerHTML = `<tr><td colspan="${cols}"><div class="empty-state">No orders.</div></td></tr>`;
         return;
       }
-      tbody.innerHTML = list.map(o => orderRow(o, includeDispatch, editable)).join('');
+      tbody.innerHTML = list.map(o => orderRow(o, includeDispatch)).join('');
     }
 
-    renderCustomers(customers);
-    renderOrderTable('tbody-open',   'count-open',   openOrders,   true,  true);
-    renderOrderTable('tbody-closed', 'count-closed', closedOrders, false, false);
-    renderOrderTable('tbody-all',    'count-all',    orders,       true,  true);
+    function renderAll() {
+      const openOrders   = orders.filter(o => OPEN_STATUSES.has(o.status));
+      const closedOrders = orders.filter(o => CLOSED_STATUSES.has(o.status));
+      renderCustomers(customers);
+      renderOrderTable('tbody-open',   'count-open',   openOrders,   true);
+      renderOrderTable('tbody-closed', 'count-closed', closedOrders, false);
+      renderOrderTable('tbody-all',    'count-all',    orders,       true);
+      wireTableEvents();
+    }
+    renderAll();
 
     // ── Inline status update ─────────────────────────────────────────
     async function handleStatusChange(select) {
-      const orderId    = select.dataset.orderId;
-      const newStatus  = select.value;
-      const original   = orders.find(o => o.id === orderId)?.status;
+      const orderId   = select.dataset.orderId;
+      const newStatus = select.value;
+      const original  = orders.find(o => o.id === orderId)?.status;
 
       select.disabled = true;
       const { error } = await supabase
@@ -663,66 +933,169 @@
         alert('Failed to update status: ' + error.message);
         select.value = original;
       } else {
-        // Update local data and re-render
         const o = orders.find(o => o.id === orderId);
         if (o) o.status = newStatus;
-        const newOpen   = orders.filter(o => OPEN_STATUSES.has(o.status));
-        const newClosed = orders.filter(o => CLOSED_STATUSES.has(o.status));
-        document.getElementById('stat-open').textContent   = newOpen.length;
-        document.getElementById('stat-closed').textContent = newClosed.length;
-        renderOrderTable('tbody-open',   'count-open',   newOpen,   true,  true);
-        renderOrderTable('tbody-closed', 'count-closed', newClosed, false, false);
-        renderOrderTable('tbody-all',    'count-all',    orders,    true,  true);
-        wireSelects();
+        updateStats();
+        renderAll();
       }
       select.disabled = false;
     }
 
-    function wireSelects() {
+    function wireTableEvents() {
+      // Status selects
       document.querySelectorAll('.status-select').forEach(sel => {
         sel.addEventListener('change', () => handleStatusChange(sel));
       });
+      // Edit buttons
+      document.querySelectorAll('.btn-edit').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const order = orders.find(o => o.id === btn.dataset.orderId);
+          if (order) openModal(order);
+        });
+      });
     }
-    wireSelects();
 
     // ── Search / filter ──────────────────────────────────────────────
-    function filterCustomers(q) {
-      if (!q) { renderCustomers(customers); return; }
+    function filterOrders(q, list) {
+      if (!q) return list;
       const lq = q.toLowerCase();
-      renderCustomers(customers.filter(c =>
-        [c.name, c.business_name, c.email].some(v => v?.toLowerCase().includes(lq))
-      ));
-    }
-
-    function filterOrders(q, list, tbodyId, countId, includeDispatch, editable) {
-      if (!q) {
-        renderOrderTable(tbodyId, countId, list, includeDispatch, editable);
-        wireSelects();
-        return;
-      }
-      const lq = q.toLowerCase();
-      const filtered = list.filter(o => {
+      return list.filter(o => {
         const cust = orderCustomer(o);
-        return [
-          o.id, o.cup_type, o.size, o.status,
-          cust?.name, cust?.business_name, cust?.email,
-        ].some(v => v?.toLowerCase().includes(lq));
+        return [o.id, o.cup_type, o.size, o.status, cust?.name, cust?.business_name, cust?.email]
+          .some(v => v?.toLowerCase().includes(lq));
       });
-      renderOrderTable(tbodyId, countId, filtered, includeDispatch, editable);
-      wireSelects();
     }
 
-    document.getElementById('search-customers').addEventListener('input', e =>
-      filterCustomers(e.target.value.trim())
-    );
+    document.getElementById('search-customers').addEventListener('input', e => {
+      const q = e.target.value.trim().toLowerCase();
+      renderCustomers(!q ? customers : customers.filter(c =>
+        [c.name, c.business_name, c.email].some(v => v?.toLowerCase().includes(q))
+      ));
+    });
+
     document.getElementById('search-open').addEventListener('input', e => {
-      filterOrders(e.target.value.trim(), openOrders, 'tbody-open', 'count-open', true, true);
+      const open = orders.filter(o => OPEN_STATUSES.has(o.status));
+      renderOrderTable('tbody-open', 'count-open', filterOrders(e.target.value.trim(), open), true);
+      wireTableEvents();
     });
     document.getElementById('search-closed').addEventListener('input', e => {
-      filterOrders(e.target.value.trim(), closedOrders, 'tbody-closed', 'count-closed', false, false);
+      const closed = orders.filter(o => CLOSED_STATUSES.has(o.status));
+      renderOrderTable('tbody-closed', 'count-closed', filterOrders(e.target.value.trim(), closed), false);
+      wireTableEvents();
     });
     document.getElementById('search-all').addEventListener('input', e => {
-      filterOrders(e.target.value.trim(), orders, 'tbody-all', 'count-all', true, true);
+      renderOrderTable('tbody-all', 'count-all', filterOrders(e.target.value.trim(), orders), true);
+      wireTableEvents();
+    });
+
+    // ── Modal: populate customer dropdown ────────────────────────────
+    const custSelect = document.getElementById('m-customer');
+    customers.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.id;
+      opt.textContent = (c.business_name || c.name || c.email || c.id);
+      if (c.name && c.business_name) opt.textContent += ` (${c.name})`;
+      custSelect.appendChild(opt);
+    });
+
+    // ── Modal open/close ─────────────────────────────────────────────
+    const overlay = document.getElementById('modal-overlay');
+
+    function openModal(order = null) {
+      const isEdit = !!order;
+      document.getElementById('modal-title').textContent = isEdit
+        ? `Edit Order #${order.id.slice(0,8).toUpperCase()}`
+        : 'New Order';
+      document.getElementById('modal-msg').textContent = '';
+
+      // Populate fields
+      document.getElementById('m-order-id').value    = order?.id || '';
+      document.getElementById('m-customer').value    = order?.customer_id || order?.user_id || '';
+      document.getElementById('m-cup-type').value    = order?.cup_type || '';
+      document.getElementById('m-size').value         = order?.size || '';
+      document.getElementById('m-quantity').value     = order?.quantity || '';
+      document.getElementById('m-unit-price').value   = order?.unit_price || '';
+      document.getElementById('m-total').value         = order?.total || '';
+      document.getElementById('m-deposit').value       = order?.deposit_paid || '';
+      document.getElementById('m-balance').value       = order?.balance_paid || '';
+      document.getElementById('m-order-date').value   = isoDate(order?.order_date);
+      document.getElementById('m-dispatch').value     = isoDate(order?.expected_dispatch);
+      document.getElementById('m-status').value       = order?.status || 'pending';
+      document.getElementById('m-stage').value        = order?.production_stage || 'awaiting_deposit';
+      document.getElementById('m-notes').value        = order?.notes || '';
+
+      overlay.classList.add('open');
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+    }
+
+    document.getElementById('btn-new-order').addEventListener('click', () => openModal());
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    document.getElementById('modal-cancel').addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+
+    // ── Modal save ───────────────────────────────────────────────────
+    document.getElementById('modal-save').addEventListener('click', async () => {
+      const btn    = document.getElementById('modal-save');
+      const msgEl  = document.getElementById('modal-msg');
+      const orderId = document.getElementById('m-order-id').value;
+      const isEdit  = !!orderId;
+
+      const customerId = document.getElementById('m-customer').value;
+      if (!customerId) { msgEl.textContent = 'Please select a customer.'; return; }
+
+      const cupType = document.getElementById('m-cup-type').value;
+      if (!cupType) { msgEl.textContent = 'Please select a cup type.'; return; }
+
+      const payload = {
+        customer_id:       customerId,
+        cup_type:          cupType,
+        size:              document.getElementById('m-size').value.trim() || null,
+        quantity:          parseInt(document.getElementById('m-quantity').value) || null,
+        unit_price:        parseFloat(document.getElementById('m-unit-price').value) || null,
+        total:             parseFloat(document.getElementById('m-total').value) || null,
+        deposit_paid:      parseFloat(document.getElementById('m-deposit').value) || null,
+        balance_paid:      parseFloat(document.getElementById('m-balance').value) || null,
+        order_date:        document.getElementById('m-order-date').value || null,
+        expected_dispatch: document.getElementById('m-dispatch').value || null,
+        status:            document.getElementById('m-status').value,
+        production_stage:  document.getElementById('m-stage').value,
+        notes:             document.getElementById('m-notes').value.trim() || null,
+      };
+
+      btn.disabled = true;
+      btn.textContent = 'Saving…';
+      msgEl.textContent = '';
+
+      let error;
+
+      if (isEdit) {
+        const res = await supabase.from('orders').update(payload).eq('id', orderId);
+        error = res.error;
+        if (!error) {
+          const idx = orders.findIndex(o => o.id === orderId);
+          if (idx !== -1) orders[idx] = { ...orders[idx], ...payload };
+        }
+      } else {
+        const res = await supabase.from('orders').insert(payload).select().single();
+        error = res.error;
+        if (!error && res.data) {
+          orders.unshift(res.data);
+        }
+      }
+
+      if (error) {
+        msgEl.textContent = error.message;
+      } else {
+        closeModal();
+        updateStats();
+        renderAll();
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Save Order';
     });
   </script>
 </body>
