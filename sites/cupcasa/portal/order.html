@@ -371,6 +371,12 @@
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const main = document.getElementById('main');
 
+    function showError(msg) {
+      main.innerHTML = `<div class="page-error"><p>${msg}</p><a href="/portal/dashboard" class="back-link">← Back to orders</a></div>`;
+    }
+
+    try {
+
     // ── Auth guard ───────────────────────────────────────────────────
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) { window.location.replace('/portal'); }
@@ -384,29 +390,32 @@
     // ── Get order ID from URL ────────────────────────────────────────
     const orderId = new URLSearchParams(window.location.search).get('id');
     if (!orderId) {
-      main.innerHTML = `<div class="page-error"><p>No order ID specified.</p><a href="/portal/dashboard" class="back-link">← Back to orders</a></div>`;
-      throw new Error('no id');
+      showError('No order ID specified.');
+      return;
     }
 
-    // ── Fetch order + files in parallel ─────────────────────────────
-    // RLS ensures this will 404 if the order belongs to someone else.
-    const [{ data: order, error: oErr }, { data: files, error: fErr }] = await Promise.all([
-      supabase
-        .from('orders')
-        .select('*')
-        .eq('id', orderId)
-        .maybeSingle(),
-      supabase
+    // ── Fetch order ──────────────────────────────────────────────────
+    const { data: order, error: oErr } = await supabase
+      .from('orders')
+      .select('*')
+      .eq('id', orderId)
+      .maybeSingle();
+
+    if (oErr || !order) {
+      showError('Order not found.');
+      return;
+    }
+
+    // ── Fetch files (best-effort — table may not exist yet) ──────────
+    let files = [];
+    try {
+      const { data: fileRows } = await supabase
         .from('order_files')
         .select('*')
         .eq('order_id', orderId)
-        .order('created_at', { ascending: true }),
-    ]);
-
-    if (oErr || !order) {
-      main.innerHTML = `<div class="page-error"><p>Order not found.</p><a href="/portal/dashboard" class="back-link">← Back to orders</a></div>`;
-      return;
-    }
+        .order('created_at', { ascending: true });
+      if (fileRows) files = fileRows;
+    } catch (_) { /* table not set up yet — ignore */ }
 
     document.title = `Order ${order.id.slice(0,8).toUpperCase()} — Cupcasa`;
 
@@ -572,6 +581,11 @@
 
       </div>
     `;
+
+    } catch (err) {
+      console.error('order.html error:', err);
+      showError('Something went wrong loading this order. Please try refreshing.');
+    }
   </script>
 </body>
 </html>
