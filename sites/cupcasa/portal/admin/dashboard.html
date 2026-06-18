@@ -1191,11 +1191,13 @@
       row.innerHTML = `
         <div class="line-item-grid">
           <div>
-            <div class="form-label" style="margin-bottom:0.3rem">Cup Type</div>
+            <div class="form-label" style="margin-bottom:0.3rem">Type</div>
             <select class="form-select li-cup-type">
               <option value="">— Type —</option>
-              <option value="PLA"${data.cup_type === 'PLA' ? ' selected' : ''}>PLA</option>
-              <option value="PHA"${data.cup_type === 'PHA' ? ' selected' : ''}>PHA</option>
+              <option value="PLA"${data.cup_type === 'PLA' ? ' selected' : ''}>PLA Cup</option>
+              <option value="PHA"${data.cup_type === 'PHA' ? ' selected' : ''}>PHA Cup</option>
+              <option value="Hot Lid"${data.cup_type === 'Hot Lid' ? ' selected' : ''}>Hot Lid</option>
+              <option value="Cold Lid"${data.cup_type === 'Cold Lid' ? ' selected' : ''}>Cold Lid</option>
             </select>
           </div>
           <div>
