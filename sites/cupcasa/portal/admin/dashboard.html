@@ -312,6 +312,41 @@
     }
     .btn-edit:hover { border-color: var(--lime); color: var(--lime); }
 
+    /* ── Line items in order modal ──────────────────────────────────── */
+    .line-item-row {
+      border: 1px solid var(--grey-light);
+      border-radius: 3px;
+      padding: 0.75rem 0.75rem 0.6rem;
+      margin-bottom: 0.5rem;
+      background: rgba(196,135,74,0.03);
+    }
+    .line-item-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 80px 100px 100px 32px;
+      gap: 0.5rem;
+      align-items: end;
+    }
+    .li-remove {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+      height: 35px;
+      width: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .li-remove:hover { border-color: #e4b5a5; color: #8b2c1a; }
+    @media (max-width: 640px) {
+      .line-item-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
     /* Empty & error states */
     .empty-state {
       padding: 4rem 2rem;
@@ -688,29 +723,14 @@
                 <option value="">— Select a customer —</option>
               </select>
             </div>
-            <div class="form-group">
-              <label class="form-label" for="m-cup-type">Cup Type</label>
-              <select class="form-select" id="m-cup-type" required>
-                <option value="">— Select —</option>
-                <option value="PLA">PLA</option>
-                <option value="PHA">PHA</option>
-              </select>
+            <div class="form-group full">
+              <label class="form-label">Line Items</label>
+              <div id="line-items-list"></div>
+              <button type="button" id="add-line-item" class="btn-ghost" style="margin-top:0.6rem;font-size:0.72rem;padding:0.45rem 1rem">+ Add Item</button>
             </div>
             <div class="form-group">
-              <label class="form-label" for="m-size">Size</label>
-              <input class="form-input" type="text" id="m-size" placeholder="e.g. 12oz">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="m-quantity">Quantity</label>
-              <input class="form-input" type="number" id="m-quantity" min="1" placeholder="500">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="m-unit-price">Unit Price ($)</label>
-              <input class="form-input" type="number" id="m-unit-price" min="0" step="0.01" placeholder="0.85">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="m-total">Total ($)</label>
-              <input class="form-input" type="number" id="m-total" min="0" step="0.01" placeholder="425.00">
+              <label class="form-label" for="m-total">Order Total ($)</label>
+              <input class="form-input" type="number" id="m-total" min="0" step="0.01" placeholder="0.00">
             </div>
             <div class="form-group">
               <label class="form-label" for="m-deposit">Deposit Paid ($)</label>
@@ -913,6 +933,22 @@
     }
 
     // ── Render order rows ────────────────────────────────────────────
+    function lineItemTypeHtml(o) {
+      const items = o.line_items;
+      if (items && items.length > 0) {
+        return items.map(i => `<div>${esc(i.cup_type || '—')}</div>`).join('');
+      }
+      return esc(o.cup_type || '—');
+    }
+
+    function lineItemSizeHtml(o) {
+      const items = o.line_items;
+      if (items && items.length > 0) {
+        return items.map(i => `<div>${esc(i.size || '—')} ×${Number(i.quantity||0).toLocaleString()}</div>`).join('');
+      }
+      return `${esc(o.size || '—')} ×${o.quantity ? Number(o.quantity).toLocaleString() : '—'}`;
+    }
+
     function orderRow(o, includeDispatch) {
       const cust = orderCustomer(o);
       const custName = cust ? (cust.business_name || cust.name || cust.email || '—') : '—';
@@ -930,8 +966,8 @@
             <div class="cell-name">${esc(custName)}</div>
             ${custSub ? `<div class="cell-sub">${esc(custSub)}</div>` : ''}
           </td>
-          <td>${esc(o.cup_type || '—')}</td>
-          <td>${esc(o.size || '—')} / ${o.quantity ? Number(o.quantity).toLocaleString() : '—'}</td>
+          <td>${lineItemTypeHtml(o)}</td>
+          <td>${lineItemSizeHtml(o)}</td>
           <td>${fmtMoney(o.total)}</td>
           <td>${statusSelect(o.id, o.status)}</td>
           ${dispatchCell}
@@ -1090,40 +1126,50 @@
       });
 
       if (signUpError) {
-        msgEl.textContent = signUpError.message;
+        msgEl.textContent = signUpError.message || signUpError.error_description || JSON.stringify(signUpError) || 'Sign-up failed.';
         btn.disabled = false;
         btn.textContent = 'Create Customer';
         return;
       }
 
       const newUserId = signUpData.user?.id;
+      if (!newUserId) {
+        msgEl.textContent = 'Sign-up succeeded but no user ID returned — make sure "Confirm email" is OFF in Supabase Auth settings.';
+        btn.disabled = false;
+        btn.textContent = 'Create Customer';
+        return;
+      }
+
       const name         = document.getElementById('cm-name').value.trim() || null;
       const businessName = document.getElementById('cm-business').value.trim() || null;
 
-      // Insert customer record using admin client
-      if (newUserId) {
-        await supabase.from('customers').upsert({
-          id: newUserId,
-          email,
-          name,
-          business_name: businessName,
-        });
+      const { error: upsertError } = await supabase.from('customers').upsert({
+        id: newUserId,
+        email,
+        name,
+        business_name: businessName,
+      });
 
-        // Add to local data and re-render
-        customers.unshift({ id: newUserId, email, name, business_name: businessName, created_at: new Date().toISOString() });
-        custById[newUserId] = customers[0];
-        updateStats();
-        renderAll();
-        // Rebuild customer dropdown for order modal
-        const opt = document.createElement('option');
-        opt.value = newUserId;
-        opt.textContent = businessName || name || email;
-        document.getElementById('m-customer').appendChild(opt);
+      if (upsertError) {
+        msgEl.textContent = 'Auth user created but failed to save customer record: ' + upsertError.message;
+        btn.disabled = false;
+        btn.textContent = 'Create Customer';
+        return;
       }
+
+      // Add to local data and re-render
+      customers.unshift({ id: newUserId, email, name, business_name: businessName, created_at: new Date().toISOString() });
+      custById[newUserId] = customers[0];
+      updateStats();
+      renderAll();
+      const opt = document.createElement('option');
+      opt.value = newUserId;
+      opt.textContent = businessName || name || email;
+      document.getElementById('m-customer').appendChild(opt);
 
       const resultEl = document.getElementById('cm-result');
       resultEl.style.display = 'block';
-      resultEl.innerHTML = `Customer created. Initial password: <strong style="font-family:monospace">${esc(pw)}</strong><br>A confirmation email has been sent to <strong>${esc(email)}</strong>.`;
+      resultEl.innerHTML = `Customer created. Initial password: <strong style="font-family:monospace">${esc(pw)}</strong><br>Share this with <strong>${esc(email)}</strong> — they can change it after signing in.`;
       btn.textContent = 'Done';
     });
 
@@ -1137,6 +1183,79 @@
       custSelect.appendChild(opt);
     });
 
+    // ── Line item helpers ────────────────────────────────────────────
+    function addLineItem(data = {}) {
+      const list = document.getElementById('line-items-list');
+      const row  = document.createElement('div');
+      row.className = 'line-item-row';
+      row.innerHTML = `
+        <div class="line-item-grid">
+          <div>
+            <div class="form-label" style="margin-bottom:0.3rem">Cup Type</div>
+            <select class="form-select li-cup-type">
+              <option value="">— Type —</option>
+              <option value="PLA"${data.cup_type === 'PLA' ? ' selected' : ''}>PLA</option>
+              <option value="PHA"${data.cup_type === 'PHA' ? ' selected' : ''}>PHA</option>
+            </select>
+          </div>
+          <div>
+            <div class="form-label" style="margin-bottom:0.3rem">Size</div>
+            <input class="form-input li-size" type="text" placeholder="e.g. 12oz" value="${esc(data.size || '')}">
+          </div>
+          <div>
+            <div class="form-label" style="margin-bottom:0.3rem">Qty</div>
+            <input class="form-input li-qty" type="number" min="1" placeholder="500" value="${data.quantity || ''}">
+          </div>
+          <div>
+            <div class="form-label" style="margin-bottom:0.3rem">Unit Price ($)</div>
+            <input class="form-input li-price" type="number" min="0" step="0.01" placeholder="0.85" value="${data.unit_price || ''}">
+          </div>
+          <div>
+            <div class="form-label" style="margin-bottom:0.3rem">Subtotal</div>
+            <input class="form-input li-subtotal" type="text" readonly tabindex="-1" placeholder="—" style="background:var(--grey-light);color:var(--text-muted)">
+          </div>
+          <div style="display:flex;align-items:flex-end;padding-bottom:1px">
+            <button type="button" class="li-remove" title="Remove item">×</button>
+          </div>
+        </div>
+      `;
+      list.appendChild(row);
+      row.querySelector('.li-qty').addEventListener('input',   () => calcLineItem(row));
+      row.querySelector('.li-price').addEventListener('input', () => calcLineItem(row));
+      row.querySelector('.li-remove').addEventListener('click', () => { row.remove(); calcTotal(); });
+      if (data.quantity && data.unit_price) calcLineItem(row);
+    }
+
+    function calcLineItem(row) {
+      const qty   = parseFloat(row.querySelector('.li-qty').value)   || 0;
+      const price = parseFloat(row.querySelector('.li-price').value)  || 0;
+      const sub   = qty * price;
+      row.querySelector('.li-subtotal').value = sub > 0 ? fmtMoney(sub) : '';
+      calcTotal();
+    }
+
+    function calcTotal() {
+      let total = 0;
+      document.querySelectorAll('#line-items-list .line-item-row').forEach(row => {
+        total += (parseFloat(row.querySelector('.li-qty').value) || 0)
+               * (parseFloat(row.querySelector('.li-price').value) || 0);
+      });
+      if (total > 0) document.getElementById('m-total').value = total.toFixed(2);
+    }
+
+    function getLineItems() {
+      const items = [];
+      document.querySelectorAll('#line-items-list .line-item-row').forEach(row => {
+        const cup_type   = row.querySelector('.li-cup-type').value || null;
+        const size       = row.querySelector('.li-size').value.trim() || null;
+        const quantity   = parseInt(row.querySelector('.li-qty').value)     || null;
+        const unit_price = parseFloat(row.querySelector('.li-price').value) || null;
+        const subtotal   = (quantity && unit_price) ? quantity * unit_price : null;
+        if (cup_type || size || quantity) items.push({ cup_type, size, quantity, unit_price, subtotal });
+      });
+      return items;
+    }
+
     // ── Modal open/close ─────────────────────────────────────────────
     const overlay = document.getElementById('modal-overlay');
 
@@ -1147,21 +1266,28 @@
         : 'New Order';
       document.getElementById('modal-msg').textContent = '';
 
-      // Populate fields
       document.getElementById('m-order-id').value    = order?.id || '';
       document.getElementById('m-customer').value    = order?.customer_id || order?.user_id || '';
-      document.getElementById('m-cup-type').value    = order?.cup_type || '';
-      document.getElementById('m-size').value         = order?.size || '';
-      document.getElementById('m-quantity').value     = order?.quantity || '';
-      document.getElementById('m-unit-price').value   = order?.unit_price || '';
-      document.getElementById('m-total').value         = order?.total || '';
-      document.getElementById('m-deposit').value       = order?.deposit_paid || '';
-      document.getElementById('m-balance').value       = order?.balance_paid || '';
-      document.getElementById('m-order-date').value   = isoDate(order?.order_date);
-      document.getElementById('m-dispatch').value     = isoDate(order?.expected_dispatch);
-      document.getElementById('m-status').value       = order?.status || 'pending';
-      document.getElementById('m-stage').value        = order?.production_stage || 'awaiting_deposit';
-      document.getElementById('m-notes').value        = order?.notes || '';
+      document.getElementById('m-total').value        = order?.total || '';
+      document.getElementById('m-deposit').value      = order?.deposit_paid || '';
+      document.getElementById('m-balance').value      = order?.balance_paid || '';
+      document.getElementById('m-order-date').value  = isoDate(order?.order_date);
+      document.getElementById('m-dispatch').value    = isoDate(order?.expected_dispatch);
+      document.getElementById('m-status').value      = order?.status || 'pending';
+      document.getElementById('m-stage').value       = order?.production_stage || 'awaiting_deposit';
+      document.getElementById('m-notes').value       = order?.notes || '';
+
+      // Populate line items
+      document.getElementById('line-items-list').innerHTML = '';
+      const items = order?.line_items;
+      if (items && items.length > 0) {
+        items.forEach(item => addLineItem(item));
+      } else if (order?.cup_type || order?.size) {
+        // Migrate old single-field orders into a line item row
+        addLineItem({ cup_type: order.cup_type, size: order.size, quantity: order.quantity, unit_price: order.unit_price });
+      } else {
+        addLineItem();
+      }
 
       overlay.classList.add('open');
     }
@@ -1174,6 +1300,7 @@
     document.getElementById('modal-close').addEventListener('click', closeModal);
     document.getElementById('modal-cancel').addEventListener('click', closeModal);
     overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.getElementById('add-line-item').addEventListener('click', () => addLineItem());
 
     // ── Modal save ───────────────────────────────────────────────────
     document.getElementById('modal-save').addEventListener('click', async () => {
@@ -1185,15 +1312,16 @@
       const customerId = document.getElementById('m-customer').value;
       if (!customerId) { msgEl.textContent = 'Please select a customer.'; return; }
 
-      const cupType = document.getElementById('m-cup-type').value;
-      if (!cupType) { msgEl.textContent = 'Please select a cup type.'; return; }
+      const lineItems = getLineItems();
+      if (!lineItems.length) { msgEl.textContent = 'Add at least one line item.'; return; }
 
       const payload = {
         customer_id:       customerId,
-        cup_type:          cupType,
-        size:              document.getElementById('m-size').value.trim() || null,
-        quantity:          parseInt(document.getElementById('m-quantity').value) || null,
-        unit_price:        parseFloat(document.getElementById('m-unit-price').value) || null,
+        line_items:        lineItems,
+        cup_type:          lineItems[0]?.cup_type || null,
+        size:              lineItems[0]?.size || null,
+        quantity:          lineItems.reduce((s, i) => s + (i.quantity || 0), 0) || null,
+        unit_price:        lineItems[0]?.unit_price || null,
         total:             parseFloat(document.getElementById('m-total').value) || null,
         deposit_paid:      parseFloat(document.getElementById('m-deposit').value) || null,
         balance_paid:      parseFloat(document.getElementById('m-balance').value) || null,
